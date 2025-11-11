@@ -1,3 +1,5 @@
-/publish
-/bin
-/obj
+publish/
+bin/
+obj/
+.claude/
+packages/
