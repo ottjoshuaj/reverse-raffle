@@ -288,6 +288,9 @@ namespace ReverseRaffler.Controls
 
         private void DrawRaffleTicket(Graphics g, Rectangle bounds, int ticketNumber, bool isLosing, bool isHovered)
         {
+            // Define stub width (left and right tear-off portions)
+            int stubWidth = (int)(bounds.Width * 0.15f);
+
             // Create raffle ticket appearance with perforated edge effect
             using (GraphicsPath ticketPath = CreateTicketPath(bounds))
             {
@@ -301,9 +304,9 @@ namespace ReverseRaffler.Controls
                     }
                 }
 
-                // Main ticket background with gradient
-                Color startColor = isLosing ? Color.FromArgb(200, 200, 200) : (isHovered ? Color.FromArgb(255, 250, 230) : Color.FromArgb(255, 255, 245));
-                Color endColor = isLosing ? Color.FromArgb(150, 150, 150) : (isHovered ? Color.FromArgb(255, 245, 210) : Color.FromArgb(250, 250, 235));
+                // Main ticket background with gradient (yellow theme)
+                Color startColor = isLosing ? Color.FromArgb(200, 200, 200) : (isHovered ? Color.FromArgb(255, 235, 100) : Color.FromArgb(255, 245, 120));
+                Color endColor = isLosing ? Color.FromArgb(150, 150, 150) : (isHovered ? Color.FromArgb(255, 215, 80) : Color.FromArgb(255, 230, 100));
 
                 using (var brush = new LinearGradientBrush(bounds, startColor, endColor, LinearGradientMode.Vertical))
                 {
@@ -311,41 +314,69 @@ namespace ReverseRaffler.Controls
                 }
 
                 // Border
-                Color borderColor = isLosing ? Color.FromArgb(100, 100, 100) : Color.FromArgb(180, 140, 70);
+                Color borderColor = isLosing ? Color.FromArgb(100, 100, 100) : Color.FromArgb(200, 150, 50);
                 using (var borderPen = new Pen(borderColor, 2))
                 {
                     g.DrawPath(borderPen, ticketPath);
                 }
 
-                // Draw perforated edge line (tear-off stub effect)
-                DrawPerforatedLine(g, new Point(bounds.Left, bounds.Top + bounds.Height / 4),
-                                      new Point(bounds.Right, bounds.Top + bounds.Height / 4),
-                                      isLosing ? Color.FromArgb(120, 120, 120) : Color.FromArgb(200, 160, 90));
+                // Draw perforated lines on left and right (separating stubs from main ticket)
+                int leftStubLine = bounds.Left + stubWidth;
+                int rightStubLine = bounds.Right - stubWidth;
+                Color perfColor = isLosing ? Color.FromArgb(120, 120, 120) : Color.FromArgb(200, 150, 50);
 
-                // Calculate font sizes based on ticket dimensions for better scaling
-                float labelFontSize = Math.Max(6f, bounds.Height * 0.12f);
-                float numberFontSize = Math.Max(12f, bounds.Height * 0.35f);
-                if (isHovered) numberFontSize *= 1.1f;
+                DrawPerforatedLine(g, new Point(leftStubLine, bounds.Top),
+                                      new Point(leftStubLine, bounds.Bottom), perfColor);
+                DrawPerforatedLine(g, new Point(rightStubLine, bounds.Top),
+                                      new Point(rightStubLine, bounds.Bottom), perfColor);
 
-                // Draw "TICKET" label at top
-                using (var labelFont = new Font("Arial", labelFontSize, FontStyle.Bold))
-                using (var labelBrush = new SolidBrush(isLosing ? Color.FromArgb(100, 100, 100) : Color.FromArgb(150, 120, 60)))
-                {
-                    var labelSize = g.MeasureString("TICKET", labelFont);
-                    var labelX = bounds.X + (bounds.Width - labelSize.Width) / 2;
-                    var labelY = bounds.Y + Math.Max(3, bounds.Height * 0.08f);
-                    g.DrawString("TICKET", labelFont, labelBrush, labelX, labelY);
-                }
+                // Calculate font sizes based on ticket dimensions
+                float centerNumberSize = Math.Max(16f, bounds.Height * 0.45f);
+                float sideNumberSize = Math.Max(8f, bounds.Height * 0.15f);
+                if (isHovered) centerNumberSize *= 1.1f;
 
-                // Draw ticket number (with more padding below the "TICKET" label)
                 string ticketText = ticketNumber.ToString();
-                using (var font = new Font("Arial", numberFontSize, FontStyle.Bold))
-                using (var textBrush = new SolidBrush(isLosing ? Color.FromArgb(80, 80, 80) : Color.FromArgb(60, 40, 20)))
+                Color textColor = isLosing ? Color.FromArgb(80, 80, 80) : Color.FromArgb(60, 40, 10);
+
+                // Draw main ticket number in center
+                using (var font = new Font("Arial Black", centerNumberSize, FontStyle.Bold))
+                using (var textBrush = new SolidBrush(textColor))
                 {
                     var textSize = g.MeasureString(ticketText, font);
                     var textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                    var textY = bounds.Y + (bounds.Height - textSize.Height) / 2 + Math.Max(8, bounds.Height * 0.1f);
+                    var textY = bounds.Y + (bounds.Height - textSize.Height) / 2;
                     g.DrawString(ticketText, font, textBrush, textX, textY);
+                }
+
+                // Draw vertical numbers on left stub
+                using (var sideFont = new Font("Arial", sideNumberSize, FontStyle.Bold))
+                using (var sideBrush = new SolidBrush(textColor))
+                {
+                    var sideTextSize = g.MeasureString(ticketText, sideFont);
+
+                    // Left stub - rotate text 90 degrees counterclockwise
+                    var leftStubCenterX = bounds.Left + stubWidth / 2;
+                    var leftStubCenterY = bounds.Y + bounds.Height / 2;
+
+                    g.TranslateTransform(leftStubCenterX, leftStubCenterY);
+                    g.RotateTransform(-90);
+                    g.DrawString(ticketText, sideFont, sideBrush, -sideTextSize.Width / 2, -sideTextSize.Height / 2);
+                    g.ResetTransform();
+
+                    // Reapply scroll offset after reset
+                    g.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
+
+                    // Right stub - rotate text 90 degrees clockwise
+                    var rightStubCenterX = bounds.Right - stubWidth / 2;
+                    var rightStubCenterY = bounds.Y + bounds.Height / 2;
+
+                    g.TranslateTransform(rightStubCenterX, rightStubCenterY);
+                    g.RotateTransform(90);
+                    g.DrawString(ticketText, sideFont, sideBrush, -sideTextSize.Width / 2, -sideTextSize.Height / 2);
+                    g.ResetTransform();
+
+                    // Reapply scroll offset after reset
+                    g.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
                 }
 
                 // Draw red X over losing tickets
