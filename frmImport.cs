@@ -14,9 +14,9 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using ReverseRaffler.Data;
 using ReverseRaffler.Objects;
+using ReverseRaffler.Services;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
-using Telerik.Windows.Documents.Spreadsheet.Expressions.Functions;
 
 namespace ReverseRaffler
 {
@@ -25,6 +25,9 @@ namespace ReverseRaffler
         #region Internals
 
         private CsvReader csvReader;
+        private Stream fileStream;
+        private string fileName;
+        private bool isExcelFile;
 
         #endregion
 
@@ -40,15 +43,38 @@ namespace ReverseRaffler
         public frmImport(string filePathToImport)
             : this()
         {
-            TextReader tr = new StreamReader(filePathToImport);
-            csvReader = new CsvReader(tr, CultureInfo.InvariantCulture);
+            fileName = filePathToImport;
+            isExcelFile = Path.GetExtension(filePathToImport).Equals(".xlsx", StringComparison.OrdinalIgnoreCase);
+
+            if (isExcelFile)
+            {
+                // Store file path for Excel import
+                fileStream = new FileStream(filePathToImport, FileMode.Open, FileAccess.Read);
+            }
+            else
+            {
+                // CSV import
+                TextReader tr = new StreamReader(filePathToImport);
+                csvReader = new CsvReader(tr, CultureInfo.InvariantCulture);
+            }
         }
 
-        public frmImport(Stream fileStream)
+        public frmImport(Stream inputStream, string originalFileName)
             : this()
         {
-            TextReader tr = new StreamReader(fileStream);
-            csvReader = new CsvReader(tr, CultureInfo.InvariantCulture);
+            fileName = originalFileName;
+            fileStream = inputStream;
+            isExcelFile = Path.GetExtension(originalFileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase);
+
+            if (!isExcelFile)
+            {
+                // CSV import - need to reset stream position
+                if (fileStream.CanSeek)
+                    fileStream.Position = 0;
+
+                TextReader tr = new StreamReader(fileStream);
+                csvReader = new CsvReader(tr, CultureInfo.InvariantCulture);
+            }
         }
 
         #endregion
@@ -65,22 +91,25 @@ namespace ReverseRaffler
             try
             {
                 var importTickets = new List<TicketHolder>();
-                var csvRecords = csvReader.GetRecords<ImportTicketItem>();
 
-                csvReader.Read();
-                csvReader.ReadHeader();
-
-                while (csvReader.Read())
+                // Determine import method based on file type
+                if (isExcelFile)
                 {
-                    var record = csvReader.GetRecord<ImportTicketItem>();
+                    // Import from Excel
+                    importTickets = ImportFromExcel();
+                }
+                else
+                {
+                    // Import from CSV
+                    importTickets = ImportFromCsv();
+                }
 
-                    importTickets.Add(new TicketHolder
-                    {
-                        TicketNumber = record.Id,
-                        TicketHolder1 = record.Name1,
-                        TicketHolder2 = record.Name2,
-                        TicketHolder3 = record.Name3
-                    });
+                // Validate we have tickets to import
+                if (importTickets == null || importTickets.Count == 0)
+                {
+                    RadMessageBox.Show("No tickets found in the file!", "NO DATA", MessageBoxButtons.OK, RadMessageIcon.Error);
+                    Close();
+                    return;
                 }
 
                 //Now actually import the file in to the database
@@ -116,14 +145,77 @@ namespace ReverseRaffler
                 }
 
                 Close();
-            } catch
+            }
+            catch (Exception ex)
             {
-                RadMessageBox.Show("Your CSV is not properly formatted! First row MUST be a header!\r\nHeader should be id, name1, name2, name3 !!\r\nRows in the file should be:  <ticketnumber>,<name>,<name>" +
-                                   ",<name> (Max of 3 <names>)\r\nExample: 1,joe,harry,mike  (per row)", "BAD FORMAT", MessageBoxButtons.OK, RadMessageIcon.Error);
+                string errorMessage = isExcelFile
+                    ? $"Your Excel file could not be imported!\r\n\r\nExpected format:\r\n" +
+                      $"Column 1: Ticket Number\r\n" +
+                      $"Column 2: Name 1\r\n" +
+                      $"Column 3: Name 2 (optional)\r\n" +
+                      $"Column 4: Name 3 (optional)\r\n" +
+                      $"Column 5: Name 4 (optional)\r\n\r\n" +
+                      $"Error: {ex.Message}"
+                    : $"Your CSV is not properly formatted! First row MUST be a header!\r\n" +
+                      $"Header should be id, name1, name2, name3 !!\r\n" +
+                      $"Rows in the file should be:  <ticketnumber>,<name>,<name>,<name> (Max of 3 <names>)\r\n" +
+                      $"Example: 1,joe,harry,mike  (per row)\r\n\r\n" +
+                      $"Error: {ex.Message}";
+
+                RadMessageBox.Show(errorMessage, "IMPORT ERROR", MessageBoxButtons.OK, RadMessageIcon.Error);
                 Close();
 
                 return;
             }
+            finally
+            {
+                // Clean up resources
+                csvReader?.Dispose();
+                fileStream?.Dispose();
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Imports tickets from CSV file
+        /// </summary>
+        private List<TicketHolder> ImportFromCsv()
+        {
+            var importTickets = new List<TicketHolder>();
+            var csvRecords = csvReader.GetRecords<ImportTicketItem>();
+
+            csvReader.Read();
+            csvReader.ReadHeader();
+
+            while (csvReader.Read())
+            {
+                var record = csvReader.GetRecord<ImportTicketItem>();
+
+                importTickets.Add(new TicketHolder
+                {
+                    TicketNumber = record.Id,
+                    TicketHolder1 = record.Name1,
+                    TicketHolder2 = record.Name2,
+                    TicketHolder3 = record.Name3
+                });
+            }
+
+            return importTickets;
+        }
+
+        /// <summary>
+        /// Imports tickets from Excel file
+        /// </summary>
+        private List<TicketHolder> ImportFromExcel()
+        {
+            // Reset stream position if possible
+            if (fileStream.CanSeek)
+                fileStream.Position = 0;
+
+            return ExcelImportService.ImportFromExcel(fileStream);
         }
 
         #endregion

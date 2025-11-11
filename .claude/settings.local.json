@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(msbuild:*)",
+      "Bash(wget:*)",
+      "Bash(sudo dpkg:*)",
+      "Bash(mono --version:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -369,14 +369,14 @@ namespace ReverseRaffler
             {
                 Multiselect = false,
                 Title = @"Select An Import File (Will overwrite database)",
-                Filter = @"CSV Files (CSV, TXT)|*.CSV;*.TXT;"
+                Filter = @"All Import Files (*.csv, *.txt, *.xlsx)|*.csv;*.txt;*.xlsx|CSV Files (*.csv, *.txt)|*.csv;*.txt|Excel Files (*.xlsx)|*.xlsx"
             };
 
             if (rosterFile.ShowDialog(this) != DialogResult.OK) return;
 
             try
             {
-                var newFrmImporter = new frmImport(rosterFile.OpenFile());
+                var newFrmImporter = new frmImport(rosterFile.OpenFile(), rosterFile.FileName);
                 var result = newFrmImporter.ShowDialog(this);
                 newFrmImporter.Dispose();
 
@@ -388,7 +388,12 @@ namespace ReverseRaffler
             }
             catch (Exception ex)
             {
-                RadMessageBox.Show("There was an error opening your import file.\r\nMake sure it is a proper CSV file that is comma delimited and that no NAMES have commas in them.\r\nAlso make sure the format is:  ticketnumber,name,name,name (max of 3 names)\r\nTicket number is required but names are not for imports.",
+                RadMessageBox.Show($"There was an error opening your import file.\r\n\r\n" +
+                    $"For CSV files: Make sure it is comma delimited and that no NAMES have commas in them.\r\n" +
+                    $"Format: ticketnumber,name,name,name (max of 3 names)\r\n\r\n" +
+                    $"For Excel files: First column = ticket number, subsequent columns = names\r\n\r\n" +
+                    $"Ticket number is required but names are optional.\r\n\r\n" +
+                    $"Error: {ex.Message}",
                     "ERROR ON IMPORT", MessageBoxButtons.OK);
             }
         }
