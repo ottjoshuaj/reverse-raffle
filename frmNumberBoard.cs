@@ -101,14 +101,21 @@ namespace ReverseRaffler
             var ticket = e.Ticket;
             var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
 
-            // Show as winner or loser based on ticket status, with close button
-            if (ticket.MarkedAsNotWinner.GetValueOrDefault())
+            // Show appropriate overlay based on ticket status, with close button
+            if (ticket.MarkedAsNotWinner == true)
             {
+                // Ticket marked as loser
                 _overlay.ShowLoser(ticket.TicketNumber.ToString(), names, 0, true);
+            }
+            else if (ticket.MarkedAsNotWinner == false)
+            {
+                // Ticket marked as winner
+                _overlay.ShowWinner(ticket.TicketNumber.ToString(), names, 0, true);
             }
             else
             {
-                _overlay.ShowWinner(ticket.TicketNumber.ToString(), names, 0, true);
+                // Ticket not yet drawn (neither winner nor loser)
+                _overlay.ShowInfo(ticket.TicketNumber.ToString(), names, 0, true);
             }
         }
 

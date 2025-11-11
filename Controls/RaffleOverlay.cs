@@ -74,7 +74,7 @@ namespace ReverseRaffler.Controls
             _ticketNumbers = ticketNumbers;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
             AutoCloseTimeout = autoCloseMs;
-            _showCloseButton = showCloseButton || autoCloseMs == 0; // Show close button if no auto-close
+            _showCloseButton = true; // Always show close button for winner overlay
 
             Show();
         }
@@ -85,6 +85,20 @@ namespace ReverseRaffler.Controls
         public void ShowLoser(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
             _overlayType = OverlayType.Loser;
+            _ticketNumbers = ticketNumber;
+            _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
+            AutoCloseTimeout = autoCloseMs;
+            _showCloseButton = true; // Always show close button for loser overlay
+
+            Show();
+        }
+
+        /// <summary>
+        /// Shows generic ticket info (for tickets that are neither winners nor losers)
+        /// </summary>
+        public void ShowInfo(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
+        {
+            _overlayType = OverlayType.Info;
             _ticketNumbers = ticketNumber;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
             AutoCloseTimeout = autoCloseMs;
@@ -187,8 +201,10 @@ namespace ReverseRaffler.Controls
             // Draw the announcement based on type
             if (_overlayType == OverlayType.Winner)
                 DrawWinnerAnnouncement(g, cardBounds);
-            else
+            else if (_overlayType == OverlayType.Loser)
                 DrawLoserAnnouncement(g, cardBounds);
+            else
+                DrawInfoAnnouncement(g, cardBounds);
 
             // Draw close button if enabled
             if (_showCloseButton)
@@ -253,19 +269,19 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket numbers
+            // Draw ticket numbers (pushed down 50px to avoid overlap with WINNER text)
             using (var font = new Font("Arial", 20f, FontStyle.Bold))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 80, 50, 0)))
             {
                 var text = $"Ticket # {_ticketNumbers}";
                 var textSize = g.MeasureString(text, font);
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + 220;
+                float textY = bounds.Y + 270;
                 g.DrawString(text, font, brush, textX, textY);
             }
 
             // Draw names (with more padding from ticket number)
-            DrawNamesList(g, bounds, 280);
+            DrawNamesList(g, bounds, 330);
         }
 
         private void DrawLoserAnnouncement(Graphics g, Rectangle bounds)
@@ -324,19 +340,90 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket number
+            // Draw ticket number (with extra padding to match winner overlay spacing)
             using (var font = new Font("Arial", 20f, FontStyle.Bold))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 80, 80, 90)))
             {
                 var text = $"Ticket # {_ticketNumbers}";
                 var textSize = g.MeasureString(text, font);
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + 220;
+                float textY = bounds.Y + 270;
                 g.DrawString(text, font, brush, textX, textY);
             }
 
             // Draw names
-            DrawNamesList(g, bounds, 260);
+            DrawNamesList(g, bounds, 330);
+        }
+
+        private void DrawInfoAnnouncement(Graphics g, Rectangle bounds)
+        {
+            // Draw card background with gradient (blue theme for info)
+            using (var path = CreateRoundedRectPath(bounds, 20))
+            {
+                // Drop shadow
+                using (var shadowPath = CreateRoundedRectPath(
+                    new Rectangle(bounds.X + 5, bounds.Y + 5, bounds.Width, bounds.Height), 20))
+                using (var shadowBrush = new SolidBrush(Color.FromArgb((int)(100 * _fadeOpacity), 0, 0, 0)))
+                {
+                    g.FillPath(shadowBrush, shadowPath);
+                }
+
+                // Card gradient (soft blue)
+                using (var brush = new LinearGradientBrush(bounds,
+                    Color.FromArgb((int)(255 * _fadeOpacity), 230, 240, 255),
+                    Color.FromArgb((int)(255 * _fadeOpacity), 210, 225, 245),
+                    LinearGradientMode.Vertical))
+                {
+                    g.FillPath(brush, path);
+                }
+
+                // Border
+                using (var borderPen = new Pen(Color.FromArgb((int)(255 * _fadeOpacity), 100, 150, 200), 3))
+                {
+                    g.DrawPath(borderPen, path);
+                }
+            }
+
+            // Draw info icon (i in a circle)
+            int iconSize = 100;
+            Rectangle iconBounds = new Rectangle(
+                bounds.X + (bounds.Width - iconSize) / 2,
+                bounds.Y + 50,
+                iconSize,
+                iconSize
+            );
+            DrawInfoIcon(g, iconBounds);
+
+            // Draw "Ticket Information" text
+            using (var font = new Font("Arial", 28f, FontStyle.Bold))
+            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 60, 100, 150)))
+            {
+                var text = "Ticket Information";
+                var textSize = g.MeasureString(text, font);
+                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
+                float textY = iconBounds.Bottom + 20;
+
+                // Text shadow
+                using (var shadowBrush = new SolidBrush(Color.FromArgb((int)(60 * _fadeOpacity), 0, 0, 0)))
+                {
+                    g.DrawString(text, font, shadowBrush, textX + 2, textY + 2);
+                }
+                g.DrawString(text, font, brush, textX, textY);
+            }
+
+            // Draw ticket number
+            using (var font = new Font("Arial", 24f, FontStyle.Bold))
+            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 40, 70, 120)))
+            {
+                var text = $"Ticket # {_ticketNumbers}";
+                var textSize = g.MeasureString(text, font);
+                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
+                float textY = bounds.Y + 240;
+                g.DrawString(text, font, brush, textX, textY);
+            }
+
+            // Draw names
+            DrawNamesList(g, bounds, 290);
         }
 
         private void DrawNamesList(Graphics g, Rectangle bounds, int startY)
@@ -511,6 +598,37 @@ namespace ReverseRaffler.Controls
             }
         }
 
+        private void DrawInfoIcon(Graphics g, Rectangle bounds)
+        {
+            int alpha = (int)(255 * _fadeOpacity);
+
+            // Draw circle background
+            using (var brush = new LinearGradientBrush(bounds,
+                Color.FromArgb(alpha, 70, 130, 220),
+                Color.FromArgb(alpha, 50, 100, 180),
+                LinearGradientMode.Vertical))
+            {
+                g.FillEllipse(brush, bounds);
+            }
+
+            // Circle outline
+            using (var pen = new Pen(Color.FromArgb(alpha, 40, 80, 150), 3))
+            {
+                g.DrawEllipse(pen, bounds);
+            }
+
+            // Draw "i" letter
+            using (var font = new Font("Arial", 60f, FontStyle.Bold))
+            using (var brush = new SolidBrush(Color.FromArgb(alpha, 255, 255, 255)))
+            {
+                var text = "i";
+                var textSize = g.MeasureString(text, font);
+                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
+                float textY = bounds.Y + (bounds.Height - textSize.Height) / 2;
+                g.DrawString(text, font, brush, textX, textY);
+            }
+        }
+
         private void DrawCloseButton(Graphics g, Rectangle cardBounds)
         {
             // Draw X button in top-right corner of card
@@ -598,7 +716,8 @@ namespace ReverseRaffler.Controls
         private enum OverlayType
         {
             Winner,
-            Loser
+            Loser,
+            Info
         }
 
         #endregion
