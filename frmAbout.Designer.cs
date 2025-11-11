@@ -159,7 +159,7 @@
             this.radTextBoxDescription.TabIndex = 23;
             this.radTextBoxDescription.TabStop = false;
             this.radTextBoxDescription.Text = "Description";
-            this.radTextBoxDescription.ThemeName = "Office2010Black";
+            this.radTextBoxDescription.ThemeName = "CrystalDark";
             // 
             // okRadButton
             // 
@@ -170,7 +170,7 @@
             this.okRadButton.Size = new System.Drawing.Size(75, 23);
             this.okRadButton.TabIndex = 24;
             this.okRadButton.Text = "&OK";
-            this.okRadButton.ThemeName = "Office2010Black";
+            this.okRadButton.ThemeName = "CrystalDark";
             // 
             // frmAbout
             // 
@@ -192,7 +192,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Reverse Raffler";
-            this.ThemeName = "Office2010Black";
+            this.ThemeName = "CrystalDark";
             this.Load += new System.EventHandler(this.frmAbout_Load);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();

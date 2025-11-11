@@ -34,7 +34,7 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConsole));
-            this.office2010BlackTheme1 = new Telerik.WinControls.Themes.Office2010BlackTheme();
+            this.CrystalDarkTheme1 = new Telerik.WinControls.Themes.CrystalDarkTheme();
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
             this.lblAppStatus = new Telerik.WinControls.UI.RadLabelElement();
             this.commandBarSeparator1 = new Telerik.WinControls.UI.CommandBarSeparator();
@@ -152,12 +152,12 @@
             this.lblAppStatus,
             this.commandBarSeparator1,
             this.lblAppTicketStatus});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 689);
-            this.radStatusStrip1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 690);
+            this.radStatusStrip1.Margin = new System.Windows.Forms.Padding(4);
             this.radStatusStrip1.Name = "radStatusStrip1";
-            this.radStatusStrip1.Size = new System.Drawing.Size(893, 27);
+            this.radStatusStrip1.Size = new System.Drawing.Size(893, 26);
             this.radStatusStrip1.TabIndex = 1;
-            this.radStatusStrip1.ThemeName = "Office2010Black";
+            this.radStatusStrip1.ThemeName = "CrystalDark";
             // 
             // lblAppStatus
             // 
@@ -188,24 +188,24 @@
             this.radPageView1.Controls.Add(this.rpvSettings);
             this.radPageView1.DefaultPage = this.radPageViewPage2;
             this.radPageView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPageView1.Location = new System.Drawing.Point(0, 25);
-            this.radPageView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radPageView1.Location = new System.Drawing.Point(0, 34);
+            this.radPageView1.Margin = new System.Windows.Forms.Padding(4);
             this.radPageView1.Name = "radPageView1";
             this.radPageView1.SelectedPage = this.radPageViewPage1;
-            this.radPageView1.Size = new System.Drawing.Size(893, 664);
+            this.radPageView1.Size = new System.Drawing.Size(893, 656);
             this.radPageView1.TabIndex = 2;
-            this.radPageView1.ThemeName = "Office2010Black";
+            this.radPageView1.ThemeName = "CrystalDark";
             ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
             // 
             // radPageViewPage1
             // 
             this.radPageViewPage1.Controls.Add(this.radGroupBox2);
             this.radPageViewPage1.Controls.Add(this.radGroupBox1);
-            this.radPageViewPage1.ItemSize = new System.Drawing.SizeF(127F, 38F);
-            this.radPageViewPage1.Location = new System.Drawing.Point(15, 50);
-            this.radPageViewPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radPageViewPage1.ItemSize = new System.Drawing.SizeF(104F, 28F);
+            this.radPageViewPage1.Location = new System.Drawing.Point(6, 33);
+            this.radPageViewPage1.Margin = new System.Windows.Forms.Padding(4);
             this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(863, 599);
+            this.radPageViewPage1.Size = new System.Drawing.Size(881, 616);
             this.radPageViewPage1.Text = "Manage Raffle";
             // 
             // radGroupBox2
@@ -217,15 +217,16 @@
             this.radGroupBox2.Controls.Add(this.label4);
             this.radGroupBox2.Controls.Add(this.label3);
             this.radGroupBox2.Controls.Add(this.label2);
+            this.radGroupBox2.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox2.HeaderText = "Raffle Stats";
             this.radGroupBox2.Location = new System.Drawing.Point(386, 21);
-            this.radGroupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox2.Name = "radGroupBox2";
             this.radGroupBox2.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
             this.radGroupBox2.Size = new System.Drawing.Size(340, 382);
             this.radGroupBox2.TabIndex = 5;
             this.radGroupBox2.Text = "Raffle Stats";
-            this.radGroupBox2.ThemeName = "Office2010Black";
+            this.radGroupBox2.ThemeName = "CrystalDark";
             // 
             // lblTicketsNotDrawn
             // 
@@ -234,7 +235,7 @@
             this.lblTicketsNotDrawn.Location = new System.Drawing.Point(192, 135);
             this.lblTicketsNotDrawn.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTicketsNotDrawn.Name = "lblTicketsNotDrawn";
-            this.lblTicketsNotDrawn.Size = new System.Drawing.Size(17, 19);
+            this.lblTicketsNotDrawn.Size = new System.Drawing.Size(13, 13);
             this.lblTicketsNotDrawn.TabIndex = 5;
             this.lblTicketsNotDrawn.Text = "0";
             // 
@@ -245,7 +246,7 @@
             this.lblTicketsThatLost.Location = new System.Drawing.Point(192, 98);
             this.lblTicketsThatLost.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTicketsThatLost.Name = "lblTicketsThatLost";
-            this.lblTicketsThatLost.Size = new System.Drawing.Size(17, 19);
+            this.lblTicketsThatLost.Size = new System.Drawing.Size(13, 13);
             this.lblTicketsThatLost.TabIndex = 4;
             this.lblTicketsThatLost.Text = "0";
             // 
@@ -256,7 +257,7 @@
             this.lblTotalTicketsInRaffle.Location = new System.Drawing.Point(192, 58);
             this.lblTotalTicketsInRaffle.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTotalTicketsInRaffle.Name = "lblTotalTicketsInRaffle";
-            this.lblTotalTicketsInRaffle.Size = new System.Drawing.Size(17, 19);
+            this.lblTotalTicketsInRaffle.Size = new System.Drawing.Size(13, 13);
             this.lblTotalTicketsInRaffle.TabIndex = 3;
             this.lblTotalTicketsInRaffle.Text = "0";
             // 
@@ -306,15 +307,16 @@
             this.radGroupBox1.Controls.Add(this.btnPreviousAnnouncement);
             this.radGroupBox1.Controls.Add(this.btnNextAnnouncement);
             this.radGroupBox1.Controls.Add(this.lblHistoryPosition);
+            this.radGroupBox1.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox1.HeaderText = "Raffle";
             this.radGroupBox1.Location = new System.Drawing.Point(15, 21);
-            this.radGroupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox1.Name = "radGroupBox1";
             this.radGroupBox1.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
             this.radGroupBox1.Size = new System.Drawing.Size(335, 382);
             this.radGroupBox1.TabIndex = 4;
             this.radGroupBox1.Text = "Raffle";
-            this.radGroupBox1.ThemeName = "Office2010Black";
+            this.radGroupBox1.ThemeName = "CrystalDark";
             // 
             // label1
             // 
@@ -331,7 +333,7 @@
             this.rsWinnersEveryNumTickets.AutoSize = false;
             this.rsWinnersEveryNumTickets.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "WinnersEveryNumTickets", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.rsWinnersEveryNumTickets.Location = new System.Drawing.Point(116, 106);
-            this.rsWinnersEveryNumTickets.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsWinnersEveryNumTickets.Margin = new System.Windows.Forms.Padding(4);
             this.rsWinnersEveryNumTickets.Name = "rsWinnersEveryNumTickets";
             this.rsWinnersEveryNumTickets.NullableValue = new decimal(new int[] {
             10,
@@ -341,7 +343,7 @@
             this.rsWinnersEveryNumTickets.Size = new System.Drawing.Size(201, 30);
             this.rsWinnersEveryNumTickets.TabIndex = 9;
             this.rsWinnersEveryNumTickets.TabStop = false;
-            this.rsWinnersEveryNumTickets.ThemeName = "Office2010Black";
+            this.rsWinnersEveryNumTickets.ThemeName = "CrystalDark";
             this.rsWinnersEveryNumTickets.Value = global::ReverseRaffler.Properties.Settings.Default.WinnersEveryNumTickets;
             // 
             // label5
@@ -359,7 +361,7 @@
             this.rsTotalWinningTickets.AutoSize = false;
             this.rsTotalWinningTickets.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "LastWhatTicketsAreWinners", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, "1", "N0"));
             this.rsTotalWinningTickets.Location = new System.Drawing.Point(116, 56);
-            this.rsTotalWinningTickets.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsTotalWinningTickets.Margin = new System.Windows.Forms.Padding(4);
             this.rsTotalWinningTickets.Name = "rsTotalWinningTickets";
             this.rsTotalWinningTickets.NullableValue = new decimal(new int[] {
             2,
@@ -369,30 +371,30 @@
             this.rsTotalWinningTickets.Size = new System.Drawing.Size(201, 30);
             this.rsTotalWinningTickets.TabIndex = 7;
             this.rsTotalWinningTickets.TabStop = false;
-            this.rsTotalWinningTickets.ThemeName = "Office2010Black";
+            this.rsTotalWinningTickets.ThemeName = "CrystalDark";
             this.rsTotalWinningTickets.Value = global::ReverseRaffler.Properties.Settings.Default.LastWhatTicketsAreWinners;
             // 
             // btnEndRaffle
             // 
             this.btnEndRaffle.Enabled = false;
             this.btnEndRaffle.Location = new System.Drawing.Point(116, 201);
-            this.btnEndRaffle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEndRaffle.Margin = new System.Windows.Forms.Padding(4);
             this.btnEndRaffle.Name = "btnEndRaffle";
             this.btnEndRaffle.Size = new System.Drawing.Size(201, 30);
             this.btnEndRaffle.TabIndex = 4;
             this.btnEndRaffle.Text = "End Raffle";
-            this.btnEndRaffle.ThemeName = "Office2010Black";
+            this.btnEndRaffle.ThemeName = "CrystalDark";
             this.btnEndRaffle.Click += new System.EventHandler(this.btnEndRaffle_Click);
             // 
             // btnBeginRaffle
             // 
             this.btnBeginRaffle.Location = new System.Drawing.Point(116, 165);
-            this.btnBeginRaffle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBeginRaffle.Margin = new System.Windows.Forms.Padding(4);
             this.btnBeginRaffle.Name = "btnBeginRaffle";
             this.btnBeginRaffle.Size = new System.Drawing.Size(201, 30);
             this.btnBeginRaffle.TabIndex = 3;
             this.btnBeginRaffle.Text = "Begin Raffle";
-            this.btnBeginRaffle.ThemeName = "Office2010Black";
+            this.btnBeginRaffle.ThemeName = "CrystalDark";
             this.btnBeginRaffle.Click += new System.EventHandler(this.btnBeginRaffle_Click);
             // 
             // rsTicketNumber
@@ -400,7 +402,7 @@
             this.rsTicketNumber.AutoSize = false;
             this.rsTicketNumber.Enabled = false;
             this.rsTicketNumber.Location = new System.Drawing.Point(10, 260);
-            this.rsTicketNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsTicketNumber.Margin = new System.Windows.Forms.Padding(4);
             this.rsTicketNumber.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -410,86 +412,85 @@
             this.rsTicketNumber.Size = new System.Drawing.Size(98, 30);
             this.rsTicketNumber.TabIndex = 0;
             this.rsTicketNumber.TabStop = false;
-            this.rsTicketNumber.ThemeName = "Office2010Black";
+            this.rsTicketNumber.ThemeName = "CrystalDark";
             // 
             // btnMarkTicketAsNotGood
-            //
+            // 
             this.btnMarkTicketAsNotGood.Enabled = false;
             this.btnMarkTicketAsNotGood.Location = new System.Drawing.Point(116, 260);
-            this.btnMarkTicketAsNotGood.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMarkTicketAsNotGood.Margin = new System.Windows.Forms.Padding(4);
             this.btnMarkTicketAsNotGood.Name = "btnMarkTicketAsNotGood";
             this.btnMarkTicketAsNotGood.Size = new System.Drawing.Size(201, 30);
             this.btnMarkTicketAsNotGood.TabIndex = 1;
             this.btnMarkTicketAsNotGood.Text = "Remove Ticket From Raffle";
-            this.btnMarkTicketAsNotGood.ThemeName = "Office2010Black";
+            this.btnMarkTicketAsNotGood.ThemeName = "CrystalDark";
             this.btnMarkTicketAsNotGood.Click += new System.EventHandler(this.btnMarkTicketAsNotGood_Click);
-            //
+            // 
             // btnShowRecentAnnouncement
-            //
+            // 
             this.btnShowRecentAnnouncement.Enabled = false;
             this.btnShowRecentAnnouncement.Location = new System.Drawing.Point(10, 310);
-            this.btnShowRecentAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnShowRecentAnnouncement.Margin = new System.Windows.Forms.Padding(4);
             this.btnShowRecentAnnouncement.Name = "btnShowRecentAnnouncement";
             this.btnShowRecentAnnouncement.Size = new System.Drawing.Size(307, 30);
             this.btnShowRecentAnnouncement.TabIndex = 11;
             this.btnShowRecentAnnouncement.Text = "Show Recent Winner/Loser";
-            this.btnShowRecentAnnouncement.ThemeName = "Office2010Black";
+            this.btnShowRecentAnnouncement.ThemeName = "CrystalDark";
             this.btnShowRecentAnnouncement.Click += new System.EventHandler(this.btnShowRecentAnnouncement_Click);
-            //
+            // 
             // btnCloseOverlay
-            //
+            // 
             this.btnCloseOverlay.Enabled = false;
             this.btnCloseOverlay.Location = new System.Drawing.Point(10, 346);
-            this.btnCloseOverlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseOverlay.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseOverlay.Name = "btnCloseOverlay";
             this.btnCloseOverlay.Size = new System.Drawing.Size(307, 30);
             this.btnCloseOverlay.TabIndex = 12;
             this.btnCloseOverlay.Text = "Close Overlay";
-            this.btnCloseOverlay.ThemeName = "Office2010Black";
+            this.btnCloseOverlay.ThemeName = "CrystalDark";
             this.btnCloseOverlay.Click += new System.EventHandler(this.btnCloseOverlay_Click);
-            //
+            // 
             // btnPreviousAnnouncement
-            //
+            // 
             this.btnPreviousAnnouncement.Enabled = false;
             this.btnPreviousAnnouncement.Location = new System.Drawing.Point(10, 382);
-            this.btnPreviousAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPreviousAnnouncement.Margin = new System.Windows.Forms.Padding(4);
             this.btnPreviousAnnouncement.Name = "btnPreviousAnnouncement";
             this.btnPreviousAnnouncement.Size = new System.Drawing.Size(98, 30);
             this.btnPreviousAnnouncement.TabIndex = 13;
             this.btnPreviousAnnouncement.Text = "< Previous";
-            this.btnPreviousAnnouncement.ThemeName = "Office2010Black";
+            this.btnPreviousAnnouncement.ThemeName = "CrystalDark";
             this.btnPreviousAnnouncement.Click += new System.EventHandler(this.btnPreviousAnnouncement_Click);
-            //
+            // 
             // btnNextAnnouncement
-            //
+            // 
             this.btnNextAnnouncement.Enabled = false;
             this.btnNextAnnouncement.Location = new System.Drawing.Point(116, 382);
-            this.btnNextAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNextAnnouncement.Margin = new System.Windows.Forms.Padding(4);
             this.btnNextAnnouncement.Name = "btnNextAnnouncement";
             this.btnNextAnnouncement.Size = new System.Drawing.Size(98, 30);
             this.btnNextAnnouncement.TabIndex = 14;
             this.btnNextAnnouncement.Text = "Next >";
-            this.btnNextAnnouncement.ThemeName = "Office2010Black";
+            this.btnNextAnnouncement.ThemeName = "CrystalDark";
             this.btnNextAnnouncement.Click += new System.EventHandler(this.btnNextAnnouncement_Click);
-            //
+            // 
             // lblHistoryPosition
-            //
+            // 
             this.lblHistoryPosition.Location = new System.Drawing.Point(222, 382);
             this.lblHistoryPosition.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHistoryPosition.Name = "lblHistoryPosition";
             this.lblHistoryPosition.Size = new System.Drawing.Size(95, 30);
             this.lblHistoryPosition.TabIndex = 15;
-            this.lblHistoryPosition.Text = "";
             this.lblHistoryPosition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // radPageViewPage2
             // 
             this.radPageViewPage2.Controls.Add(this.gridTicketHolders);
-            this.radPageViewPage2.ItemSize = new System.Drawing.SizeF(181F, 38F);
-            this.radPageViewPage2.Location = new System.Drawing.Point(15, 50);
-            this.radPageViewPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radPageViewPage2.ItemSize = new System.Drawing.SizeF(156F, 28F);
+            this.radPageViewPage2.Location = new System.Drawing.Point(6, 33);
+            this.radPageViewPage2.Margin = new System.Windows.Forms.Padding(4);
             this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(863, 599);
+            this.radPageViewPage2.Size = new System.Drawing.Size(881, 616);
             this.radPageViewPage2.Text = "Manage Ticket Holders";
             // 
             // gridTicketHolders
@@ -501,7 +502,7 @@
             this.gridTicketHolders.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gridTicketHolders.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.gridTicketHolders.Location = new System.Drawing.Point(0, 0);
-            this.gridTicketHolders.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gridTicketHolders.Margin = new System.Windows.Forms.Padding(4);
             // 
             // 
             // 
@@ -517,22 +518,22 @@
             gridViewTextBoxColumn1.HeaderText = "Ticket #";
             gridViewTextBoxColumn1.Name = "colTicketNumber";
             gridViewTextBoxColumn1.ReadOnly = true;
-            gridViewTextBoxColumn1.Width = 152;
+            gridViewTextBoxColumn1.Width = 154;
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
             gridViewTextBoxColumn2.FieldName = "TicketHolder1";
             gridViewTextBoxColumn2.HeaderText = "Ticket Holder 1";
             gridViewTextBoxColumn2.Name = "colTicketHolder1";
-            gridViewTextBoxColumn2.Width = 231;
+            gridViewTextBoxColumn2.Width = 233;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
             gridViewTextBoxColumn3.FieldName = "TicketHolder2";
             gridViewTextBoxColumn3.HeaderText = "Ticket Holder 2";
             gridViewTextBoxColumn3.Name = "colTicketHolder2";
-            gridViewTextBoxColumn3.Width = 231;
+            gridViewTextBoxColumn3.Width = 233;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;
             gridViewTextBoxColumn4.FieldName = "TicketHolder3";
             gridViewTextBoxColumn4.HeaderText = "Ticket Holder 3";
             gridViewTextBoxColumn4.Name = "colTicketHolder3";
-            gridViewTextBoxColumn4.Width = 226;
+            gridViewTextBoxColumn4.Width = 229;
             this.gridTicketHolders.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
             gridViewTextBoxColumn1,
             gridViewTextBoxColumn2,
@@ -545,9 +546,9 @@
             this.gridTicketHolders.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.gridTicketHolders.Name = "gridTicketHolders";
             this.gridTicketHolders.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.gridTicketHolders.Size = new System.Drawing.Size(863, 599);
+            this.gridTicketHolders.Size = new System.Drawing.Size(881, 616);
             this.gridTicketHolders.TabIndex = 0;
-            this.gridTicketHolders.ThemeName = "Office2010Black";
+            this.gridTicketHolders.ThemeName = "CrystalDark";
             this.gridTicketHolders.UseScrollbarsInHierarchy = true;
             // 
             // rpvSettings
@@ -557,11 +558,11 @@
             this.rpvSettings.Controls.Add(this.radGroupBox4);
             this.rpvSettings.Controls.Add(this.btnSaveSettingsOptions);
             this.rpvSettings.Controls.Add(this.radGroupBox3);
-            this.rpvSettings.ItemSize = new System.Drawing.SizeF(87F, 38F);
-            this.rpvSettings.Location = new System.Drawing.Point(15, 50);
-            this.rpvSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rpvSettings.ItemSize = new System.Drawing.SizeF(65F, 28F);
+            this.rpvSettings.Location = new System.Drawing.Point(6, 33);
+            this.rpvSettings.Margin = new System.Windows.Forms.Padding(4);
             this.rpvSettings.Name = "rpvSettings";
-            this.rpvSettings.Size = new System.Drawing.Size(863, 599);
+            this.rpvSettings.Size = new System.Drawing.Size(881, 616);
             this.rpvSettings.Text = "Settings";
             // 
             // radGroupBox6
@@ -571,45 +572,47 @@
             this.radGroupBox6.Controls.Add(this.radButton1);
             this.radGroupBox6.Controls.Add(this.txtAPIIpPort);
             this.radGroupBox6.Controls.Add(this.radLabel6);
+            this.radGroupBox6.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox6.HeaderText = "Remote API Control";
-            this.radGroupBox6.Location = new System.Drawing.Point(326, 272);
-            this.radGroupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox6.Location = new System.Drawing.Point(542, 274);
+            this.radGroupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox6.Name = "radGroupBox6";
             this.radGroupBox6.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
             this.radGroupBox6.Size = new System.Drawing.Size(315, 220);
             this.radGroupBox6.TabIndex = 10;
             this.radGroupBox6.Text = "Remote API Control";
-            this.radGroupBox6.ThemeName = "Office2010Black";
+            this.radGroupBox6.ThemeName = "CrystalDark";
             // 
             // radLabel5
-            //
+            // 
             this.radLabel5.AutoSize = false;
             this.radLabel5.Location = new System.Drawing.Point(8, 166);
-            this.radLabel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel5.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel5.Name = "radLabel5";
             this.radLabel5.Size = new System.Drawing.Size(301, 48);
             this.radLabel5.TabIndex = 9;
             this.radLabel5.Text = "Url:  /api/ticket?number=TICKETNUMBER";
+            this.radLabel5.ThemeName = "CrystalDark";
             // 
             // radButton1
             // 
             this.radButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.radButton1.Location = new System.Drawing.Point(8, 128);
-            this.radButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radButton1.Margin = new System.Windows.Forms.Padding(4);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(301, 30);
             this.radButton1.TabIndex = 8;
             this.radButton1.Text = "Start API Server";
-            this.radButton1.ThemeName = "Office2010Black";
+            this.radButton1.ThemeName = "CrystalDark";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
             // txtAPIIpPort
             // 
             this.txtAPIIpPort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ReverseRaffler.Properties.Settings.Default, "APIBindPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtAPIIpPort.Location = new System.Drawing.Point(10, 94);
-            this.txtAPIIpPort.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtAPIIpPort.Margin = new System.Windows.Forms.Padding(6);
             this.txtAPIIpPort.Name = "txtAPIIpPort";
-            this.txtAPIIpPort.Size = new System.Drawing.Size(297, 22);
+            this.txtAPIIpPort.Size = new System.Drawing.Size(297, 20);
             this.txtAPIIpPort.TabIndex = 3;
             this.txtAPIIpPort.Text = global::ReverseRaffler.Properties.Settings.Default.APIBindPort;
             // 
@@ -617,11 +620,12 @@
             // 
             this.radLabel6.AutoSize = false;
             this.radLabel6.Location = new System.Drawing.Point(6, 44);
-            this.radLabel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel6.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel6.Name = "radLabel6";
             this.radLabel6.Size = new System.Drawing.Size(185, 22);
             this.radLabel6.TabIndex = 2;
             this.radLabel6.Text = "API Bind IP:Port";
+            this.radLabel6.ThemeName = "CrystalDark";
             // 
             // radGroupBox5
             // 
@@ -630,21 +634,22 @@
             this.radGroupBox5.Controls.Add(this.radLabel4);
             this.radGroupBox5.Controls.Add(this.radLabel3);
             this.radGroupBox5.Controls.Add(this.rsTicketWidth);
+            this.radGroupBox5.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox5.HeaderText = "Ticket UI Settings";
             this.radGroupBox5.Location = new System.Drawing.Point(542, 4);
-            this.radGroupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox5.Name = "radGroupBox5";
             this.radGroupBox5.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
             this.radGroupBox5.Size = new System.Drawing.Size(315, 246);
             this.radGroupBox5.TabIndex = 9;
             this.radGroupBox5.Text = "Ticket UI Settings";
-            this.radGroupBox5.ThemeName = "Office2010Black";
+            this.radGroupBox5.ThemeName = "CrystalDark";
             // 
             // radSpinEditor1
             // 
             this.radSpinEditor1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "ticketHeightt", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.radSpinEditor1.Location = new System.Drawing.Point(8, 79);
-            this.radSpinEditor1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radSpinEditor1.Margin = new System.Windows.Forms.Padding(4);
             this.radSpinEditor1.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -656,37 +661,39 @@
             0,
             0,
             0});
-            this.radSpinEditor1.Size = new System.Drawing.Size(68, 25);
+            this.radSpinEditor1.Size = new System.Drawing.Size(68, 24);
             this.radSpinEditor1.TabIndex = 5;
             this.radSpinEditor1.TabStop = false;
-            this.radSpinEditor1.ThemeName = "Office2010Black";
+            this.radSpinEditor1.ThemeName = "CrystalDark";
             this.radSpinEditor1.Value = global::ReverseRaffler.Properties.Settings.Default.ticketHeightt;
             // 
             // radLabel4
             // 
             this.radLabel4.AutoSize = false;
             this.radLabel4.Location = new System.Drawing.Point(84, 81);
-            this.radLabel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel4.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Size = new System.Drawing.Size(185, 22);
             this.radLabel4.TabIndex = 4;
             this.radLabel4.Text = "Ticket Element Height";
+            this.radLabel4.ThemeName = "CrystalDark";
             // 
             // radLabel3
             // 
             this.radLabel3.AutoSize = false;
             this.radLabel3.Location = new System.Drawing.Point(84, 49);
-            this.radLabel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel3.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(185, 22);
             this.radLabel3.TabIndex = 2;
             this.radLabel3.Text = "Ticket Element Width";
+            this.radLabel3.ThemeName = "CrystalDark";
             // 
             // rsTicketWidth
             // 
             this.rsTicketWidth.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "ticketWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.rsTicketWidth.Location = new System.Drawing.Point(6, 46);
-            this.rsTicketWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsTicketWidth.Margin = new System.Windows.Forms.Padding(4);
             this.rsTicketWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -698,10 +705,10 @@
             0,
             0,
             0});
-            this.rsTicketWidth.Size = new System.Drawing.Size(70, 25);
+            this.rsTicketWidth.Size = new System.Drawing.Size(70, 24);
             this.rsTicketWidth.TabIndex = 1;
             this.rsTicketWidth.TabStop = false;
-            this.rsTicketWidth.ThemeName = "Office2010Black";
+            this.rsTicketWidth.ThemeName = "CrystalDark";
             this.rsTicketWidth.Value = global::ReverseRaffler.Properties.Settings.Default.ticketWidth;
             // 
             // radGroupBox4
@@ -712,62 +719,64 @@
             this.radGroupBox4.Controls.Add(this.radLabel2);
             this.radGroupBox4.Controls.Add(this.rsResetDBWithTicketCount);
             this.radGroupBox4.Controls.Add(this.btnResetDatabase);
+            this.radGroupBox4.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox4.HeaderText = "Database Settings";
             this.radGroupBox4.Location = new System.Drawing.Point(4, 272);
-            this.radGroupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox4.Name = "radGroupBox4";
             this.radGroupBox4.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox4.Size = new System.Drawing.Size(315, 222);
+            this.radGroupBox4.Size = new System.Drawing.Size(323, 222);
             this.radGroupBox4.TabIndex = 8;
             this.radGroupBox4.Text = "Database Settings";
-            this.radGroupBox4.ThemeName = "Office2010Black";
+            this.radGroupBox4.ThemeName = "CrystalDark";
             // 
             // btnResetFlag
             // 
             this.btnResetFlag.Location = new System.Drawing.Point(19, 130);
-            this.btnResetFlag.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResetFlag.Margin = new System.Windows.Forms.Padding(4);
             this.btnResetFlag.Name = "btnResetFlag";
             this.btnResetFlag.Size = new System.Drawing.Size(280, 30);
             this.btnResetFlag.TabIndex = 5;
             this.btnResetFlag.Text = "Reset Losing Flag in DB";
-            this.btnResetFlag.ThemeName = "Office2010Black";
+            this.btnResetFlag.ThemeName = "CrystalDark";
             this.btnResetFlag.Click += new System.EventHandler(this.btnResetFlag_Click);
             // 
             // btnImportFile2DB
             // 
             this.btnImportFile2DB.Location = new System.Drawing.Point(19, 168);
-            this.btnImportFile2DB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnImportFile2DB.Margin = new System.Windows.Forms.Padding(4);
             this.btnImportFile2DB.Name = "btnImportFile2DB";
             this.btnImportFile2DB.Size = new System.Drawing.Size(280, 30);
             this.btnImportFile2DB.TabIndex = 4;
             this.btnImportFile2DB.Text = "Import File To Database";
-            this.btnImportFile2DB.ThemeName = "Office2010Black";
+            this.btnImportFile2DB.ThemeName = "CrystalDark";
             this.btnImportFile2DB.Click += new System.EventHandler(this.btnImportFile2DB_Click);
             // 
             // radLabel2
             // 
             this.radLabel2.AutoSize = false;
             this.radLabel2.Location = new System.Drawing.Point(110, 46);
-            this.radLabel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel2.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel2.Name = "radLabel2";
-            this.radLabel2.Size = new System.Drawing.Size(189, 25);
+            this.radLabel2.Size = new System.Drawing.Size(207, 25);
             this.radLabel2.TabIndex = 3;
             this.radLabel2.Text = "Reset DB With (x) Empty Tickets";
+            this.radLabel2.ThemeName = "CrystalDark";
             // 
             // rsResetDBWithTicketCount
             // 
             this.rsResetDBWithTicketCount.Location = new System.Drawing.Point(19, 46);
-            this.rsResetDBWithTicketCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsResetDBWithTicketCount.Margin = new System.Windows.Forms.Padding(4);
             this.rsResetDBWithTicketCount.Name = "rsResetDBWithTicketCount";
             this.rsResetDBWithTicketCount.NullableValue = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.rsResetDBWithTicketCount.Size = new System.Drawing.Size(83, 25);
+            this.rsResetDBWithTicketCount.Size = new System.Drawing.Size(83, 24);
             this.rsResetDBWithTicketCount.TabIndex = 1;
             this.rsResetDBWithTicketCount.TabStop = false;
-            this.rsResetDBWithTicketCount.ThemeName = "Office2010Black";
+            this.rsResetDBWithTicketCount.ThemeName = "CrystalDark";
             this.rsResetDBWithTicketCount.Value = new decimal(new int[] {
             100,
             0,
@@ -777,24 +786,24 @@
             // btnResetDatabase
             // 
             this.btnResetDatabase.Location = new System.Drawing.Point(19, 92);
-            this.btnResetDatabase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResetDatabase.Margin = new System.Windows.Forms.Padding(4);
             this.btnResetDatabase.Name = "btnResetDatabase";
             this.btnResetDatabase.Size = new System.Drawing.Size(280, 30);
             this.btnResetDatabase.TabIndex = 0;
             this.btnResetDatabase.Text = "Reset Database";
-            this.btnResetDatabase.ThemeName = "Office2010Black";
+            this.btnResetDatabase.ThemeName = "CrystalDark";
             this.btnResetDatabase.Click += new System.EventHandler(this.btnResetDatabase_Click);
             // 
             // btnSaveSettingsOptions
             // 
             this.btnSaveSettingsOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveSettingsOptions.Location = new System.Drawing.Point(710, 552);
-            this.btnSaveSettingsOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveSettingsOptions.Location = new System.Drawing.Point(728, 569);
+            this.btnSaveSettingsOptions.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveSettingsOptions.Name = "btnSaveSettingsOptions";
             this.btnSaveSettingsOptions.Size = new System.Drawing.Size(138, 30);
             this.btnSaveSettingsOptions.TabIndex = 7;
             this.btnSaveSettingsOptions.Text = "Save Changes";
-            this.btnSaveSettingsOptions.ThemeName = "Office2010Black";
+            this.btnSaveSettingsOptions.ThemeName = "CrystalDark";
             this.btnSaveSettingsOptions.Click += new System.EventHandler(this.btnSaveSettingsOptions_Click);
             // 
             // radGroupBox3
@@ -806,41 +815,43 @@
             this.radGroupBox3.Controls.Add(this.radLabel1);
             this.radGroupBox3.Controls.Add(this.chkEnableAutoCloseLosingTicketAlert);
             this.radGroupBox3.Controls.Add(this.rsAutoCloseLosingTicket);
+            this.radGroupBox3.HeaderMargin = new System.Windows.Forms.Padding(1);
             this.radGroupBox3.HeaderText = "Ticket Result Window";
             this.radGroupBox3.Location = new System.Drawing.Point(4, 4);
-            this.radGroupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radGroupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.radGroupBox3.Name = "radGroupBox3";
             this.radGroupBox3.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
             this.radGroupBox3.Size = new System.Drawing.Size(531, 246);
             this.radGroupBox3.TabIndex = 6;
             this.radGroupBox3.Text = "Ticket Result Window";
-            this.radGroupBox3.ThemeName = "Office2010Black";
+            this.radGroupBox3.ThemeName = "CrystalDark";
             // 
             // radLabel7
             // 
             this.radLabel7.AutoSize = false;
             this.radLabel7.Location = new System.Drawing.Point(85, 142);
-            this.radLabel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel7.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel7.Name = "radLabel7";
             this.radLabel7.Size = new System.Drawing.Size(185, 22);
             this.radLabel7.TabIndex = 5;
             this.radLabel7.Text = "Auto Close After (x) Seconds";
+            this.radLabel7.ThemeName = "CrystalDark";
             // 
             // radSpinEditor2
             // 
             this.radSpinEditor2.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "AutoCloseWinningTicketWindowAfter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.radSpinEditor2.Location = new System.Drawing.Point(6, 141);
-            this.radSpinEditor2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radSpinEditor2.Margin = new System.Windows.Forms.Padding(4);
             this.radSpinEditor2.Name = "radSpinEditor2";
             this.radSpinEditor2.NullableValue = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.radSpinEditor2.Size = new System.Drawing.Size(71, 25);
+            this.radSpinEditor2.Size = new System.Drawing.Size(71, 24);
             this.radSpinEditor2.TabIndex = 4;
             this.radSpinEditor2.TabStop = false;
-            this.radSpinEditor2.ThemeName = "Office2010Black";
+            this.radSpinEditor2.ThemeName = "CrystalDark";
             this.radSpinEditor2.Value = global::ReverseRaffler.Properties.Settings.Default.AutoCloseWinningTicketWindowAfter;
             // 
             // radCheckBox1
@@ -849,23 +860,24 @@
             this.radCheckBox1.CheckState = global::ReverseRaffler.Properties.Settings.Default.EnableAutoCloseWinningTicketWindow;
             this.radCheckBox1.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", global::ReverseRaffler.Properties.Settings.Default, "EnableAutoCloseWinningTicketWindow", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.radCheckBox1.Location = new System.Drawing.Point(6, 111);
-            this.radCheckBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radCheckBox1.Margin = new System.Windows.Forms.Padding(4);
             this.radCheckBox1.Name = "radCheckBox1";
             this.radCheckBox1.Size = new System.Drawing.Size(329, 22);
             this.radCheckBox1.TabIndex = 3;
             this.radCheckBox1.Text = "Enable Auto Close Of Winning Ticket Display";
-            this.radCheckBox1.ThemeName = "Office2010Black";
+            this.radCheckBox1.ThemeName = "CrystalDark";
             this.radCheckBox1.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             // 
             // radLabel1
             // 
             this.radLabel1.AutoSize = false;
             this.radLabel1.Location = new System.Drawing.Point(85, 80);
-            this.radLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radLabel1.Margin = new System.Windows.Forms.Padding(4);
             this.radLabel1.Name = "radLabel1";
             this.radLabel1.Size = new System.Drawing.Size(185, 22);
             this.radLabel1.TabIndex = 2;
             this.radLabel1.Text = "Auto Close After (x) Seconds";
+            this.radLabel1.ThemeName = "CrystalDark";
             // 
             // chkEnableAutoCloseLosingTicketAlert
             // 
@@ -873,29 +885,29 @@
             this.chkEnableAutoCloseLosingTicketAlert.CheckState = global::ReverseRaffler.Properties.Settings.Default.EnableAutoCloseLosingTicketWindow;
             this.chkEnableAutoCloseLosingTicketAlert.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", global::ReverseRaffler.Properties.Settings.Default, "EnableAutoCloseLosingTicketWindow", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkEnableAutoCloseLosingTicketAlert.Location = new System.Drawing.Point(6, 49);
-            this.chkEnableAutoCloseLosingTicketAlert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkEnableAutoCloseLosingTicketAlert.Margin = new System.Windows.Forms.Padding(4);
             this.chkEnableAutoCloseLosingTicketAlert.Name = "chkEnableAutoCloseLosingTicketAlert";
             this.chkEnableAutoCloseLosingTicketAlert.Size = new System.Drawing.Size(292, 22);
             this.chkEnableAutoCloseLosingTicketAlert.TabIndex = 0;
             this.chkEnableAutoCloseLosingTicketAlert.Text = "Enable Auto Close Of Losing Ticket Display";
-            this.chkEnableAutoCloseLosingTicketAlert.ThemeName = "Office2010Black";
+            this.chkEnableAutoCloseLosingTicketAlert.ThemeName = "CrystalDark";
             this.chkEnableAutoCloseLosingTicketAlert.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
             // 
             // rsAutoCloseLosingTicket
             // 
             this.rsAutoCloseLosingTicket.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "AutoCloseLosingTicketWindowAfter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.rsAutoCloseLosingTicket.Location = new System.Drawing.Point(6, 79);
-            this.rsAutoCloseLosingTicket.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rsAutoCloseLosingTicket.Margin = new System.Windows.Forms.Padding(4);
             this.rsAutoCloseLosingTicket.Name = "rsAutoCloseLosingTicket";
             this.rsAutoCloseLosingTicket.NullableValue = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.rsAutoCloseLosingTicket.Size = new System.Drawing.Size(71, 25);
+            this.rsAutoCloseLosingTicket.Size = new System.Drawing.Size(71, 24);
             this.rsAutoCloseLosingTicket.TabIndex = 1;
             this.rsAutoCloseLosingTicket.TabStop = false;
-            this.rsAutoCloseLosingTicket.ThemeName = "Office2010Black";
+            this.rsAutoCloseLosingTicket.ThemeName = "CrystalDark";
             this.rsAutoCloseLosingTicket.Value = global::ReverseRaffler.Properties.Settings.Default.AutoCloseLosingTicketWindowAfter;
             // 
             // mnuView
@@ -923,11 +935,11 @@
             this.mnuView,
             this.mnuHelp});
             this.radMenu1.Location = new System.Drawing.Point(0, 0);
-            this.radMenu1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radMenu1.Margin = new System.Windows.Forms.Padding(4);
             this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(893, 25);
+            this.radMenu1.Size = new System.Drawing.Size(893, 34);
             this.radMenu1.TabIndex = 0;
-            this.radMenu1.ThemeName = "Office2010Black";
+            this.radMenu1.ThemeName = "CrystalDark";
             // 
             // frmConsole
             // 
@@ -940,7 +952,7 @@
             this.Name = "frmConsole";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reverse Raffler";
-            this.ThemeName = "Office2010Black";
+            this.ThemeName = "CrystalDark";
             this.Load += new System.EventHandler(this.frmConsole_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
@@ -1005,7 +1017,7 @@
 
         #endregion
 
-        private Telerik.WinControls.Themes.Office2010BlackTheme office2010BlackTheme1;
+        private Telerik.WinControls.Themes.CrystalDarkTheme CrystalDarkTheme1;
         private Telerik.WinControls.UI.RadStatusStrip radStatusStrip1;
         private Telerik.WinControls.UI.RadLabelElement lblAppStatus;
         private Telerik.WinControls.UI.RadPageView radPageView1;

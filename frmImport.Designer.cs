@@ -42,7 +42,7 @@
             this.progressImportStatus.Size = new System.Drawing.Size(386, 32);
             this.progressImportStatus.TabIndex = 0;
             this.progressImportStatus.Text = "Importing File...";
-            this.progressImportStatus.ThemeName = "Office2010Black";
+            this.progressImportStatus.ThemeName = "CrystalDark";
             // 
             // frmImport
             // 
@@ -59,7 +59,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import Raffle File";
-            this.ThemeName = "Office2010Black";
+            this.ThemeName = "CrystalDark";
             this.Load += new System.EventHandler(this.frmImport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.progressImportStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

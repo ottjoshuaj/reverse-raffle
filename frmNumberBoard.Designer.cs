@@ -52,7 +52,7 @@
             this.Name = "frmNumberBoard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Raffle Tickets";
-            this.ThemeName = "Office2010Black";
+            this.ThemeName = "CrystalDark";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
