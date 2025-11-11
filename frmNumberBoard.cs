@@ -14,6 +14,7 @@ using Telerik.WinControls.UI;
 
 using ReverseRaffler.Controls;
 using ReverseRaffler.Data;
+using ReverseRaffler.Objects;
 using Timer = System.Threading.Timer;
 
 namespace ReverseRaffler
@@ -24,6 +25,8 @@ namespace ReverseRaffler
 
         private RaffleCanvas _raffleCanvas;
         private RaffleOverlay _overlay;
+        private List<AnnouncementHistoryItem> _announcementHistory;
+        private int _currentHistoryIndex;
 
         #endregion
 
@@ -60,6 +63,8 @@ namespace ReverseRaffler
             InitializeComponent();
 
             RaffleIsOver = false;
+            _announcementHistory = new List<AnnouncementHistoryItem>();
+            _currentHistoryIndex = -1;
 
             // Initialize the new canvas-based system
             InitializeRaffleCanvas();
@@ -130,11 +135,11 @@ namespace ReverseRaffler
                     int autoCloseMs = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked ?
                         (int)(Properties.Settings.Default.AutoCloseLosingTicketWindowAfter * 1000) : 0;
 
-                    _overlay.ShowLoser(
-                        ticketNumber.ToString(CultureInfo.InvariantCulture),
-                        new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 },
-                        autoCloseMs
-                    );
+                    var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
+                    _overlay.ShowLoser(ticketNumber.ToString(CultureInfo.InvariantCulture), names, autoCloseMs);
+
+                    // Track in history
+                    AddToHistory(AnnouncementType.Loser, ticketNumber.ToString(CultureInfo.InvariantCulture), names);
 
                     // Wait for overlay to close before showing winner
                     var closeWaiter = new System.Windows.Forms.Timer { Interval = autoCloseMs > 0 ? autoCloseMs : 100 };
@@ -159,11 +164,11 @@ namespace ReverseRaffler
                 int autoCloseMs = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked ?
                     (int)(Properties.Settings.Default.AutoCloseLosingTicketWindowAfter * 1000) : 0;
 
-                _overlay.ShowLoser(
-                    ticketNumber.ToString(CultureInfo.InvariantCulture),
-                    new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 },
-                    autoCloseMs
-                );
+                var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
+                _overlay.ShowLoser(ticketNumber.ToString(CultureInfo.InvariantCulture), names, autoCloseMs);
+
+                // Track in history
+                AddToHistory(AnnouncementType.Loser, ticketNumber.ToString(CultureInfo.InvariantCulture), names);
             }
         }
 
@@ -192,6 +197,9 @@ namespace ReverseRaffler
                 (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
 
             _overlay.ShowWinner(winningTickets, winners, autoCloseMs);
+
+            // Track in history
+            AddToHistory(AnnouncementType.Winner, winningTickets, winners);
 
             // Mark raffle as over
             RaffleIsOver = true;
@@ -241,17 +249,140 @@ namespace ReverseRaffler
             int autoCloseMs = Properties.Settings.Default.EnableAutoCloseWinningTicketWindow == CheckState.Checked ?
                 (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
 
-            _overlay.ShowWinner(
-                selTicket.TicketNumber.ToString(CultureInfo.InvariantCulture),
-                winners,
-                autoCloseMs
-            );
+            var ticketNum = selTicket.TicketNumber.ToString(CultureInfo.InvariantCulture);
+            _overlay.ShowWinner(ticketNum, winners, autoCloseMs);
+
+            // Track in history
+            AddToHistory(AnnouncementType.Winner, ticketNum, winners);
         }
 
         public void ClearRaffleScreen()
         {
             _raffleCanvas?.Clear();
             _overlay?.Close();
+            _announcementHistory.Clear();
+            _currentHistoryIndex = -1;
         }
+
+        #region Announcement History Navigation
+
+        /// <summary>
+        /// Adds an announcement to history
+        /// </summary>
+        private void AddToHistory(AnnouncementType type, string ticketNumbers, IEnumerable<string> names)
+        {
+            var item = new AnnouncementHistoryItem
+            {
+                Type = type,
+                TicketNumbers = ticketNumbers,
+                Names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>(),
+                Timestamp = DateTime.Now,
+                SequenceNumber = _announcementHistory.Count
+            };
+
+            _announcementHistory.Add(item);
+            _currentHistoryIndex = _announcementHistory.Count - 1;
+        }
+
+        /// <summary>
+        /// Shows the most recent announcement
+        /// </summary>
+        public void ShowMostRecentAnnouncement()
+        {
+            if (_announcementHistory.Count == 0)
+            {
+                Telerik.WinControls.RadMessageBox.Show("No announcements to show yet.", "No History",
+                    System.Windows.Forms.MessageBoxButtons.OK, Telerik.WinControls.RadMessageIcon.Info);
+                return;
+            }
+
+            _currentHistoryIndex = _announcementHistory.Count - 1;
+            ShowCurrentHistoryItem();
+        }
+
+        /// <summary>
+        /// Shows the previous announcement in history
+        /// </summary>
+        public void ShowPreviousAnnouncement()
+        {
+            if (_announcementHistory.Count == 0) return;
+
+            if (_currentHistoryIndex > 0)
+            {
+                _currentHistoryIndex--;
+                ShowCurrentHistoryItem();
+            }
+            else
+            {
+                Telerik.WinControls.RadMessageBox.Show("Already at the first announcement.", "History",
+                    System.Windows.Forms.MessageBoxButtons.OK, Telerik.WinControls.RadMessageIcon.Info);
+            }
+        }
+
+        /// <summary>
+        /// Shows the next announcement in history
+        /// </summary>
+        public void ShowNextAnnouncement()
+        {
+            if (_announcementHistory.Count == 0) return;
+
+            if (_currentHistoryIndex < _announcementHistory.Count - 1)
+            {
+                _currentHistoryIndex++;
+                ShowCurrentHistoryItem();
+            }
+            else
+            {
+                Telerik.WinControls.RadMessageBox.Show("Already at the most recent announcement.", "History",
+                    System.Windows.Forms.MessageBoxButtons.OK, Telerik.WinControls.RadMessageIcon.Info);
+            }
+        }
+
+        /// <summary>
+        /// Closes the current overlay
+        /// </summary>
+        public void CloseCurrentOverlay()
+        {
+            _overlay?.Close();
+        }
+
+        /// <summary>
+        /// Gets whether there are any announcements in history
+        /// </summary>
+        public bool HasHistory => _announcementHistory.Count > 0;
+
+        /// <summary>
+        /// Gets the current history position (for UI display)
+        /// </summary>
+        public string GetHistoryPosition()
+        {
+            if (_announcementHistory.Count == 0)
+                return "No history";
+
+            return $"{_currentHistoryIndex + 1} of {_announcementHistory.Count}";
+        }
+
+        /// <summary>
+        /// Shows the announcement at the current history index
+        /// </summary>
+        private void ShowCurrentHistoryItem()
+        {
+            if (_currentHistoryIndex < 0 || _currentHistoryIndex >= _announcementHistory.Count)
+                return;
+
+            var item = _announcementHistory[_currentHistoryIndex];
+
+            // Don't auto-close when viewing history
+            if (item.Type == AnnouncementType.Winner)
+            {
+                _overlay.ShowWinner(item.TicketNumbers, item.Names, 0);
+            }
+            else
+            {
+                _overlay.ShowLoser(item.TicketNumbers, item.Names, 0);
+            }
+        }
+
+        #endregion
     }
 }

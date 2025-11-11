@@ -57,6 +57,11 @@
             this.btnBeginRaffle = new Telerik.WinControls.UI.RadButton();
             this.rsTicketNumber = new Telerik.WinControls.UI.RadSpinEditor();
             this.btnMarkTicketAsNotGood = new Telerik.WinControls.UI.RadButton();
+            this.btnShowRecentAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.btnCloseOverlay = new Telerik.WinControls.UI.RadButton();
+            this.btnPreviousAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.btnNextAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.lblHistoryPosition = new System.Windows.Forms.Label();
             this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
             this.gridTicketHolders = new Telerik.WinControls.UI.RadGridView();
             this.rpvSettings = new Telerik.WinControls.UI.RadPageViewPage();
@@ -102,6 +107,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBeginRaffle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rsTicketNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMarkTicketAsNotGood)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNextAnnouncement)).BeginInit();
             this.radPageViewPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).BeginInit();
@@ -292,6 +301,11 @@
             this.radGroupBox1.Controls.Add(this.btnBeginRaffle);
             this.radGroupBox1.Controls.Add(this.rsTicketNumber);
             this.radGroupBox1.Controls.Add(this.btnMarkTicketAsNotGood);
+            this.radGroupBox1.Controls.Add(this.btnShowRecentAnnouncement);
+            this.radGroupBox1.Controls.Add(this.btnCloseOverlay);
+            this.radGroupBox1.Controls.Add(this.btnPreviousAnnouncement);
+            this.radGroupBox1.Controls.Add(this.btnNextAnnouncement);
+            this.radGroupBox1.Controls.Add(this.lblHistoryPosition);
             this.radGroupBox1.HeaderText = "Raffle";
             this.radGroupBox1.Location = new System.Drawing.Point(15, 21);
             this.radGroupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -399,7 +413,7 @@
             this.rsTicketNumber.ThemeName = "Office2010Black";
             // 
             // btnMarkTicketAsNotGood
-            // 
+            //
             this.btnMarkTicketAsNotGood.Enabled = false;
             this.btnMarkTicketAsNotGood.Location = new System.Drawing.Point(116, 260);
             this.btnMarkTicketAsNotGood.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -409,7 +423,65 @@
             this.btnMarkTicketAsNotGood.Text = "Remove Ticket From Raffle";
             this.btnMarkTicketAsNotGood.ThemeName = "Office2010Black";
             this.btnMarkTicketAsNotGood.Click += new System.EventHandler(this.btnMarkTicketAsNotGood_Click);
-            // 
+            //
+            // btnShowRecentAnnouncement
+            //
+            this.btnShowRecentAnnouncement.Enabled = false;
+            this.btnShowRecentAnnouncement.Location = new System.Drawing.Point(10, 310);
+            this.btnShowRecentAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnShowRecentAnnouncement.Name = "btnShowRecentAnnouncement";
+            this.btnShowRecentAnnouncement.Size = new System.Drawing.Size(307, 30);
+            this.btnShowRecentAnnouncement.TabIndex = 11;
+            this.btnShowRecentAnnouncement.Text = "Show Recent Winner/Loser";
+            this.btnShowRecentAnnouncement.ThemeName = "Office2010Black";
+            this.btnShowRecentAnnouncement.Click += new System.EventHandler(this.btnShowRecentAnnouncement_Click);
+            //
+            // btnCloseOverlay
+            //
+            this.btnCloseOverlay.Enabled = false;
+            this.btnCloseOverlay.Location = new System.Drawing.Point(10, 346);
+            this.btnCloseOverlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseOverlay.Name = "btnCloseOverlay";
+            this.btnCloseOverlay.Size = new System.Drawing.Size(307, 30);
+            this.btnCloseOverlay.TabIndex = 12;
+            this.btnCloseOverlay.Text = "Close Overlay";
+            this.btnCloseOverlay.ThemeName = "Office2010Black";
+            this.btnCloseOverlay.Click += new System.EventHandler(this.btnCloseOverlay_Click);
+            //
+            // btnPreviousAnnouncement
+            //
+            this.btnPreviousAnnouncement.Enabled = false;
+            this.btnPreviousAnnouncement.Location = new System.Drawing.Point(10, 382);
+            this.btnPreviousAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPreviousAnnouncement.Name = "btnPreviousAnnouncement";
+            this.btnPreviousAnnouncement.Size = new System.Drawing.Size(98, 30);
+            this.btnPreviousAnnouncement.TabIndex = 13;
+            this.btnPreviousAnnouncement.Text = "< Previous";
+            this.btnPreviousAnnouncement.ThemeName = "Office2010Black";
+            this.btnPreviousAnnouncement.Click += new System.EventHandler(this.btnPreviousAnnouncement_Click);
+            //
+            // btnNextAnnouncement
+            //
+            this.btnNextAnnouncement.Enabled = false;
+            this.btnNextAnnouncement.Location = new System.Drawing.Point(116, 382);
+            this.btnNextAnnouncement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNextAnnouncement.Name = "btnNextAnnouncement";
+            this.btnNextAnnouncement.Size = new System.Drawing.Size(98, 30);
+            this.btnNextAnnouncement.TabIndex = 14;
+            this.btnNextAnnouncement.Text = "Next >";
+            this.btnNextAnnouncement.ThemeName = "Office2010Black";
+            this.btnNextAnnouncement.Click += new System.EventHandler(this.btnNextAnnouncement_Click);
+            //
+            // lblHistoryPosition
+            //
+            this.lblHistoryPosition.Location = new System.Drawing.Point(222, 382);
+            this.lblHistoryPosition.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblHistoryPosition.Name = "lblHistoryPosition";
+            this.lblHistoryPosition.Size = new System.Drawing.Size(95, 30);
+            this.lblHistoryPosition.TabIndex = 15;
+            this.lblHistoryPosition.Text = "";
+            this.lblHistoryPosition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
             // radPageViewPage2
             // 
             this.radPageViewPage2.Controls.Add(this.gridTicketHolders);
@@ -885,6 +957,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBeginRaffle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rsTicketNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMarkTicketAsNotGood)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNextAnnouncement)).EndInit();
             this.radPageViewPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).EndInit();
@@ -937,6 +1013,11 @@
         private Telerik.WinControls.UI.RadPageViewPage radPageViewPage2;
         private Telerik.WinControls.UI.RadGridView gridTicketHolders;
         private Telerik.WinControls.UI.RadButton btnMarkTicketAsNotGood;
+        private Telerik.WinControls.UI.RadButton btnShowRecentAnnouncement;
+        private Telerik.WinControls.UI.RadButton btnCloseOverlay;
+        private Telerik.WinControls.UI.RadButton btnPreviousAnnouncement;
+        private Telerik.WinControls.UI.RadButton btnNextAnnouncement;
+        private System.Windows.Forms.Label lblHistoryPosition;
         private Telerik.WinControls.UI.RadSpinEditor rsTicketNumber;
         private Telerik.WinControls.UI.RadButton btnBeginRaffle;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;

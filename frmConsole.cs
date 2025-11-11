@@ -219,6 +219,9 @@ namespace ReverseRaffler
             //Set available winners
             numberBoard.AvailableWinners = Convert.ToInt32(rsTotalWinningTickets.Value);
 
+            // Show the form first so the canvas has proper dimensions
+            numberBoard.Show();
+
             //Add Raffle Tickets
             foreach (var tickItem in RaffleTickets.OrderBy(x => x.TicketNumber))
             {
@@ -229,8 +232,6 @@ namespace ReverseRaffler
 
                 numberBoard.AddTicketRaffle(tickItem);
             }
-
-            numberBoard.Show();
 
             //Enable Buttons
             btnBeginRaffle.Enabled = false;
@@ -253,6 +254,9 @@ namespace ReverseRaffler
 
             //Set App Status
             lblAppStatus.Text = @"Raffle is running...";
+
+            //Update history control states
+            UpdateHistoryControlStates();
         }
 
         private void btnEndRaffle_Click(object sender, EventArgs e)
@@ -284,6 +288,9 @@ namespace ReverseRaffler
                 numberBoard = null;
 
                 ticketsRemoved = 0;
+
+                //Update history control states
+                UpdateHistoryControlStates();
             }
         }
 
@@ -334,6 +341,60 @@ namespace ReverseRaffler
 
             //Set app status
             lblAppTicketStatus.Text = $"Ticket #: {ticketNumber} was drawn..";
+
+            //Update history controls
+            UpdateHistoryControlStates();
+        }
+
+        private void btnShowRecentAnnouncement_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.HasHistory) return;
+
+            numberBoard.ShowMostRecentAnnouncement();
+            UpdateHistoryControlStates();
+        }
+
+        private void btnCloseOverlay_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null) return;
+
+            numberBoard.CloseCurrentOverlay();
+        }
+
+        private void btnPreviousAnnouncement_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.HasHistory) return;
+
+            numberBoard.ShowPreviousAnnouncement();
+            UpdateHistoryControlStates();
+        }
+
+        private void btnNextAnnouncement_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.HasHistory) return;
+
+            numberBoard.ShowNextAnnouncement();
+            UpdateHistoryControlStates();
+        }
+
+        private void UpdateHistoryControlStates()
+        {
+            if (numberBoard == null || !numberBoard.HasHistory)
+            {
+                btnShowRecentAnnouncement.Enabled = false;
+                btnCloseOverlay.Enabled = false;
+                btnPreviousAnnouncement.Enabled = false;
+                btnNextAnnouncement.Enabled = false;
+                lblHistoryPosition.Text = "";
+            }
+            else
+            {
+                btnShowRecentAnnouncement.Enabled = true;
+                btnCloseOverlay.Enabled = true;
+                btnPreviousAnnouncement.Enabled = true;
+                btnNextAnnouncement.Enabled = true;
+                lblHistoryPosition.Text = numberBoard.GetHistoryPosition();
+            }
         }
 
         #endregion

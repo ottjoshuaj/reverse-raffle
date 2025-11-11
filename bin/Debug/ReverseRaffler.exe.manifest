@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EPPlus.dll" size="2164224">
-      <assemblyIdentity name="EPPlus" version="5.2.1.0" publicKeyToken="EA159FDAA78159A1" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EPPlus.dll" size="1299456">
+      <assemblyIdentity name="EPPlus" version="4.5.3.3" publicKeyToken="EA159FDAA78159A1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jRovHiSQvJ93PSeljp4Mc45L/bhPgBY1P2417q+VYLA=</dsig:DigestValue>
+        <dsig:DigestValue>CInMCqJU13xKaRTimLij2fKqrV0RffS6NYaO0VldV/o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -187,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReverseRaffler.exe" size="225792">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReverseRaffler.exe" size="230912">
       <assemblyIdentity name="ReverseRaffler" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a5uNypKK+4SQi9sK12NDBPJT+RLBFurzIgYGoSrrHBk=</dsig:DigestValue>
+        <dsig:DigestValue>KZJkvSghA7UUrbwORvg5bJrbDNfEQLG7M2Tzc/latMM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

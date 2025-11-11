@@ -1,12 +1,69 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\reverse-raffle\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|d:\\reverse-raffle\\controls\\ctlnumbersheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|solutionrelative:controls\\ctlnumbersheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|d:\\reverse-raffle\\frmnumberboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|solutionrelative:frmnumberboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|d:\\reverse-raffle\\controls\\ctlnumbersheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|solutionrelative:controls\\ctlnumbersheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ctlNumberSheet.cs",
+              "DocumentMoniker": "D:\\reverse-raffle\\Controls\\ctlNumberSheet.cs",
+              "RelativeDocumentMoniker": "Controls\\ctlNumberSheet.cs",
+              "ToolTip": "D:\\reverse-raffle\\Controls\\ctlNumberSheet.cs",
+              "RelativeToolTip": "Controls\\ctlNumberSheet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T05:12:48.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ctlNumberSheet.cs [Design]",
+              "DocumentMoniker": "D:\\reverse-raffle\\Controls\\ctlNumberSheet.cs",
+              "RelativeDocumentMoniker": "Controls\\ctlNumberSheet.cs",
+              "ToolTip": "D:\\reverse-raffle\\Controls\\ctlNumberSheet.cs [Design]",
+              "RelativeToolTip": "Controls\\ctlNumberSheet.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T05:12:02.814Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmNumberBoard.cs [Design]",
+              "DocumentMoniker": "D:\\reverse-raffle\\frmNumberBoard.cs",
+              "RelativeDocumentMoniker": "frmNumberBoard.cs",
+              "ToolTip": "D:\\reverse-raffle\\frmNumberBoard.cs [Design]",
+              "RelativeToolTip": "frmNumberBoard.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T05:10:03.739Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -76,15 +76,19 @@ public static List<TicketHolder> ImportFromExcelFile(string filePath)
 
 Added EPPlus NuGet package:
 ```xml
-<package id="EPPlus" version="5.2.1" targetFramework="net48" />
+<package id="EPPlus" version="4.5.3.3" targetFramework="net48" />
 ```
 
 **EPPlus Library:**
-- Version: 5.2.1 (using v5 instead of v6 to avoid WPF dependencies)
-- License: LGPL (free for all use cases)
+- Version: 4.5.3.3 (last truly free version with LGPL license)
+- License: **LGPL v3** - Free for ALL uses (commercial & non-commercial)
 - Functionality: Reading/Writing Excel files (.xlsx format)
-- Dependencies: Minimal - no WPF/PresentationCore required
-- **Note:** We use version 5.2.1 instead of the newer 6.x because EPPlus 6.x requires WPF's PresentationCore assembly, which is not needed for basic Excel operations in WinForms applications.
+- Dependencies: Minimal - pure .NET Framework, no external dependencies
+- **Why 4.5.3.3?**
+  - EPPlus 5.x+ requires setting `LicenseContext` and has commercial restrictions
+  - EPPlus 4.5.3.3 is the last version with LGPL (truly free)
+  - No license configuration needed - works out of the box
+  - Has all features we need for simple Excel import/export
 
 ---
 
@@ -423,18 +427,25 @@ Ticket # | Name 1      | Name 2         | Name 3
 
 ## Dependencies Added
 
-### EPPlus 5.2.1
+### EPPlus 4.5.3.3
 - **Purpose:** Excel file reading/writing
-- **License:** LGPL (free for all uses)
-- **Size:** ~3 MB
-- **Target Framework:** .NET Framework 4.5+
+- **License:** **LGPL v3** (free for all uses - no restrictions!)
+- **Size:** ~2.5 MB
+- **Target Framework:** .NET Framework 4.0+
 - **NuGet Package:** `EPPlus`
 
-**Why Version 5.2.1?**
-- EPPlus 6.x introduced a dependency on WPF's `PresentationCore` assembly for advanced charting features
-- This causes issues in pure WinForms applications that don't use WPF
-- EPPlus 5.2.1 is the last stable version before this change and has all the Excel reading/writing features we need
-- Version 5.x uses LGPL license (free for all uses) vs version 6.x which requires paid license for commercial use
+**Why Version 4.5.3.3?**
+- **Last truly free version**: EPPlus 4.5.3.3 uses LGPL v3 license with no commercial restrictions
+- **No license context**: EPPlus 5.x+ requires setting `LicenseContext` property and has licensing restrictions
+- **No WPF dependencies**: Pure .NET Framework, works perfectly in WinForms
+- **Battle-tested**: This version has been used in millions of projects for years
+- **All features we need**: Has everything for basic Excel import/export
+- **Smaller package**: Lighter than newer versions
+
+**License Comparison:**
+- EPPlus 4.5.3.3: LGPL v3 ✅ Free for commercial use
+- EPPlus 5.x: Polyform Noncommercial ❌ Requires license for commercial use
+- EPPlus 6.x: Commercial ❌ Requires paid license
 
 ---
 
@@ -513,8 +524,8 @@ Ticket # | Name 1      | Name 2         | Name 3
    - EPPlus reads final values, not formulas
 
 5. **Version Specific**
-   - Using EPPlus 5.2.1 (LGPL license)
-   - Newer 6.x versions require WPF dependencies
+   - Using EPPlus 4.5.3.3 (LGPL v3 license - truly free)
+   - Newer 5.x/6.x versions require license configuration and have commercial restrictions
 
 ---
 

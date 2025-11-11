@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNumberBoard));
-            this.panelTickerHolder = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelTickerHolder = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTickerHolder
-            // 
-            this.panelTickerHolder.AutoScroll = true;
+            //
             this.panelTickerHolder.BackColor = System.Drawing.Color.White;
             this.panelTickerHolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTickerHolder.Location = new System.Drawing.Point(0, 0);
@@ -51,14 +50,9 @@
             this.Controls.Add(this.panelTickerHolder);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmNumberBoard";
-            // 
-            // 
-            // 
-            this.RootElement.ApplyShapeToControl = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Raffle Tickets";
             this.ThemeName = "Office2010Black";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -66,7 +60,7 @@
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel panelTickerHolder;
+        private System.Windows.Forms.Panel panelTickerHolder;
 
 
 
