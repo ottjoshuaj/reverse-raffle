@@ -15,6 +15,9 @@ namespace ReverseRaffler.Api.Controllers
         [Route("")]
         public HttpResponseMessage Get()
         {
+            // Log page access
+            TicketController.LogActivity?.Invoke("API Request: Mobile page accessed");
+
             var html = @"
 <!DOCTYPE html>
 <html lang='en'>
@@ -145,6 +148,7 @@ namespace ReverseRaffler.Api.Controllers
                 <label for='ticketNumber'>Ticket Number</label>
                 <div class='input-row'>
                     <input type='number' id='ticketNumber' name='ticketNumber'
+                           inputmode='numeric' pattern='[0-9]*'
                            placeholder='Enter number' required autofocus>
                     <button type='submit'>Submit</button>
                 </div>

@@ -259,6 +259,9 @@ namespace ReverseRaffler
 
             //Update history control states
             UpdateHistoryControlStates();
+
+            //Start API Server automatically
+            StartApiServer();
         }
 
         private void btnEndRaffle_Click(object sender, EventArgs e)
@@ -293,6 +296,9 @@ namespace ReverseRaffler
 
                 //Update history control states
                 UpdateHistoryControlStates();
+
+                //Stop API Server automatically
+                StopApiServer();
             }
         }
 
@@ -488,58 +494,70 @@ namespace ReverseRaffler
         #region API Startup
 
         Timer getApiTicketNumber;
+        private const int API_PORT = 9150; // Fixed port to avoid conflicts
 
-        private void radButton1_Click(object sender, EventArgs e)
+        private void StartApiServer()
         {
-            if(radButton1.Text == "Start API Server")
+            try
             {
-                try
+                // Bind to all IPs on port 9150
+                string baseAddress = $"http://+:{API_PORT}/";
+                webServer = WebApp.Start<ApiConfig>(url: baseAddress);
+
+                // Set up API logging
+                Api.Controllers.TicketController.LogActivity = LogApiActivity;
+
+                // Get and display all local IP addresses
+                var localIPs = GetLocalIPAddresses();
+
+                // Log API server start
+                LogApiActivity($"API Server Started on port {API_PORT}");
+                foreach (var ip in localIPs)
                 {
-                    // Get port from settings (default 6060 if empty)
-                    string port = Properties.Settings.Default.APIBindPort;
-                    if (string.IsNullOrWhiteSpace(port))
-                    {
-                        port = "6060";
-                        Properties.Settings.Default.APIBindPort = port;
-                        Properties.Settings.Default.Save();
-                        txtAPIIpPort.Text = port;
-                    }
-
-                    // Bind to all IPs (0.0.0.0)
-                    string baseAddress = $"http://+:{port}/";
-                    webServer = WebApp.Start<ApiConfig>(url: baseAddress);
-
-                    // Get and display all local IP addresses
-                    var localIPs = GetLocalIPAddresses();
-                    var ipList = string.Join("\n", localIPs.Select(ip => $"http://{ip}:{port}"));
-
-                    radLabel5.Text = $"Available on:\n{ipList}";
-                    radButton1.Text = "Stop API Server";
-
-                    //TicketController.currentTicketNumber polling
-                    getApiTicketNumber = new Timer();
-                    getApiTicketNumber.Interval = 2000;
-                    getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
-                    getApiTicketNumber.Start();
+                    LogApiActivity($"  Available at: http://{ip}:{API_PORT}");
                 }
-                catch (Exception ex)
-                {
-                    RadMessageBox.Show($"Failed to start API server.\r\n\r\n" +
-                        $"Error: {ex.Message}\r\n\r\n" +
-                        $"Try running as Administrator or use a different port.",
-                        "API Error", MessageBoxButtons.OK, RadMessageIcon.Error);
-                }
+
+                //TicketController.currentTicketNumber polling
+                getApiTicketNumber = new Timer();
+                getApiTicketNumber.Interval = 2000;
+                getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
+                getApiTicketNumber.Start();
             }
-            else
+            catch (Exception ex)
             {
-                radButton1.Text = "Start API Server";
-                radLabel5.Text = "Url: /api/ticket?number=TICKETNUMBER";
-
-                webServer?.Dispose();
-                getApiTicketNumber?.Stop();
-                getApiTicketNumber?.Dispose();
-                getApiTicketNumber = null;
+                LogApiActivity($"ERROR: Failed to start API server - {ex.Message}");
+                RadMessageBox.Show($"Failed to start API server on port {API_PORT}.\r\n\r\n" +
+                    $"Error: {ex.Message}\r\n\r\n" +
+                    $"SOLUTION 1: Run this application as Administrator\r\n\r\n" +
+                    $"SOLUTION 2: Run this command once as Administrator:\r\n" +
+                    $"netsh http add urlacl url=http://+:{API_PORT}/ user=Everyone",
+                    "API Error - Admin Rights Required", MessageBoxButtons.OK, RadMessageIcon.Error);
             }
+        }
+
+        private void StopApiServer()
+        {
+            LogApiActivity("API Server Stopped");
+
+            // Clear API logging delegate
+            Api.Controllers.TicketController.LogActivity = null;
+
+            webServer?.Dispose();
+            getApiTicketNumber?.Stop();
+            getApiTicketNumber?.Dispose();
+            getApiTicketNumber = null;
+        }
+
+        private void LogApiActivity(string message)
+        {
+            if (txtApiLogs.InvokeRequired)
+            {
+                txtApiLogs.Invoke(new Action(() => LogApiActivity(message)));
+                return;
+            }
+
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            txtApiLogs.AppendText($"[{timestamp}] {message}\r\n");
         }
 
         private List<string> GetLocalIPAddresses()

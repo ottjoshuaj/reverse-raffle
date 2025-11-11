@@ -65,11 +65,8 @@
             this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
             this.gridTicketHolders = new Telerik.WinControls.UI.RadGridView();
             this.rpvSettings = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radGroupBox6 = new Telerik.WinControls.UI.RadGroupBox();
-            this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
-            this.radButton1 = new Telerik.WinControls.UI.RadButton();
-            this.txtAPIIpPort = new System.Windows.Forms.TextBox();
-            this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
+            this.rpvApiLogs = new Telerik.WinControls.UI.RadPageViewPage();
+            this.txtApiLogs = new System.Windows.Forms.TextBox();
             this.radGroupBox5 = new Telerik.WinControls.UI.RadGroupBox();
             this.radSpinEditor1 = new Telerik.WinControls.UI.RadSpinEditor();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
@@ -115,11 +112,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).BeginInit();
             this.rpvSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox6)).BeginInit();
-            this.radGroupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox5)).BeginInit();
             this.radGroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radSpinEditor1)).BeginInit();
@@ -186,6 +178,7 @@
             this.radPageView1.Controls.Add(this.radPageViewPage1);
             this.radPageView1.Controls.Add(this.radPageViewPage2);
             this.radPageView1.Controls.Add(this.rpvSettings);
+            this.radPageView1.Controls.Add(this.rpvApiLogs);
             this.radPageView1.DefaultPage = this.radPageViewPage2;
             this.radPageView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radPageView1.Location = new System.Drawing.Point(0, 34);
@@ -552,8 +545,7 @@
             this.gridTicketHolders.UseScrollbarsInHierarchy = true;
             // 
             // rpvSettings
-            // 
-            this.rpvSettings.Controls.Add(this.radGroupBox6);
+            //
             this.rpvSettings.Controls.Add(this.radGroupBox5);
             this.rpvSettings.Controls.Add(this.radGroupBox4);
             this.rpvSettings.Controls.Add(this.btnSaveSettingsOptions);
@@ -564,68 +556,16 @@
             this.rpvSettings.Name = "rpvSettings";
             this.rpvSettings.Size = new System.Drawing.Size(881, 616);
             this.rpvSettings.Text = "Settings";
-            // 
-            // radGroupBox6
-            // 
-            this.radGroupBox6.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox6.Controls.Add(this.radLabel5);
-            this.radGroupBox6.Controls.Add(this.radButton1);
-            this.radGroupBox6.Controls.Add(this.txtAPIIpPort);
-            this.radGroupBox6.Controls.Add(this.radLabel6);
-            this.radGroupBox6.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox6.HeaderText = "Remote API Control";
-            this.radGroupBox6.Location = new System.Drawing.Point(542, 274);
-            this.radGroupBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox6.Name = "radGroupBox6";
-            this.radGroupBox6.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox6.Size = new System.Drawing.Size(315, 220);
-            this.radGroupBox6.TabIndex = 10;
-            this.radGroupBox6.Text = "Remote API Control";
-            this.radGroupBox6.ThemeName = "CrystalDark";
-            // 
-            // radLabel5
-            // 
-            this.radLabel5.AutoSize = false;
-            this.radLabel5.Location = new System.Drawing.Point(8, 166);
-            this.radLabel5.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel5.Name = "radLabel5";
-            this.radLabel5.Size = new System.Drawing.Size(301, 48);
-            this.radLabel5.TabIndex = 9;
-            this.radLabel5.Text = "Url:  /api/ticket?number=TICKETNUMBER";
-            this.radLabel5.ThemeName = "CrystalDark";
-            // 
-            // radButton1
-            // 
-            this.radButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radButton1.Location = new System.Drawing.Point(8, 128);
-            this.radButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(301, 30);
-            this.radButton1.TabIndex = 8;
-            this.radButton1.Text = "Start API Server";
-            this.radButton1.ThemeName = "CrystalDark";
-            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
-            // 
-            // txtAPIIpPort
-            // 
-            this.txtAPIIpPort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::ReverseRaffler.Properties.Settings.Default, "APIBindPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtAPIIpPort.Location = new System.Drawing.Point(10, 94);
-            this.txtAPIIpPort.Margin = new System.Windows.Forms.Padding(6);
-            this.txtAPIIpPort.Name = "txtAPIIpPort";
-            this.txtAPIIpPort.Size = new System.Drawing.Size(297, 20);
-            this.txtAPIIpPort.TabIndex = 3;
-            this.txtAPIIpPort.Text = global::ReverseRaffler.Properties.Settings.Default.APIBindPort;
-            // 
-            // radLabel6
-            // 
-            this.radLabel6.AutoSize = false;
-            this.radLabel6.Location = new System.Drawing.Point(6, 44);
-            this.radLabel6.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel6.Name = "radLabel6";
-            this.radLabel6.Size = new System.Drawing.Size(185, 22);
-            this.radLabel6.TabIndex = 2;
-            this.radLabel6.Text = "API Bind IP:Port";
-            this.radLabel6.ThemeName = "CrystalDark";
+            //
+            // rpvApiLogs
+            //
+            this.rpvApiLogs.Controls.Add(this.txtApiLogs);
+            this.rpvApiLogs.ItemSize = new System.Drawing.SizeF(70F, 28F);
+            this.rpvApiLogs.Location = new System.Drawing.Point(6, 33);
+            this.rpvApiLogs.Margin = new System.Windows.Forms.Padding(4);
+            this.rpvApiLogs.Name = "rpvApiLogs";
+            this.rpvApiLogs.Size = new System.Drawing.Size(881, 616);
+            this.rpvApiLogs.Text = "API Logs";
             // 
             // radGroupBox5
             // 
@@ -909,7 +849,22 @@
             this.rsAutoCloseLosingTicket.TabStop = false;
             this.rsAutoCloseLosingTicket.ThemeName = "CrystalDark";
             this.rsAutoCloseLosingTicket.Value = global::ReverseRaffler.Properties.Settings.Default.AutoCloseLosingTicketWindowAfter;
-            // 
+            //
+            // txtApiLogs
+            //
+            this.txtApiLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.txtApiLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtApiLogs.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApiLogs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.txtApiLogs.Location = new System.Drawing.Point(0, 0);
+            this.txtApiLogs.Margin = new System.Windows.Forms.Padding(4);
+            this.txtApiLogs.Multiline = true;
+            this.txtApiLogs.Name = "txtApiLogs";
+            this.txtApiLogs.ReadOnly = true;
+            this.txtApiLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtApiLogs.Size = new System.Drawing.Size(881, 616);
+            this.txtApiLogs.TabIndex = 11;
+            //
             // mnuView
             // 
             this.mnuView.Name = "mnuView";
@@ -977,12 +932,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).EndInit();
             this.rpvSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox6)).EndInit();
-            this.radGroupBox6.ResumeLayout(false);
-            this.radGroupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox5)).EndInit();
             this.radGroupBox5.ResumeLayout(false);
             this.radGroupBox5.PerformLayout();
@@ -1067,15 +1016,12 @@
         private Telerik.WinControls.UI.RadLabel radLabel4;
         private Telerik.WinControls.UI.RadLabel radLabel3;
         private Telerik.WinControls.UI.RadSpinEditor rsTicketWidth;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox6;
-        private System.Windows.Forms.TextBox txtAPIIpPort;
-        private Telerik.WinControls.UI.RadLabel radLabel6;
-        private Telerik.WinControls.UI.RadButton radButton1;
-        private Telerik.WinControls.UI.RadLabel radLabel5;
         private Telerik.WinControls.UI.RadSpinEditor radSpinEditor1;
         private Telerik.WinControls.UI.RadCheckBox radCheckBox1;
         private Telerik.WinControls.UI.RadLabel radLabel7;
         private Telerik.WinControls.UI.RadSpinEditor radSpinEditor2;
+        private Telerik.WinControls.UI.RadPageViewPage rpvApiLogs;
+        private System.Windows.Forms.TextBox txtApiLogs;
     }
 }
 
