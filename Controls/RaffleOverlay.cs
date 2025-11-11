@@ -20,6 +20,8 @@ namespace ReverseRaffler.Controls
         private Timer _autoCloseTimer;
         private bool _isVisible;
         private float _fadeOpacity;
+        private bool _showCloseButton;
+        private Rectangle _closeButtonBounds;
 
         #endregion
 
@@ -66,12 +68,13 @@ namespace ReverseRaffler.Controls
         /// <summary>
         /// Shows a winner announcement
         /// </summary>
-        public void ShowWinner(string ticketNumbers, IEnumerable<string> names, int autoCloseMs = 0)
+        public void ShowWinner(string ticketNumbers, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
             _overlayType = OverlayType.Winner;
             _ticketNumbers = ticketNumbers;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
             AutoCloseTimeout = autoCloseMs;
+            _showCloseButton = showCloseButton || autoCloseMs == 0; // Show close button if no auto-close
 
             Show();
         }
@@ -79,12 +82,13 @@ namespace ReverseRaffler.Controls
         /// <summary>
         /// Shows a loser announcement
         /// </summary>
-        public void ShowLoser(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0)
+        public void ShowLoser(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
             _overlayType = OverlayType.Loser;
             _ticketNumbers = ticketNumber;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
             AutoCloseTimeout = autoCloseMs;
+            _showCloseButton = showCloseButton || autoCloseMs == 0; // Show close button if no auto-close
 
             Show();
         }
@@ -185,6 +189,12 @@ namespace ReverseRaffler.Controls
                 DrawWinnerAnnouncement(g, cardBounds);
             else
                 DrawLoserAnnouncement(g, cardBounds);
+
+            // Draw close button if enabled
+            if (_showCloseButton)
+            {
+                DrawCloseButton(g, cardBounds);
+            }
         }
 
         private void DrawWinnerAnnouncement(Graphics g, Rectangle bounds)
@@ -254,8 +264,8 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw names
-            DrawNamesList(g, bounds, 260);
+            // Draw names (with more padding from ticket number)
+            DrawNamesList(g, bounds, 280);
         }
 
         private void DrawLoserAnnouncement(Graphics g, Rectangle bounds)
@@ -501,6 +511,52 @@ namespace ReverseRaffler.Controls
             }
         }
 
+        private void DrawCloseButton(Graphics g, Rectangle cardBounds)
+        {
+            // Draw X button in top-right corner of card
+            int buttonSize = 35;
+            int padding = 15;
+            _closeButtonBounds = new Rectangle(
+                cardBounds.Right - buttonSize - padding,
+                cardBounds.Top + padding,
+                buttonSize,
+                buttonSize
+            );
+
+            // Draw circle background
+            using (var path = new GraphicsPath())
+            {
+                path.AddEllipse(_closeButtonBounds);
+
+                // Semi-transparent background
+                using (var bgBrush = new SolidBrush(Color.FromArgb((int)(200 * _fadeOpacity), 100, 100, 110)))
+                {
+                    g.FillPath(bgBrush, path);
+                }
+
+                // Border
+                using (var borderPen = new Pen(Color.FromArgb((int)(255 * _fadeOpacity), 255, 255, 255), 2))
+                {
+                    g.DrawPath(borderPen, path);
+                }
+            }
+
+            // Draw X
+            int xPadding = 10;
+            using (var pen = new Pen(Color.FromArgb((int)(255 * _fadeOpacity), 255, 255, 255), 3))
+            {
+                pen.StartCap = LineCap.Round;
+                pen.EndCap = LineCap.Round;
+
+                g.DrawLine(pen,
+                    _closeButtonBounds.Left + xPadding, _closeButtonBounds.Top + xPadding,
+                    _closeButtonBounds.Right - xPadding, _closeButtonBounds.Bottom - xPadding);
+                g.DrawLine(pen,
+                    _closeButtonBounds.Right - xPadding, _closeButtonBounds.Top + xPadding,
+                    _closeButtonBounds.Left + xPadding, _closeButtonBounds.Bottom - xPadding);
+            }
+        }
+
         private GraphicsPath CreateRoundedRectPath(Rectangle bounds, int radius)
         {
             GraphicsPath path = new GraphicsPath();
@@ -521,6 +577,17 @@ namespace ReverseRaffler.Controls
 
         private void RaffleOverlay_Click(object sender, EventArgs e)
         {
+            // If close button is shown and was clicked, close the overlay
+            if (_showCloseButton && e is MouseEventArgs mouseArgs)
+            {
+                if (_closeButtonBounds.Contains(mouseArgs.Location))
+                {
+                    Close();
+                    return;
+                }
+            }
+
+            // Otherwise, clicking anywhere closes the overlay
             Close();
         }
 

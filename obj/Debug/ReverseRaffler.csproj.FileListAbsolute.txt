@@ -375,14 +375,10 @@ D:\SourceCode\YSU\ReverseRaffler\ReverseRaffler\bin\Debug\System.Numerics.Vector
 D:\SourceCode\YSU\ReverseRaffler\ReverseRaffler\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\SourceCode\YSU\ReverseRaffler\ReverseRaffler\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\reverse-raffle\obj\Debug\ReverseRaffler.csproj.AssemblyReference.cache
-D:\reverse-raffle\obj\Debug\ReverseRaffler.Controls.ctlNumberSheet.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.frmAbout.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.frmConsole.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.frmImport.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.frmNumberBoard.resources
-D:\reverse-raffle\obj\Debug\ReverseRaffler.frmTicketDetails.resources
-D:\reverse-raffle\obj\Debug\ReverseRaffler.frmTicketWinner.resources
-D:\reverse-raffle\obj\Debug\ReverseRaffler.frmTicketNotWinner.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.Properties.Resources.resources
 D:\reverse-raffle\obj\Debug\ReverseRaffler.csproj.GenerateResource.cache
 D:\reverse-raffle\obj\Debug\ReverseRaffler.exe.licenses

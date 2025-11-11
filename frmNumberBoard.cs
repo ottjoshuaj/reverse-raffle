@@ -97,8 +97,19 @@ namespace ReverseRaffler
 
         private void RaffleCanvas_TicketClicked(object sender, TicketClickedEventArgs e)
         {
-            // Show ticket details when clicked
-            ShowTicketInfoDialog(e.Ticket.TicketNumber);
+            // Show ticket details in overlay when clicked
+            var ticket = e.Ticket;
+            var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
+
+            // Show as winner or loser based on ticket status, with close button
+            if (ticket.MarkedAsNotWinner.GetValueOrDefault())
+            {
+                _overlay.ShowLoser(ticket.TicketNumber.ToString(), names, 0, true);
+            }
+            else
+            {
+                _overlay.ShowWinner(ticket.TicketNumber.ToString(), names, 0, true);
+            }
         }
 
         public void AddTicketRaffle(TicketHolder ticketItem)
@@ -225,11 +236,17 @@ namespace ReverseRaffler
             var ticket = _raffleCanvas.GetTicket(ticketNumber);
             if (ticket == null) return;
 
-            var frmTicketInfoDialog = new frmTicketDetails(ticketNumber,
-                new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 });
-            frmTicketInfoDialog.ShowDialog(this);
-            frmTicketInfoDialog.BringToFront();
-            frmTicketInfoDialog.Close();
+            var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
+
+            // Show ticket info using overlay (with close button since it's manual)
+            if (ticket.MarkedAsNotWinner.GetValueOrDefault())
+            {
+                _overlay.ShowLoser(ticketNumber.ToString(), names, 0, true);
+            }
+            else
+            {
+                _overlay.ShowWinner(ticketNumber.ToString(), names, 0, true);
+            }
         }
 
         public void ShowWinnerScreen(int ticketNumber)

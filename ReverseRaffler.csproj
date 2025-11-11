@@ -202,12 +202,6 @@
   <ItemGroup>
     <Compile Include="Api\ApiConfig.cs" />
     <Compile Include="Api\Controllers\TicketController.cs" />
-    <Compile Include="Controls\ctlNumberSheet.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ctlNumberSheet.Designer.cs">
-      <DependentUpon>ctlNumberSheet.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\RaffleCanvas.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -256,32 +250,11 @@
     <Compile Include="frmNumberBoard.Designer.cs">
       <DependentUpon>frmNumberBoard.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTicketDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTicketDetails.Designer.cs">
-      <DependentUpon>frmTicketDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmTicketWinner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTicketWinner.Designer.cs">
-      <DependentUpon>frmTicketWinner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmTicketNotWinner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTicketNotWinner.Designer.cs">
-      <DependentUpon>frmTicketNotWinner.cs</DependentUpon>
-    </Compile>
     <Compile Include="Objects\ImportTicketItem.cs" />
     <Compile Include="Objects\AnnouncementHistoryItem.cs" />
     <Compile Include="Services\ExcelImportService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\ctlNumberSheet.resx">
-      <DependentUpon>ctlNumberSheet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,15 +266,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNumberBoard.resx">
       <DependentUpon>frmNumberBoard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTicketDetails.resx">
-      <DependentUpon>frmTicketDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTicketWinner.resx">
-      <DependentUpon>frmTicketWinner.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTicketNotWinner.resx">
-      <DependentUpon>frmTicketNotWinner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

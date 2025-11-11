@@ -187,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReverseRaffler.exe" size="231424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ReverseRaffler.exe" size="209920">
       <assemblyIdentity name="ReverseRaffler" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>wl10HsrA/xn92MbseyeUqukD8AueYRN76Mxk1j3JGhE=</dsig:DigestValue>
+        <dsig:DigestValue>rlk4rUSD70gC8KxSrN62f1NjzPxuOAEaeGFv10tc7zw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
