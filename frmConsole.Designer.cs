@@ -582,12 +582,12 @@
             this.radGroupBox6.ThemeName = "Office2010Black";
             // 
             // radLabel5
-            // 
+            //
             this.radLabel5.AutoSize = false;
-            this.radLabel5.Location = new System.Drawing.Point(8, 172);
+            this.radLabel5.Location = new System.Drawing.Point(8, 166);
             this.radLabel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radLabel5.Name = "radLabel5";
-            this.radLabel5.Size = new System.Drawing.Size(301, 22);
+            this.radLabel5.Size = new System.Drawing.Size(301, 48);
             this.radLabel5.TabIndex = 9;
             this.radLabel5.Text = "Url:  /api/ticket?number=TICKETNUMBER";
             // 

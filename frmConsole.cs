@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows.Forms;
 using Microsoft.Owin.Hosting;
 using ReverseRaffler.Api.Controllers;
@@ -47,7 +49,7 @@ namespace ReverseRaffler
             rsTicketNumber.KeyDown += RsTicketNumber_KeyDown;
 
             //Set global themes
-            RadMessageBox.SetThemeName("Office2010Black");
+            RadMessageBox.SetThemeName("CrystalDark");
         }
 
         private void RsTicketNumber_KeyDown(object sender, KeyEventArgs e)
@@ -491,26 +493,78 @@ namespace ReverseRaffler
         {
             if(radButton1.Text == "Start API Server")
             {
-                radButton1.Text = "Stop API Server";
+                try
+                {
+                    // Get port from settings (default 6060 if empty)
+                    string port = Properties.Settings.Default.APIBindPort;
+                    if (string.IsNullOrWhiteSpace(port))
+                    {
+                        port = "6060";
+                        Properties.Settings.Default.APIBindPort = port;
+                        Properties.Settings.Default.Save();
+                        txtAPIIpPort.Text = port;
+                    }
 
-                string baseAddress = $"http://{Properties.Settings.Default.APIBindPort}/";
-                webServer = WebApp.Start<ApiConfig>(url: baseAddress);
+                    // Bind to all IPs (0.0.0.0)
+                    string baseAddress = $"http://+:{port}/";
+                    webServer = WebApp.Start<ApiConfig>(url: baseAddress);
 
-                //TicketController.currentTicketNumber
-                getApiTicketNumber = new Timer();
-                getApiTicketNumber.Interval = 2000;
-                getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
-                getApiTicketNumber.Start();
+                    // Get and display all local IP addresses
+                    var localIPs = GetLocalIPAddresses();
+                    var ipList = string.Join("\n", localIPs.Select(ip => $"http://{ip}:{port}"));
+
+                    radLabel5.Text = $"Available on:\n{ipList}";
+                    radButton1.Text = "Stop API Server";
+
+                    //TicketController.currentTicketNumber polling
+                    getApiTicketNumber = new Timer();
+                    getApiTicketNumber.Interval = 2000;
+                    getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
+                    getApiTicketNumber.Start();
+                }
+                catch (Exception ex)
+                {
+                    RadMessageBox.Show($"Failed to start API server.\r\n\r\n" +
+                        $"Error: {ex.Message}\r\n\r\n" +
+                        $"Try running as Administrator or use a different port.",
+                        "API Error", MessageBoxButtons.OK, RadMessageIcon.Error);
+                }
             }
             else
             {
                 radButton1.Text = "Start API Server";
-                webServer.Dispose();
-                getApiTicketNumber.Stop();
-                getApiTicketNumber.Tick -= null;
-                getApiTicketNumber.Dispose();
+                radLabel5.Text = "Url: /api/ticket?number=TICKETNUMBER";
+
+                webServer?.Dispose();
+                getApiTicketNumber?.Stop();
+                getApiTicketNumber?.Dispose();
                 getApiTicketNumber = null;
             }
+        }
+
+        private List<string> GetLocalIPAddresses()
+        {
+            var ipAddresses = new List<string>();
+
+            try
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    // Only include IPv4 addresses
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        ipAddresses.Add(ip.ToString());
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback to localhost if we can't get IPs
+                ipAddresses.Add("127.0.0.1");
+            }
+
+            return ipAddresses;
         }
 
         private void GetApiTicketNumber_Tick(object sender, EventArgs e)

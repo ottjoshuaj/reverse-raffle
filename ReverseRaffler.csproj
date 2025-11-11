@@ -202,6 +202,7 @@
   <ItemGroup>
     <Compile Include="Api\ApiConfig.cs" />
     <Compile Include="Api\Controllers\TicketController.cs" />
+    <Compile Include="Api\Controllers\HomeController.cs" />
     <Compile Include="Controls\RaffleCanvas.cs">
       <SubType>Component</SubType>
     </Compile>

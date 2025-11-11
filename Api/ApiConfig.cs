@@ -14,8 +14,13 @@ namespace ReverseRaffler
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
-            // Configure Web API for self-host. 
+            // Configure Web API for self-host.
             var config = new HttpConfiguration();
+
+            // Map attribute routes first (for root path)
+            config.MapHttpAttributeRoutes();
+
+            // Map API routes
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
