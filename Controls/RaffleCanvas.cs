@@ -115,6 +115,10 @@ namespace ReverseRaffler.Controls
         public void AddTicket(TicketHolder ticket)
         {
             _tickets.Add(ticket);
+
+            // Auto-size tickets based on total count and canvas dimensions
+            CalculateOptimalTicketSize();
+
             RecalculateLayout();
         }
 
@@ -153,6 +157,67 @@ namespace ReverseRaffler.Controls
         #endregion
 
         #region Private Methods - Layout
+
+        private void CalculateOptimalTicketSize()
+        {
+            if (_tickets.Count == 0 || Width <= 0 || Height <= 0) return;
+
+            // Target aspect ratio (width:height) - raffle tickets are typically 2:1
+            const double targetAspectRatio = 2.0;
+
+            // Available dimensions (accounting for spacing)
+            int availableWidth = Width - (_spacing * 2);
+            int availableHeight = Height - (_spacing * 2);
+
+            // Try different column counts to find the best fit
+            int bestColumns = 1;
+            int bestTicketWidth = 120;
+            int bestTicketHeight = 60;
+            double bestUtilization = 0;
+
+            for (int columns = 1; columns <= Math.Min(_tickets.Count, 20); columns++)
+            {
+                // Calculate rows needed
+                int rows = (int)Math.Ceiling((double)_tickets.Count / columns);
+
+                // Calculate ticket dimensions for this layout
+                int ticketWidth = (availableWidth - ((columns - 1) * _spacing)) / columns;
+                int ticketHeight = (availableHeight - ((rows - 1) * _spacing)) / rows;
+
+                // Apply aspect ratio constraint (maintain 2:1 ratio)
+                int constrainedHeight = (int)(ticketWidth / targetAspectRatio);
+                if (constrainedHeight < ticketHeight)
+                {
+                    ticketHeight = constrainedHeight;
+                }
+                else
+                {
+                    ticketWidth = (int)(ticketHeight * targetAspectRatio);
+                }
+
+                // Ensure minimum size for readability
+                if (ticketWidth < 80 || ticketHeight < 40)
+                    continue;
+
+                // Calculate utilization (how much of the canvas is used)
+                int totalWidth = (columns * ticketWidth) + ((columns - 1) * _spacing);
+                int totalHeight = (rows * ticketHeight) + ((rows - 1) * _spacing);
+                double utilization = ((double)totalWidth * totalHeight) / (availableWidth * availableHeight);
+
+                // Prefer layouts with better utilization
+                if (utilization > bestUtilization)
+                {
+                    bestUtilization = utilization;
+                    bestColumns = columns;
+                    bestTicketWidth = ticketWidth;
+                    bestTicketHeight = ticketHeight;
+                }
+            }
+
+            // Apply the best size found
+            _ticketWidth = bestTicketWidth;
+            _ticketHeight = bestTicketHeight;
+        }
 
         private void RecalculateLayout()
         {
@@ -257,25 +322,30 @@ namespace ReverseRaffler.Controls
                                       new Point(bounds.Right, bounds.Top + bounds.Height / 4),
                                       isLosing ? Color.FromArgb(120, 120, 120) : Color.FromArgb(200, 160, 90));
 
-                // Draw ticket number
-                string ticketText = ticketNumber.ToString();
-                using (var font = new Font("Arial", isHovered ? 22f : 20f, FontStyle.Bold))
-                using (var textBrush = new SolidBrush(isLosing ? Color.FromArgb(80, 80, 80) : Color.FromArgb(60, 40, 20)))
-                {
-                    var textSize = g.MeasureString(ticketText, font);
-                    var textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                    var textY = bounds.Y + (bounds.Height - textSize.Height) / 2 + 5;
-                    g.DrawString(ticketText, font, textBrush, textX, textY);
-                }
+                // Calculate font sizes based on ticket dimensions for better scaling
+                float labelFontSize = Math.Max(6f, bounds.Height * 0.12f);
+                float numberFontSize = Math.Max(12f, bounds.Height * 0.35f);
+                if (isHovered) numberFontSize *= 1.1f;
 
                 // Draw "TICKET" label at top
-                using (var labelFont = new Font("Arial", 7f, FontStyle.Bold))
+                using (var labelFont = new Font("Arial", labelFontSize, FontStyle.Bold))
                 using (var labelBrush = new SolidBrush(isLosing ? Color.FromArgb(100, 100, 100) : Color.FromArgb(150, 120, 60)))
                 {
                     var labelSize = g.MeasureString("TICKET", labelFont);
                     var labelX = bounds.X + (bounds.Width - labelSize.Width) / 2;
-                    var labelY = bounds.Y + 5;
+                    var labelY = bounds.Y + Math.Max(3, bounds.Height * 0.08f);
                     g.DrawString("TICKET", labelFont, labelBrush, labelX, labelY);
+                }
+
+                // Draw ticket number (with more padding below the "TICKET" label)
+                string ticketText = ticketNumber.ToString();
+                using (var font = new Font("Arial", numberFontSize, FontStyle.Bold))
+                using (var textBrush = new SolidBrush(isLosing ? Color.FromArgb(80, 80, 80) : Color.FromArgb(60, 40, 20)))
+                {
+                    var textSize = g.MeasureString(ticketText, font);
+                    var textX = bounds.X + (bounds.Width - textSize.Width) / 2;
+                    var textY = bounds.Y + (bounds.Height - textSize.Height) / 2 + Math.Max(8, bounds.Height * 0.1f);
+                    g.DrawString(ticketText, font, textBrush, textX, textY);
                 }
 
                 // Draw red X over losing tickets
@@ -387,6 +457,8 @@ namespace ReverseRaffler.Controls
 
         private void RaffleCanvas_Resize(object sender, EventArgs e)
         {
+            // Recalculate optimal ticket size when canvas is resized
+            CalculateOptimalTicketSize();
             RecalculateLayout();
         }
 
