@@ -35,6 +35,10 @@ namespace ReverseRaffler.Controls
         private bool _scrollPaused;
         private int _scrollPauseCounter;
 
+        // Ball rotation animation fields
+        private float _ballRotationAngle;
+        private Timer _ballRotationTimer;
+
         #endregion
 
         #region Properties
@@ -155,6 +159,9 @@ namespace ReverseRaffler.Controls
             // Initialize name scrolling
             InitializeNameScrolling();
 
+            // Initialize ball rotation animation
+            InitializeBallRotation();
+
             // Setup auto-close timer
             if (AutoCloseTimeout > 0)
             {
@@ -185,6 +192,10 @@ namespace ReverseRaffler.Controls
             _namesScrollTimer?.Stop();
             _namesScrollTimer?.Dispose();
             _namesScrollTimer = null;
+
+            _ballRotationTimer?.Stop();
+            _ballRotationTimer?.Dispose();
+            _ballRotationTimer = null;
 
             _isVisible = false;
             Visible = false;
@@ -282,6 +293,25 @@ namespace ReverseRaffler.Controls
             }
 
             return totalHeight;
+        }
+
+        private void InitializeBallRotation()
+        {
+            _ballRotationAngle = 0f;
+
+            // Start rotation timer
+            _ballRotationTimer?.Stop();
+            _ballRotationTimer?.Dispose();
+
+            _ballRotationTimer = new Timer { Interval = 30 }; // ~33 FPS
+            _ballRotationTimer.Tick += (s, e) =>
+            {
+                _ballRotationAngle += 3f; // Rotate 3 degrees per frame
+                if (_ballRotationAngle >= 360f)
+                    _ballRotationAngle -= 360f;
+                Invalidate();
+            };
+            _ballRotationTimer.Start();
         }
 
         #endregion
@@ -898,6 +928,16 @@ namespace ReverseRaffler.Controls
                     ballSize
                 );
 
+                // Save graphics state for rotation
+                GraphicsState originalState = g.Save();
+
+                // Apply rotation transform to ball center for spinning effect
+                float ballCenterX = ballBounds.X + ballSize / 2f;
+                float ballCenterY = ballBounds.Y + ballSize / 2f;
+                g.TranslateTransform(ballCenterX, ballCenterY);
+                g.RotateTransform(_ballRotationAngle);
+                g.TranslateTransform(-ballCenterX, -ballCenterY);
+
                 // Draw 3D ball with gradient (white to light gray)
                 using (var path = new GraphicsPath())
                 {
@@ -961,7 +1001,10 @@ namespace ReverseRaffler.Controls
                     }
                 }
 
-                // Draw ticket number in ball (bold, dark color)
+                // Restore graphics state (remove rotation) before drawing numbers
+                g.Restore(originalState);
+
+                // Draw ticket number in ball (bold, dark color) - stays stationary
                 float numberFontSize = 22f * scale;
                 using (var font = new Font("Arial", numberFontSize, FontStyle.Bold))
                 using (var brush = new SolidBrush(Color.FromArgb(alpha, 40, 40, 40)))
