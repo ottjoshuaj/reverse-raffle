@@ -410,17 +410,9 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket numbers (scaled)
-            float ticketFontSize = 20f * scale;
-            using (var font = new Font("Arial", ticketFontSize, FontStyle.Bold))
-            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 80, 50, 0)))
-            {
-                var text = $"Ticket # {_ticketNumbers}";
-                var textSize = g.MeasureString(text, font);
-                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + (270 * scale);
-                g.DrawString(text, font, brush, textX, textY);
-            }
+            // Draw lottery balls (scaled)
+            float ballY = bounds.Y + (240 * scale);
+            DrawLotteryBalls(g, bounds, ballY, scale);
 
             // Draw names (scaled)
             DrawNamesList(g, bounds, (int)(330 * scale), scale);
@@ -491,17 +483,9 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket numbers (scaled)
-            float ticketFontSize = 20f * scale;
-            using (var font = new Font("Arial", ticketFontSize, FontStyle.Bold))
-            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 80, 50, 0)))
-            {
-                var text = $"Ticket # {_ticketNumbers}";
-                var textSize = g.MeasureString(text, font);
-                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + (270 * scale);
-                g.DrawString(text, font, brush, textX, textY);
-            }
+            // Draw lottery balls (scaled)
+            float ballY = bounds.Y + (240 * scale);
+            DrawLotteryBalls(g, bounds, ballY, scale);
 
             // Draw names (scaled)
             DrawNamesList(g, bounds, (int)(330 * scale), scale);
@@ -569,17 +553,9 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket number (scaled)
-            float ticketFontSize = 20f * scale;
-            using (var font = new Font("Arial", ticketFontSize, FontStyle.Bold))
-            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 80, 80, 90)))
-            {
-                var text = $"Ticket # {_ticketNumbers}";
-                var textSize = g.MeasureString(text, font);
-                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + (270 * scale);
-                g.DrawString(text, font, brush, textX, textY);
-            }
+            // Draw lottery balls (scaled)
+            float ballY = bounds.Y + (240 * scale);
+            DrawLotteryBalls(g, bounds, ballY, scale);
 
             // Draw names (scaled)
             DrawNamesList(g, bounds, (int)(330 * scale), scale);
@@ -647,17 +623,9 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw ticket number (scaled)
-            float ticketFontSize = 24f * scale;
-            using (var font = new Font("Arial", ticketFontSize, FontStyle.Bold))
-            using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 40, 70, 120)))
-            {
-                var text = $"Ticket # {_ticketNumbers}";
-                var textSize = g.MeasureString(text, font);
-                float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
-                float textY = bounds.Y + (240 * scale);
-                g.DrawString(text, font, brush, textX, textY);
-            }
+            // Draw lottery balls (scaled)
+            float ballY = bounds.Y + (210 * scale);
+            DrawLotteryBalls(g, bounds, ballY, scale);
 
             // Draw names (scaled)
             DrawNamesList(g, bounds, (int)(290 * scale), scale);
@@ -900,6 +868,123 @@ namespace ReverseRaffler.Controls
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
                 float textY = bounds.Y + (bounds.Height - textSize.Height) / 2;
                 g.DrawString(text, font, brush, textX, textY);
+            }
+        }
+
+        private void DrawLotteryBalls(Graphics g, Rectangle cardBounds, float ballY, float scale)
+        {
+            // Parse ticket numbers (comma-separated)
+            string[] ticketNumbers = _ticketNumbers.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (ticketNumbers.Length == 0) return;
+
+            // Calculate ball size and spacing (scaled)
+            int baseBallSize = 70;
+            int ballSize = (int)(baseBallSize * scale);
+            int ballPadding = (int)(15 * scale);
+
+            // Calculate total width of all balls
+            int totalWidth = (ballSize * ticketNumbers.Length) + (ballPadding * (ticketNumbers.Length - 1));
+
+            // Calculate starting X position to center the balls
+            float startX = cardBounds.X + (cardBounds.Width - totalWidth) / 2;
+            float currentX = startX;
+
+            int alpha = (int)(255 * _fadeOpacity);
+
+            foreach (string ticketNum in ticketNumbers)
+            {
+                // Ball bounds
+                Rectangle ballBounds = new Rectangle(
+                    (int)currentX,
+                    (int)ballY,
+                    ballSize,
+                    ballSize
+                );
+
+                // Draw 3D ball with gradient (white to light gray)
+                using (var path = new GraphicsPath())
+                {
+                    path.AddEllipse(ballBounds);
+
+                    // Main ball gradient (top-left to bottom-right for 3D effect)
+                    using (var ballBrush = new LinearGradientBrush(
+                        ballBounds,
+                        Color.FromArgb(alpha, 255, 255, 255),  // Pure white at top
+                        Color.FromArgb(alpha, 220, 220, 220),  // Light gray at bottom
+                        LinearGradientMode.ForwardDiagonal))
+                    {
+                        g.FillPath(ballBrush, path);
+                    }
+
+                    // Draw shadow/dark edge on bottom-right
+                    using (var shadowPath = new GraphicsPath())
+                    {
+                        int shadowSize = (int)(ballSize * 0.3f);
+                        Rectangle shadowRect = new Rectangle(
+                            ballBounds.Right - shadowSize,
+                            ballBounds.Bottom - shadowSize,
+                            shadowSize,
+                            shadowSize
+                        );
+                        shadowPath.AddEllipse(ballBounds);
+
+                        using (var shadowBrush = new PathGradientBrush(shadowPath))
+                        {
+                            shadowBrush.CenterPoint = new PointF(ballBounds.Right - shadowSize/2, ballBounds.Bottom - shadowSize/2);
+                            shadowBrush.CenterColor = Color.FromArgb((int)(60 * _fadeOpacity), 0, 0, 0);
+                            shadowBrush.SurroundColors = new[] { Color.FromArgb(0, 0, 0, 0) };
+
+                            g.FillPath(shadowBrush, shadowPath);
+                        }
+                    }
+
+                    // Add highlight/shine (top-left)
+                    int highlightSize = (int)(ballSize * 0.35f);
+                    Rectangle highlightRect = new Rectangle(
+                        ballBounds.X + (int)(ballSize * 0.2f),
+                        ballBounds.Y + (int)(ballSize * 0.15f),
+                        highlightSize,
+                        highlightSize
+                    );
+
+                    using (var highlightBrush = new LinearGradientBrush(
+                        highlightRect,
+                        Color.FromArgb((int)(120 * _fadeOpacity), 255, 255, 255),
+                        Color.FromArgb(0, 255, 255, 255),
+                        LinearGradientMode.ForwardDiagonal))
+                    {
+                        g.FillEllipse(highlightBrush, highlightRect);
+                    }
+
+                    // Draw subtle border
+                    int borderWidth = Math.Max(1, (int)(2 * scale));
+                    using (var borderPen = new Pen(Color.FromArgb(alpha, 180, 180, 180), borderWidth))
+                    {
+                        g.DrawPath(borderPen, path);
+                    }
+                }
+
+                // Draw ticket number in ball (bold, dark color)
+                float numberFontSize = 22f * scale;
+                using (var font = new Font("Arial", numberFontSize, FontStyle.Bold))
+                using (var brush = new SolidBrush(Color.FromArgb(alpha, 40, 40, 40)))
+                {
+                    var textSize = g.MeasureString(ticketNum.Trim(), font);
+                    float textX = ballBounds.X + (ballSize - textSize.Width) / 2;
+                    float textY = ballBounds.Y + (ballSize - textSize.Height) / 2;
+
+                    // Add subtle text shadow
+                    using (var shadowBrush = new SolidBrush(Color.FromArgb((int)(40 * _fadeOpacity), 0, 0, 0)))
+                    {
+                        g.DrawString(ticketNum.Trim(), font, shadowBrush, textX + 1, textY + 1);
+                    }
+
+                    g.DrawString(ticketNum.Trim(), font, brush, textX, textY);
+                }
+
+                // Move to next ball position
+                currentX += ballSize + ballPadding;
             }
         }
 
