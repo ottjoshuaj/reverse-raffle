@@ -50,12 +50,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 77);
             this.Controls.Add(this.progressImportStatus);
+            this.Icon = ((System.Drawing.Icon)(System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location)));
             this.Name = "frmImport";
-            // 
-            // 
-            // 
+            //
+            //
+            //
             this.RootElement.ApplyShapeToControl = true;
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import Raffle File";

@@ -190,10 +190,6 @@
       <HintPath>lib\RCWF\2023.1.117.48\Telerik.WinControls.GridView.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.WinControls.Themes.Office2010Black, Version=2023.1.117.48, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>lib\RCWF\2023.1.117.48\Telerik.WinControls.Themes.Office2010Black.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2023.1.117.40, Culture=neutral, PublicKeyToken=5803f994c59721d1, processorArchitecture=MSIL">
       <HintPath>lib\RCWF\2023.1.117.48\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
       <Private>True</Private>
@@ -251,6 +247,12 @@
     <Compile Include="frmNumberBoard.Designer.cs">
       <DependentUpon>frmNumberBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\ImportTicketItem.cs" />
     <Compile Include="Objects\AnnouncementHistoryItem.cs" />
     <Compile Include="Services\ExcelImportService.cs" />
@@ -268,6 +270,9 @@
     <EmbeddedResource Include="frmNumberBoard.resx">
       <DependentUpon>frmNumberBoard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -281,6 +286,9 @@
     </Compile>
     <None Include="app.manifest" />
     <None Include="CsvFiles\raffle-2024.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="CsvFiles\raffle-names-2025.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="CsvFiles\Raffle2021.csv">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
@@ -70,11 +70,18 @@ namespace ReverseRaffler
         void frmConsole_Shown(object sender, EventArgs e)
         {
             BindGrid();
+
+            // Load winner configuration from settings
+            rsTotalWinningTickets.Value = Properties.Settings.Default.LastWhatTicketsAreWinners;
+            rsWinnersEveryNumTickets.Value = Properties.Settings.Default.WinnersEveryNumTickets;
         }
 
         void frmConsole_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
+
+            // Stop API server if running
+            StopApiServer();
         }
 
 
@@ -89,6 +96,55 @@ namespace ReverseRaffler
             newFrmAbout.Dispose();
         }
 
+        private void mnuSettings_Click(object sender, EventArgs e)
+        {
+            var settingsForm = new frmSettings(numberBoard);
+            settingsForm.ShowDialog(this);
+
+            // Reload settings after dialog closes
+            rsTotalWinningTickets.Value = Properties.Settings.Default.LastWhatTicketsAreWinners;
+            rsWinnersEveryNumTickets.Value = Properties.Settings.Default.WinnersEveryNumTickets;
+        }
+
+        private void mnuImportCSV_Click(object sender, EventArgs e)
+        {
+            var rosterFile = new OpenFileDialog
+            {
+                Multiselect = false,
+                Title = @"Select An Import File (Will overwrite database)",
+                Filter = @"All Supported Files|*.csv;*.xls;*.xlsx|CSV Files (*.csv)|*.csv|Excel 97-2003 (*.xls)|*.xls|Excel 2007+ (*.xlsx)|*.xlsx|All Files (*.*)|*.*"
+            };
+
+            if (rosterFile.ShowDialog(this) != DialogResult.OK) return;
+
+            try
+            {
+                var newFrmImporter = new frmImport(rosterFile.FileName);
+                var result = newFrmImporter.ShowDialog(this);
+                newFrmImporter.Dispose();
+
+                //Bind grid with changes
+                ClearGrid();
+                BindGrid();
+
+                RadMessageBox.Show("Your file has been imported.", "Import Success", MessageBoxButtons.OK, RadMessageIcon.Info);
+            }
+            catch (Exception ex)
+            {
+                RadMessageBox.Show($"There was an error opening your import file.\r\n\r\n" +
+                    $"For CSV files: Make sure it is comma delimited and that no NAMES have commas in them.\r\n" +
+                    $"Format: ticketnumber,name,name,name (max of 3 names)\r\n\r\n" +
+                    $"Ticket number is required but names are optional.\r\n\r\n" +
+                    $"Error: {ex.Message}",
+                    "ERROR ON IMPORT", MessageBoxButtons.OK, RadMessageIcon.Error);
+            }
+        }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         #endregion
 
         #region Grid Events
@@ -98,102 +154,88 @@ namespace ReverseRaffler
             e.Row.Cells["colTicketNumber"].Value = GetNextTicketNumber();
         }
 
+        int GetNextTicketNumber()
+        {
+            if (RaffleTickets == null || RaffleTickets.Count == 0)
+                return 1;
+
+            return RaffleTickets.Max(x => x.TicketNumber) + 1;
+        }
+
         void gridTicketHolders_UserAddedRow(object sender, GridViewRowEventArgs e)
         {
-            dbModel.TicketHolders.AddOrUpdate(new TicketHolder
-            {
-                TicketNumber = (int)e.Row.Cells["colTicketNumber"].Value,
-                TicketHolder1 = (string)e.Row.Cells["colTicketHolder1"].Value,
-                TicketHolder2 = (string)e.Row.Cells["colTicketHolder2"].Value,
-                TicketHolder3 = (string)e.Row.Cells["colTicketHolder3"].Value
-            });
+            var tickNum = Convert.ToInt32(e.Row.Cells["colTicketNumber"].Value);
+            var holder1 = e.Row.Cells["colTicketHolder1"].Value?.ToString();
+            var holder2 = e.Row.Cells["colTicketHolder2"].Value?.ToString();
+            var holder3 = e.Row.Cells["colTicketHolder3"].Value?.ToString();
 
+            dbModel.TicketHolders.Add(new TicketHolder { TicketNumber = tickNum, TicketHolder1 = holder1, TicketHolder2 = holder2, TicketHolder3 = holder3 });
             dbModel.SaveChanges();
         }
 
         void gridTicketHolders_CellValueChanged(object sender, GridViewCellEventArgs e)
         {
-            var ticketNumber = Convert.ToInt32(e.Row.Cells["colTicketNumber"].Value);
+            var tickNum = Convert.ToInt32(e.Row.Cells["colTicketNumber"].Value);
+            var holder1 = e.Row.Cells["colTicketHolder1"].Value?.ToString();
+            var holder2 = e.Row.Cells["colTicketHolder2"].Value?.ToString();
+            var holder3 = e.Row.Cells["colTicketHolder3"].Value?.ToString();
 
-            var ticketItem = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == ticketNumber);
-            if (ticketItem != null)
+            var existingTicket = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == tickNum);
+
+            if (existingTicket == null)
             {
-                switch (e.Column.Name)
+                dbModel.TicketHolders.Add(new TicketHolder
                 {
-                    case "colTicketHolder1":
-                        ticketItem.TicketHolder1 = e.Value.ToString();
-                        break;
-                    case "colTicketHolder2":
-                        ticketItem.TicketHolder2 = e.Value.ToString();
-                        break;
-                    case "colTicketHolder3":
-                        ticketItem.TicketHolder3 = e.Value.ToString();
-                        break;
-                }
-
-                dbModel.TicketHolders.AddOrUpdate(ticketItem);
-                dbModel.SaveChanges();
-
-                //Update the local entity LIST
-                var localMemTicket = RaffleTickets.FirstOrDefault(x => x.TicketNumber == ticketNumber);
-                if (localMemTicket != null)
-                {
-                    localMemTicket.TicketHolder1 = ticketItem.TicketHolder1;
-                    localMemTicket.TicketHolder2 = ticketItem.TicketHolder2;
-                    localMemTicket.TicketHolder3 = ticketItem.TicketHolder3;
-                }
+                    TicketNumber = tickNum,
+                    TicketHolder1 = holder1,
+                    TicketHolder2 = holder2,
+                    TicketHolder3 = holder3
+                });
             }
+            else
+            {
+                existingTicket.TicketHolder1 = holder1;
+                existingTicket.TicketHolder2 = holder2;
+                existingTicket.TicketHolder3 = holder3;
+            }
+
+            dbModel.SaveChanges();
         }
 
         void gridTicketHolders_UserDeletingRow(object sender, GridViewRowCancelEventArgs e)
         {
             try
             {
-                foreach (var row in e.Rows)
+                var ticketNumber = Convert.ToInt32(e.Rows[0].Cells["colTicketNumber"].Value);
+                var ticket = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == ticketNumber);
+                if (ticket != null)
                 {
-                    var ticketNumber = Convert.ToInt32(row.Cells["colTicketNumber"].Value);
-
-                    dbModel.TicketHolders.Remove(dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == ticketNumber));
-
+                    dbModel.TicketHolders.Remove(ticket);
                     dbModel.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                //Trap error and ignore for now
+                RadMessageBox.Show($"Error deleting ticket: {ex.Message}", "Error", MessageBoxButtons.OK, RadMessageIcon.Error);
             }
         }
 
-        #endregion
-
-        #region Internals
-
-        void CheckDataForTicketLayout(int newEmptyTickets)
+        void CheckDataForTicketLayout(int numOfTickets)
         {
-            if (dbModel.TicketHolders.Any())
+            for (int i = 1; i < (numOfTickets + 1); i++)
             {
-                lblAppStatus.Text = @"Raffle Database Ready.";
-                return;
-            }
+                if (dbModel.TicketHolders.Any(x => x.TicketNumber == i)) continue;
 
-            lblAppStatus.Text = @"Rebuilding Raffle Database...";
-
-            for (var i = 1; i < newEmptyTickets+1; i++)
-            {
-                dbModel.TicketHolders.AddOrUpdate(new TicketHolder
+                dbModel.TicketHolders.Add(new TicketHolder
                 {
-                    TicketNumber = i
+                    TicketNumber = i,
+                    TicketHolder1 = "sample name",
+                    TicketHolder2 = "sample name",
+                    TicketHolder3 = "sample name"
                 });
-
-                dbModel.SaveChanges();
             }
 
-            lblAppStatus.Text = @"Raffle Database Ready.";
-        }
-
-        int GetNextTicketNumber()
-        {
-            return dbModel.TicketHolders.Max(x => x.TicketNumber) + 1;
+            dbModel.SaveChanges();
         }
 
         void BindGrid()
@@ -238,12 +280,10 @@ namespace ReverseRaffler
             //Enable Buttons
             btnBeginRaffle.Enabled = false;
             rsTotalWinningTickets.Enabled = false;
+            rsWinnersEveryNumTickets.Enabled = false;
             btnEndRaffle.Enabled = true;
             btnMarkTicketAsNotGood.Enabled = true;
             rsTicketNumber.Enabled = true;
-
-            //Disable Settings
-            //rpvSettings.Enabled = false;
 
             //Set Grid Options
             gridTicketHolders.MasterTemplate.AllowAddNewRow = false;
@@ -270,12 +310,10 @@ namespace ReverseRaffler
             {
                 btnBeginRaffle.Enabled = true;
                 rsTotalWinningTickets.Enabled = true;
+                rsWinnersEveryNumTickets.Enabled = true;
                 btnEndRaffle.Enabled = false;
                 btnMarkTicketAsNotGood.Enabled = false;
                 rsTicketNumber.Enabled = false;
-
-                //Enable Settings
-                rpvSettings.Enabled = true;
 
                 //Set Grid Options
                 gridTicketHolders.MasterTemplate.AllowAddNewRow = true;
@@ -407,117 +445,30 @@ namespace ReverseRaffler
 
         #endregion
 
-        #region Settings & Options
-
-        private void btnSaveSettingsOptions_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.Save();
-        }
-
-        private void btnResetDatabase_Click(object sender, EventArgs e)
-        {
-            if (RadMessageBox.Show("Are you sure you want to clear out the raffle ticket database?", "Clear Data?",
-                MessageBoxButtons.OKCancel) != DialogResult.OK) return;
-
-            foreach (var item in dbModel.TicketHolders.ToList())
-                dbModel.TicketHolders.Remove(item);
-
-            dbModel.SaveChanges();
-
-            //Now rebuild db
-            CheckDataForTicketLayout(Convert.ToInt32(rsResetDBWithTicketCount.Value));
-
-            //Bind grid with changes
-            ClearGrid();
-            BindGrid();
-        }
-
-        private void btnImportFile2DB_Click(object sender, EventArgs e)
-        {
-            var rosterFile = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = @"Select An Import File (Will overwrite database)",
-                Filter = @"All Import Files (*.csv, *.txt, *.xlsx)|*.csv;*.txt;*.xlsx|CSV Files (*.csv, *.txt)|*.csv;*.txt|Excel Files (*.xlsx)|*.xlsx"
-            };
-
-            if (rosterFile.ShowDialog(this) != DialogResult.OK) return;
-
-            try
-            {
-                var newFrmImporter = new frmImport(rosterFile.OpenFile(), rosterFile.FileName);
-                var result = newFrmImporter.ShowDialog(this);
-                newFrmImporter.Dispose();
-
-                //Bind grid with changes
-                ClearGrid();
-                BindGrid();
-
-                RadMessageBox.Show("Your file has been imported.", "Import Success", MessageBoxButtons.OK);
-            }
-            catch (Exception ex)
-            {
-                RadMessageBox.Show($"There was an error opening your import file.\r\n\r\n" +
-                    $"For CSV files: Make sure it is comma delimited and that no NAMES have commas in them.\r\n" +
-                    $"Format: ticketnumber,name,name,name (max of 3 names)\r\n\r\n" +
-                    $"For Excel files: First column = ticket number, subsequent columns = names\r\n\r\n" +
-                    $"Ticket number is required but names are optional.\r\n\r\n" +
-                    $"Error: {ex.Message}",
-                    "ERROR ON IMPORT", MessageBoxButtons.OK);
-            }
-        }
-
-        private void btnResetFlag_Click(object sender, EventArgs e)
-        {
-            if (RadMessageBox.Show("Are you sure you want to reset all losing tickets as NON LOSING?", "Losing Ticket Reset?",
-                MessageBoxButtons.OKCancel) != DialogResult.OK) return;
-
-            foreach (var item in dbModel.TicketHolders.ToList())
-            {
-                item.MarkedAsNotWinner = false;
-
-                dbModel.TicketHolders.AddOrUpdate(item);
-            }
-
-            dbModel.SaveChanges();
-
-
-            //Bind grid with changes
-            ClearGrid();
-            BindGrid();
-
-            RadMessageBox.Show("All losing tickets are now marked as normal (non losing status)", "Losing Tickets Updated");
-        }
-
-        #endregion
-
-        #region API Startup
+        #region API Server
 
         Timer getApiTicketNumber;
-        private const int API_PORT = 9150; // Fixed port to avoid conflicts
+        private const int API_PORT = 9150;
 
         private void StartApiServer()
         {
             try
             {
-                // Bind to all IPs on port 9150
                 string baseAddress = $"http://+:{API_PORT}/";
                 webServer = WebApp.Start<ApiConfig>(url: baseAddress);
 
-                // Set up API logging
                 Api.Controllers.TicketController.LogActivity = LogApiActivity;
 
-                // Get and display all local IP addresses
                 var localIPs = GetLocalIPAddresses();
 
-                // Log API server start
                 LogApiActivity($"API Server Started on port {API_PORT}");
                 foreach (var ip in localIPs)
                 {
                     LogApiActivity($"  Available at: http://{ip}:{API_PORT}");
                 }
 
-                //TicketController.currentTicketNumber polling
+                lblApiStatus.Text = $"API: Running on port {API_PORT}";
+
                 getApiTicketNumber = new Timer();
                 getApiTicketNumber.Interval = 2000;
                 getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
@@ -526,6 +477,7 @@ namespace ReverseRaffler
             catch (Exception ex)
             {
                 LogApiActivity($"ERROR: Failed to start API server - {ex.Message}");
+                lblApiStatus.Text = "API: Failed to start";
                 RadMessageBox.Show($"Failed to start API server on port {API_PORT}.\r\n\r\n" +
                     $"Error: {ex.Message}\r\n\r\n" +
                     $"SOLUTION 1: Run this application as Administrator\r\n\r\n" +
@@ -537,15 +489,19 @@ namespace ReverseRaffler
 
         private void StopApiServer()
         {
-            LogApiActivity("API Server Stopped");
+            if (webServer != null)
+            {
+                LogApiActivity("API Server Stopped");
+                lblApiStatus.Text = "API: Stopped";
 
-            // Clear API logging delegate
-            Api.Controllers.TicketController.LogActivity = null;
+                Api.Controllers.TicketController.LogActivity = null;
 
-            webServer?.Dispose();
-            getApiTicketNumber?.Stop();
-            getApiTicketNumber?.Dispose();
-            getApiTicketNumber = null;
+                webServer?.Dispose();
+                webServer = null;
+                getApiTicketNumber?.Stop();
+                getApiTicketNumber?.Dispose();
+                getApiTicketNumber = null;
+            }
         }
 
         private void LogApiActivity(string message)
@@ -569,7 +525,6 @@ namespace ReverseRaffler
                 var host = Dns.GetHostEntry(Dns.GetHostName());
                 foreach (var ip in host.AddressList)
                 {
-                    // Only include IPv4 addresses
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                     {
                         ipAddresses.Add(ip.ToString());
@@ -578,7 +533,6 @@ namespace ReverseRaffler
             }
             catch
             {
-                // Fallback to localhost if we can't get IPs
                 ipAddresses.Add("127.0.0.1");
             }
 
@@ -590,85 +544,9 @@ namespace ReverseRaffler
             var ticketNumber = TicketController.currentTicketNumber;
             if(ticketNumber > 0)
             {
-                TicketController.currentTicketNumber = 0; //Reset to 0 to prevent double calling
-
+                TicketController.currentTicketNumber = 0;
                 HandleTicketSelectionAction(ticketNumber);
             }
-        }
-
-        #endregion
-
-        #region Demo Overlay Buttons
-
-        private void btnDemoInfo_Click(object sender, EventArgs e)
-        {
-            if (numberBoard == null || !numberBoard.Visible)
-            {
-                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
-                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
-                return;
-            }
-
-            var sampleNames = new[] { "John Smith", "ABC Company", "XYZ Corporation" };
-            numberBoard.ShowDemoInfo("42", sampleNames);
-        }
-
-        private void btnDemoLoser_Click(object sender, EventArgs e)
-        {
-            if (numberBoard == null || !numberBoard.Visible)
-            {
-                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
-                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
-                return;
-            }
-
-            var sampleNames = new[] { "Jane Doe", "Main Street Business", "Downtown LLC" };
-            numberBoard.ShowDemoLoser("87", sampleNames);
-        }
-
-        private void btnDemoWinner_Click(object sender, EventArgs e)
-        {
-            if (numberBoard == null || !numberBoard.Visible)
-            {
-                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
-                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
-                return;
-            }
-
-            var sampleNames = new[] { "Bob Johnson", "Local Shop", "Community Center" };
-            numberBoard.ShowDemoWinner("123", sampleNames);
-        }
-
-        private void btnDemoRaffleWinner_Click(object sender, EventArgs e)
-        {
-            if (numberBoard == null || !numberBoard.Visible)
-            {
-                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
-                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
-                return;
-            }
-
-            // Create a long list of names to demonstrate scrolling
-            var sampleNames = new List<string>
-            {
-                "John Smith", "ABC Company", "XYZ Corporation",
-                "Jane Doe", "Main Street Business", "Downtown LLC",
-                "Bob Johnson", "Local Shop", "Community Center",
-                "Alice Williams", "Tech Solutions Inc", "Global Enterprises",
-                "Charlie Brown", "Hardware Store", "Retail Group",
-                "Diana Prince", "Wonder Consulting", "Justice League LLC",
-                "Frank Castle", "Security Services", "Vigilante Corp",
-                "Grace Hopper", "Computing Innovations", "Navy Research Lab",
-                "Henry Ford", "Motor Company", "Assembly Line Industries",
-                "Irene Adler", "Private Investigations", "Holmes & Watson Ltd",
-                "Jack Ryan", "CIA Operations", "Analyst Division",
-                "Karen Starr", "Power Industries", "Kryptonian Tech",
-                "Larry Page", "Search Engines Inc", "Alphabet Corporation",
-                "Marie Curie", "Radioactive Research", "Nobel Prize Foundation",
-                "Neil Armstrong", "Apollo Missions", "NASA Space Center"
-            };
-
-            numberBoard.ShowDemoRaffleWinner("5, 12, 18, 42, 87, 123", sampleNames);
         }
 
         #endregion

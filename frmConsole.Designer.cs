@@ -1,4 +1,4 @@
-﻿namespace ReverseRaffler
+namespace ReverseRaffler
 {
     partial class frmConsole
     {
@@ -34,145 +34,118 @@
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConsole));
-            this.CrystalDarkTheme1 = new Telerik.WinControls.Themes.CrystalDarkTheme();
             this.radStatusStrip1 = new Telerik.WinControls.UI.RadStatusStrip();
             this.lblAppStatus = new Telerik.WinControls.UI.RadLabelElement();
             this.commandBarSeparator1 = new Telerik.WinControls.UI.CommandBarSeparator();
             this.lblAppTicketStatus = new Telerik.WinControls.UI.RadLabelElement();
-            this.radPageView1 = new Telerik.WinControls.UI.RadPageView();
-            this.radPageViewPage1 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
-            this.lblTicketsNotDrawn = new System.Windows.Forms.Label();
-            this.lblTicketsThatLost = new System.Windows.Forms.Label();
-            this.lblTotalTicketsInRaffle = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rsWinnersEveryNumTickets = new Telerik.WinControls.UI.RadSpinEditor();
-            this.label5 = new System.Windows.Forms.Label();
-            this.rsTotalWinningTickets = new Telerik.WinControls.UI.RadSpinEditor();
-            this.btnEndRaffle = new Telerik.WinControls.UI.RadButton();
-            this.btnBeginRaffle = new Telerik.WinControls.UI.RadButton();
-            this.rsTicketNumber = new Telerik.WinControls.UI.RadSpinEditor();
-            this.btnMarkTicketAsNotGood = new Telerik.WinControls.UI.RadButton();
-            this.btnShowRecentAnnouncement = new Telerik.WinControls.UI.RadButton();
-            this.btnCloseOverlay = new Telerik.WinControls.UI.RadButton();
-            this.btnPreviousAnnouncement = new Telerik.WinControls.UI.RadButton();
-            this.btnNextAnnouncement = new Telerik.WinControls.UI.RadButton();
-            this.lblHistoryPosition = new System.Windows.Forms.Label();
-            this.radPageViewPage2 = new Telerik.WinControls.UI.RadPageViewPage();
-            this.gridTicketHolders = new Telerik.WinControls.UI.RadGridView();
-            this.rpvSettings = new Telerik.WinControls.UI.RadPageViewPage();
-            this.radGroupBox6 = new Telerik.WinControls.UI.RadGroupBox();
-            this.btnDemoRaffleWinner = new Telerik.WinControls.UI.RadButton();
-            this.btnDemoWinner = new Telerik.WinControls.UI.RadButton();
-            this.btnDemoLoser = new Telerik.WinControls.UI.RadButton();
-            this.btnDemoInfo = new Telerik.WinControls.UI.RadButton();
-            this.radGroupBox5 = new Telerik.WinControls.UI.RadGroupBox();
-            this.radSpinEditor1 = new Telerik.WinControls.UI.RadSpinEditor();
-            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
-            this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
-            this.rsTicketWidth = new Telerik.WinControls.UI.RadSpinEditor();
-            this.radGroupBox4 = new Telerik.WinControls.UI.RadGroupBox();
-            this.btnResetFlag = new Telerik.WinControls.UI.RadButton();
-            this.btnImportFile2DB = new Telerik.WinControls.UI.RadButton();
-            this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            this.rsResetDBWithTicketCount = new Telerik.WinControls.UI.RadSpinEditor();
-            this.btnResetDatabase = new Telerik.WinControls.UI.RadButton();
-            this.btnSaveSettingsOptions = new Telerik.WinControls.UI.RadButton();
-            this.radGroupBox3 = new Telerik.WinControls.UI.RadGroupBox();
-            this.radLabel7 = new Telerik.WinControls.UI.RadLabel();
-            this.radSpinEditor2 = new Telerik.WinControls.UI.RadSpinEditor();
-            this.radCheckBox1 = new Telerik.WinControls.UI.RadCheckBox();
-            this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
-            this.chkEnableAutoCloseLosingTicketAlert = new Telerik.WinControls.UI.RadCheckBox();
-            this.rsAutoCloseLosingTicket = new Telerik.WinControls.UI.RadSpinEditor();
-            this.rpvApiLogs = new Telerik.WinControls.UI.RadPageViewPage();
-            this.txtApiLogs = new System.Windows.Forms.TextBox();
+            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.mnuFile = new Telerik.WinControls.UI.RadMenuItem();
+            this.mnuImportCSV = new Telerik.WinControls.UI.RadMenuItem();
+            this.radMenuSeparatorItem1 = new Telerik.WinControls.UI.RadMenuSeparatorItem();
+            this.mnuExit = new Telerik.WinControls.UI.RadMenuItem();
+            this.mnuTools = new Telerik.WinControls.UI.RadMenuItem();
+            this.mnuSettings = new Telerik.WinControls.UI.RadMenuItem();
             this.mnuHelp = new Telerik.WinControls.UI.RadMenuItem();
             this.mnuAbout = new Telerik.WinControls.UI.RadMenuItem();
-            this.radMenu1 = new Telerik.WinControls.UI.RadMenu();
+            this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
+            this.btnEndRaffle = new Telerik.WinControls.UI.RadButton();
+            this.btnBeginRaffle = new Telerik.WinControls.UI.RadButton();
+            this.rsWinnersEveryNumTickets = new Telerik.WinControls.UI.RadSpinEditor();
+            this.rsTotalWinningTickets = new Telerik.WinControls.UI.RadSpinEditor();
+            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel9 = new Telerik.WinControls.UI.RadLabel();
+            this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
+            this.rsTicketNumber = new Telerik.WinControls.UI.RadSpinEditor();
+            this.btnMarkTicketAsNotGood = new Telerik.WinControls.UI.RadButton();
+            this.lblHistoryPosition = new Telerik.WinControls.UI.RadLabel();
+            this.btnNextAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.btnPreviousAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.btnCloseOverlay = new Telerik.WinControls.UI.RadButton();
+            this.btnShowRecentAnnouncement = new Telerik.WinControls.UI.RadButton();
+            this.radGroupBox3 = new Telerik.WinControls.UI.RadGroupBox();
+            this.lblTotalTicketsInRaffle = new Telerik.WinControls.UI.RadLabel();
+            this.lblTicketsThatLost = new Telerik.WinControls.UI.RadLabel();
+            this.lblTicketsNotDrawn = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel12 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel11 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel10 = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
+            this.txtApiLogs = new System.Windows.Forms.TextBox();
+            this.lblApiStatus = new Telerik.WinControls.UI.RadLabel();
+            this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
+            this.splitPanel1 = new Telerik.WinControls.UI.SplitPanel();
+            this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
+            this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
+            this.panelTickets = new Telerik.WinControls.UI.RadPanel();
+            this.gridTicketHolders = new Telerik.WinControls.UI.RadGridView();
+            this.crystalDarkTheme1 = new Telerik.WinControls.Themes.CrystalDarkTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).BeginInit();
-            this.radPageView1.SuspendLayout();
-            this.radPageViewPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
-            this.radGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rsWinnersEveryNumTickets)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsTotalWinningTickets)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEndRaffle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBeginRaffle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rsWinnersEveryNumTickets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rsTotalWinningTickets)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
+            this.radGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rsTicketNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMarkTicketAsNotGood)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblHistoryPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNextAnnouncement)).BeginInit();
-            this.radPageViewPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).BeginInit();
-            this.rpvSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox6)).BeginInit();
-            this.radGroupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoRaffleWinner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoWinner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoLoser)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox5)).BeginInit();
-            this.radGroupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radSpinEditor1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsTicketWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox4)).BeginInit();
-            this.radGroupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetFlag)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnImportFile2DB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsResetDBWithTicketCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetDatabase)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveSettingsOptions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox3)).BeginInit();
             this.radGroupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radSpinEditor2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkEnableAutoCloseLosingTicketAlert)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsAutoCloseLosingTicket)).BeginInit();
-            this.rpvApiLogs.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTotalTicketsInRaffle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTicketsThatLost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTicketsNotDrawn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblApiStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).BeginInit();
+            this.radSplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).BeginInit();
+            this.splitPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
+            this.splitPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelTickets)).BeginInit();
+            this.panelTickets.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radStatusStrip1
             // 
+            this.radStatusStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radStatusStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.radStatusStrip1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.lblAppStatus,
             this.commandBarSeparator1,
             this.lblAppTicketStatus});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 640);
-            this.radStatusStrip1.Margin = new System.Windows.Forms.Padding(4);
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 668);
             this.radStatusStrip1.Name = "radStatusStrip1";
-            this.radStatusStrip1.Size = new System.Drawing.Size(872, 26);
-            this.radStatusStrip1.TabIndex = 1;
+            this.radStatusStrip1.Size = new System.Drawing.Size(1102, 26);
+            this.radStatusStrip1.TabIndex = 0;
             this.radStatusStrip1.ThemeName = "CrystalDark";
             // 
             // lblAppStatus
             // 
             this.lblAppStatus.Name = "lblAppStatus";
-            this.radStatusStrip1.SetSpring(this.lblAppStatus, true);
-            this.lblAppStatus.Text = "Idle";
+            this.radStatusStrip1.SetSpring(this.lblAppStatus, false);
+            this.lblAppStatus.Text = "Ready...";
             this.lblAppStatus.TextWrap = true;
             // 
             // commandBarSeparator1
             // 
-            this.commandBarSeparator1.AccessibleDescription = "commandBarSeparator1";
-            this.commandBarSeparator1.AccessibleName = "commandBarSeparator1";
             this.commandBarSeparator1.Name = "commandBarSeparator1";
             this.radStatusStrip1.SetSpring(this.commandBarSeparator1, false);
             this.commandBarSeparator1.VisibleInOverflowMenu = false;
@@ -181,321 +154,453 @@
             // 
             this.lblAppTicketStatus.Name = "lblAppTicketStatus";
             this.radStatusStrip1.SetSpring(this.lblAppTicketStatus, false);
-            this.lblAppTicketStatus.Text = "No Ticket Drawn.";
+            this.lblAppTicketStatus.Text = "";
             this.lblAppTicketStatus.TextWrap = true;
             // 
-            // radPageView1
+            // radMenu1
             // 
-            this.radPageView1.Controls.Add(this.radPageViewPage1);
-            this.radPageView1.Controls.Add(this.radPageViewPage2);
-            this.radPageView1.Controls.Add(this.rpvSettings);
-            this.radPageView1.Controls.Add(this.rpvApiLogs);
-            this.radPageView1.DefaultPage = this.radPageViewPage2;
-            this.radPageView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radPageView1.Location = new System.Drawing.Point(0, 34);
-            this.radPageView1.Margin = new System.Windows.Forms.Padding(4);
-            this.radPageView1.Name = "radPageView1";
-            this.radPageView1.SelectedPage = this.radPageViewPage2;
-            this.radPageView1.Size = new System.Drawing.Size(872, 606);
-            this.radPageView1.TabIndex = 2;
-            this.radPageView1.ThemeName = "CrystalDark";
-            ((Telerik.WinControls.UI.RadPageViewStripElement)(this.radPageView1.GetChildAt(0))).StripButtons = Telerik.WinControls.UI.StripViewButtons.None;
+            this.radMenu1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radMenu1.Dock = System.Windows.Forms.DockStyle.None;
+            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.mnuFile,
+            this.mnuTools,
+            this.mnuHelp});
+            this.radMenu1.Location = new System.Drawing.Point(0, 0);
+            this.radMenu1.Name = "radMenu1";
+            this.radMenu1.Size = new System.Drawing.Size(1102, 34);
+            this.radMenu1.TabIndex = 1;
+            this.radMenu1.ThemeName = "CrystalDark";
             // 
-            // radPageViewPage1
+            // mnuFile
             // 
-            this.radPageViewPage1.Controls.Add(this.radGroupBox2);
-            this.radPageViewPage1.Controls.Add(this.radGroupBox1);
-            this.radPageViewPage1.ItemSize = new System.Drawing.SizeF(104F, 28F);
-            this.radPageViewPage1.Location = new System.Drawing.Point(6, 33);
-            this.radPageViewPage1.Margin = new System.Windows.Forms.Padding(4);
-            this.radPageViewPage1.Name = "radPageViewPage1";
-            this.radPageViewPage1.Size = new System.Drawing.Size(860, 566);
-            this.radPageViewPage1.Text = "Manage Raffle";
+            this.mnuFile.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.mnuImportCSV,
+            this.radMenuSeparatorItem1,
+            this.mnuExit});
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Text = "File";
             // 
-            // radGroupBox2
+            // mnuImportCSV
             // 
-            this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox2.Controls.Add(this.lblTicketsNotDrawn);
-            this.radGroupBox2.Controls.Add(this.lblTicketsThatLost);
-            this.radGroupBox2.Controls.Add(this.lblTotalTicketsInRaffle);
-            this.radGroupBox2.Controls.Add(this.label4);
-            this.radGroupBox2.Controls.Add(this.label3);
-            this.radGroupBox2.Controls.Add(this.label2);
-            this.radGroupBox2.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox2.HeaderText = "Raffle Stats";
-            this.radGroupBox2.Location = new System.Drawing.Point(386, 21);
-            this.radGroupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox2.Name = "radGroupBox2";
-            this.radGroupBox2.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox2.Size = new System.Drawing.Size(340, 382);
-            this.radGroupBox2.TabIndex = 5;
-            this.radGroupBox2.Text = "Raffle Stats";
-            this.radGroupBox2.ThemeName = "CrystalDark";
+            this.mnuImportCSV.Name = "mnuImportCSV";
+            this.mnuImportCSV.Text = "Import CSV...";
+            this.mnuImportCSV.Click += new System.EventHandler(this.mnuImportCSV_Click);
             // 
-            // lblTicketsNotDrawn
+            // radMenuSeparatorItem1
             // 
-            this.lblTicketsNotDrawn.AutoSize = true;
-            this.lblTicketsNotDrawn.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblTicketsNotDrawn.Location = new System.Drawing.Point(192, 135);
-            this.lblTicketsNotDrawn.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTicketsNotDrawn.Name = "lblTicketsNotDrawn";
-            this.lblTicketsNotDrawn.Size = new System.Drawing.Size(13, 13);
-            this.lblTicketsNotDrawn.TabIndex = 5;
-            this.lblTicketsNotDrawn.Text = "0";
+            this.radMenuSeparatorItem1.Name = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.Text = "radMenuSeparatorItem1";
+            this.radMenuSeparatorItem1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lblTicketsThatLost
+            // mnuExit
             // 
-            this.lblTicketsThatLost.AutoSize = true;
-            this.lblTicketsThatLost.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblTicketsThatLost.Location = new System.Drawing.Point(192, 98);
-            this.lblTicketsThatLost.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTicketsThatLost.Name = "lblTicketsThatLost";
-            this.lblTicketsThatLost.Size = new System.Drawing.Size(13, 13);
-            this.lblTicketsThatLost.TabIndex = 4;
-            this.lblTicketsThatLost.Text = "0";
+            this.mnuExit.Name = "mnuExit";
+            this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
-            // lblTotalTicketsInRaffle
+            // mnuTools
             // 
-            this.lblTotalTicketsInRaffle.AutoSize = true;
-            this.lblTotalTicketsInRaffle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblTotalTicketsInRaffle.Location = new System.Drawing.Point(192, 58);
-            this.lblTotalTicketsInRaffle.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTotalTicketsInRaffle.Name = "lblTotalTicketsInRaffle";
-            this.lblTotalTicketsInRaffle.Size = new System.Drawing.Size(13, 13);
-            this.lblTotalTicketsInRaffle.TabIndex = 3;
-            this.lblTotalTicketsInRaffle.Text = "0";
+            this.mnuTools.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.mnuSettings});
+            this.mnuTools.Name = "mnuTools";
+            this.mnuTools.Text = "Tools";
             // 
-            // label4
+            // mnuSettings
             // 
-            this.label4.Location = new System.Drawing.Point(10, 124);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(174, 40);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Tickets Not Drawn:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mnuSettings.Name = "mnuSettings";
+            this.mnuSettings.Text = "Settings...";
+            this.mnuSettings.Click += new System.EventHandler(this.mnuSettings_Click);
             // 
-            // label3
+            // mnuHelp
             // 
-            this.label3.Location = new System.Drawing.Point(10, 86);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(174, 38);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Losing Tickets:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mnuHelp.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.mnuAbout});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Text = "Help";
             // 
-            // label2
+            // mnuAbout
             // 
-            this.label2.Location = new System.Drawing.Point(10, 49);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 38);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Tickets In Raffle:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mnuAbout.Name = "mnuAbout";
+            this.mnuAbout.Text = "About...";
+            this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
             // radGroupBox1
             // 
             this.radGroupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox1.Controls.Add(this.label1);
-            this.radGroupBox1.Controls.Add(this.rsWinnersEveryNumTickets);
-            this.radGroupBox1.Controls.Add(this.label5);
-            this.radGroupBox1.Controls.Add(this.rsTotalWinningTickets);
             this.radGroupBox1.Controls.Add(this.btnEndRaffle);
             this.radGroupBox1.Controls.Add(this.btnBeginRaffle);
-            this.radGroupBox1.Controls.Add(this.rsTicketNumber);
-            this.radGroupBox1.Controls.Add(this.btnMarkTicketAsNotGood);
-            this.radGroupBox1.Controls.Add(this.btnShowRecentAnnouncement);
-            this.radGroupBox1.Controls.Add(this.btnCloseOverlay);
-            this.radGroupBox1.Controls.Add(this.btnPreviousAnnouncement);
-            this.radGroupBox1.Controls.Add(this.btnNextAnnouncement);
-            this.radGroupBox1.Controls.Add(this.lblHistoryPosition);
+            this.radGroupBox1.Controls.Add(this.rsWinnersEveryNumTickets);
+            this.radGroupBox1.Controls.Add(this.rsTotalWinningTickets);
+            this.radGroupBox1.Controls.Add(this.radLabel8);
+            this.radGroupBox1.Controls.Add(this.radLabel9);
             this.radGroupBox1.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox1.HeaderText = "Raffle";
-            this.radGroupBox1.Location = new System.Drawing.Point(15, 21);
-            this.radGroupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.radGroupBox1.HeaderText = "Raffle Configuration";
+            this.radGroupBox1.Location = new System.Drawing.Point(12, 40);
             this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox1.Size = new System.Drawing.Size(335, 382);
-            this.radGroupBox1.TabIndex = 4;
-            this.radGroupBox1.Text = "Raffle";
+            this.radGroupBox1.Size = new System.Drawing.Size(530, 130);
+            this.radGroupBox1.TabIndex = 2;
+            this.radGroupBox1.Text = "Raffle Configuration";
             this.radGroupBox1.ThemeName = "CrystalDark";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(8, 106);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 48);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Winners Every (x) Tickets";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // rsWinnersEveryNumTickets
-            // 
-            this.rsWinnersEveryNumTickets.AutoSize = false;
-            this.rsWinnersEveryNumTickets.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "WinnersEveryNumTickets", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rsWinnersEveryNumTickets.Location = new System.Drawing.Point(116, 106);
-            this.rsWinnersEveryNumTickets.Margin = new System.Windows.Forms.Padding(4);
-            this.rsWinnersEveryNumTickets.Name = "rsWinnersEveryNumTickets";
-            this.rsWinnersEveryNumTickets.NullableValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.rsWinnersEveryNumTickets.Size = new System.Drawing.Size(201, 30);
-            this.rsWinnersEveryNumTickets.TabIndex = 9;
-            this.rsWinnersEveryNumTickets.TabStop = false;
-            this.rsWinnersEveryNumTickets.ThemeName = "CrystalDark";
-            this.rsWinnersEveryNumTickets.Value = global::ReverseRaffler.Properties.Settings.Default.WinnersEveryNumTickets;
-            // 
-            // label5
-            // 
-            this.label5.Location = new System.Drawing.Point(8, 58);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 42);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Total Winning Tickets";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // rsTotalWinningTickets
-            // 
-            this.rsTotalWinningTickets.AutoSize = false;
-            this.rsTotalWinningTickets.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "LastWhatTicketsAreWinners", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, "1", "N0"));
-            this.rsTotalWinningTickets.Location = new System.Drawing.Point(116, 56);
-            this.rsTotalWinningTickets.Margin = new System.Windows.Forms.Padding(4);
-            this.rsTotalWinningTickets.Name = "rsTotalWinningTickets";
-            this.rsTotalWinningTickets.NullableValue = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.rsTotalWinningTickets.Size = new System.Drawing.Size(201, 30);
-            this.rsTotalWinningTickets.TabIndex = 7;
-            this.rsTotalWinningTickets.TabStop = false;
-            this.rsTotalWinningTickets.ThemeName = "CrystalDark";
-            this.rsTotalWinningTickets.Value = global::ReverseRaffler.Properties.Settings.Default.LastWhatTicketsAreWinners;
             // 
             // btnEndRaffle
             // 
             this.btnEndRaffle.Enabled = false;
-            this.btnEndRaffle.Location = new System.Drawing.Point(116, 201);
-            this.btnEndRaffle.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEndRaffle.Location = new System.Drawing.Point(377, 87);
             this.btnEndRaffle.Name = "btnEndRaffle";
-            this.btnEndRaffle.Size = new System.Drawing.Size(201, 30);
-            this.btnEndRaffle.TabIndex = 4;
+            this.btnEndRaffle.Size = new System.Drawing.Size(140, 32);
+            this.btnEndRaffle.TabIndex = 5;
             this.btnEndRaffle.Text = "End Raffle";
             this.btnEndRaffle.ThemeName = "CrystalDark";
             this.btnEndRaffle.Click += new System.EventHandler(this.btnEndRaffle_Click);
             // 
             // btnBeginRaffle
             // 
-            this.btnBeginRaffle.Location = new System.Drawing.Point(116, 165);
-            this.btnBeginRaffle.Margin = new System.Windows.Forms.Padding(4);
+            this.btnBeginRaffle.Location = new System.Drawing.Point(17, 87);
             this.btnBeginRaffle.Name = "btnBeginRaffle";
-            this.btnBeginRaffle.Size = new System.Drawing.Size(201, 30);
-            this.btnBeginRaffle.TabIndex = 3;
+            this.btnBeginRaffle.Size = new System.Drawing.Size(140, 32);
+            this.btnBeginRaffle.TabIndex = 4;
             this.btnBeginRaffle.Text = "Begin Raffle";
             this.btnBeginRaffle.ThemeName = "CrystalDark";
             this.btnBeginRaffle.Click += new System.EventHandler(this.btnBeginRaffle_Click);
             // 
-            // rsTicketNumber
+            // rsWinnersEveryNumTickets
             // 
-            this.rsTicketNumber.AutoSize = false;
-            this.rsTicketNumber.Enabled = false;
-            this.rsTicketNumber.Location = new System.Drawing.Point(10, 260);
-            this.rsTicketNumber.Margin = new System.Windows.Forms.Padding(4);
-            this.rsTicketNumber.Maximum = new decimal(new int[] {
+            this.rsWinnersEveryNumTickets.Location = new System.Drawing.Point(357, 57);
+            this.rsWinnersEveryNumTickets.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
+            this.rsWinnersEveryNumTickets.Name = "rsWinnersEveryNumTickets";
+            this.rsWinnersEveryNumTickets.Size = new System.Drawing.Size(160, 24);
+            this.rsWinnersEveryNumTickets.TabIndex = 3;
+            this.rsWinnersEveryNumTickets.ThemeName = "CrystalDark";
+            // 
+            // rsTotalWinningTickets
+            // 
+            this.rsTotalWinningTickets.Location = new System.Drawing.Point(357, 25);
+            this.rsTotalWinningTickets.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.rsTotalWinningTickets.Name = "rsTotalWinningTickets";
+            this.rsTotalWinningTickets.NullableValue = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.rsTotalWinningTickets.Size = new System.Drawing.Size(160, 24);
+            this.rsTotalWinningTickets.TabIndex = 1;
+            this.rsTotalWinningTickets.ThemeName = "CrystalDark";
+            this.rsTotalWinningTickets.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // radLabel8
+            // 
+            this.radLabel8.Location = new System.Drawing.Point(15, 59);
+            this.radLabel8.Name = "radLabel8";
+            this.radLabel8.Size = new System.Drawing.Size(236, 20);
+            this.radLabel8.TabIndex = 2;
+            this.radLabel8.Text = "Winners Every X Tickets (0=disabled):";
+            this.radLabel8.ThemeName = "CrystalDark";
+            // 
+            // radLabel9
+            // 
+            this.radLabel9.Location = new System.Drawing.Point(15, 27);
+            this.radLabel9.Name = "radLabel9";
+            this.radLabel9.Size = new System.Drawing.Size(142, 20);
+            this.radLabel9.TabIndex = 0;
+            this.radLabel9.Text = "Total Winning Tickets:";
+            this.radLabel9.ThemeName = "CrystalDark";
+            // 
+            // radGroupBox2
+            // 
+            this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radGroupBox2.Controls.Add(this.rsTicketNumber);
+            this.radGroupBox2.Controls.Add(this.btnMarkTicketAsNotGood);
+            this.radGroupBox2.Controls.Add(this.lblHistoryPosition);
+            this.radGroupBox2.Controls.Add(this.btnNextAnnouncement);
+            this.radGroupBox2.Controls.Add(this.btnPreviousAnnouncement);
+            this.radGroupBox2.Controls.Add(this.btnCloseOverlay);
+            this.radGroupBox2.Controls.Add(this.btnShowRecentAnnouncement);
+            this.radGroupBox2.HeaderMargin = new System.Windows.Forms.Padding(1);
+            this.radGroupBox2.HeaderText = "Ticket Entry & Overlay Controls";
+            this.radGroupBox2.Location = new System.Drawing.Point(560, 40);
+            this.radGroupBox2.Name = "radGroupBox2";
+            this.radGroupBox2.Size = new System.Drawing.Size(530, 130);
+            this.radGroupBox2.TabIndex = 3;
+            this.radGroupBox2.Text = "Ticket Entry & Overlay Controls";
+            this.radGroupBox2.ThemeName = "CrystalDark";
+            // 
+            // rsTicketNumber
+            // 
+            this.rsTicketNumber.Enabled = false;
+            this.rsTicketNumber.Location = new System.Drawing.Point(16, 37);
+            this.rsTicketNumber.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
             this.rsTicketNumber.Name = "rsTicketNumber";
-            this.rsTicketNumber.Size = new System.Drawing.Size(98, 30);
+            this.rsTicketNumber.Size = new System.Drawing.Size(180, 24);
             this.rsTicketNumber.TabIndex = 0;
-            this.rsTicketNumber.TabStop = false;
             this.rsTicketNumber.ThemeName = "CrystalDark";
             // 
             // btnMarkTicketAsNotGood
             // 
             this.btnMarkTicketAsNotGood.Enabled = false;
-            this.btnMarkTicketAsNotGood.Location = new System.Drawing.Point(116, 260);
-            this.btnMarkTicketAsNotGood.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMarkTicketAsNotGood.Location = new System.Drawing.Point(202, 35);
             this.btnMarkTicketAsNotGood.Name = "btnMarkTicketAsNotGood";
-            this.btnMarkTicketAsNotGood.Size = new System.Drawing.Size(201, 30);
+            this.btnMarkTicketAsNotGood.Size = new System.Drawing.Size(140, 28);
             this.btnMarkTicketAsNotGood.TabIndex = 1;
-            this.btnMarkTicketAsNotGood.Text = "Remove Ticket From Raffle";
+            this.btnMarkTicketAsNotGood.Text = "Mark as Drawn";
             this.btnMarkTicketAsNotGood.ThemeName = "CrystalDark";
             this.btnMarkTicketAsNotGood.Click += new System.EventHandler(this.btnMarkTicketAsNotGood_Click);
             // 
-            // btnShowRecentAnnouncement
+            // lblHistoryPosition
             // 
-            this.btnShowRecentAnnouncement.Enabled = false;
-            this.btnShowRecentAnnouncement.Location = new System.Drawing.Point(10, 310);
-            this.btnShowRecentAnnouncement.Margin = new System.Windows.Forms.Padding(4);
-            this.btnShowRecentAnnouncement.Name = "btnShowRecentAnnouncement";
-            this.btnShowRecentAnnouncement.Size = new System.Drawing.Size(307, 30);
-            this.btnShowRecentAnnouncement.TabIndex = 11;
-            this.btnShowRecentAnnouncement.Text = "Show Recent Winner/Loser";
-            this.btnShowRecentAnnouncement.ThemeName = "CrystalDark";
-            this.btnShowRecentAnnouncement.Click += new System.EventHandler(this.btnShowRecentAnnouncement_Click);
-            // 
-            // btnCloseOverlay
-            // 
-            this.btnCloseOverlay.Enabled = false;
-            this.btnCloseOverlay.Location = new System.Drawing.Point(10, 346);
-            this.btnCloseOverlay.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCloseOverlay.Name = "btnCloseOverlay";
-            this.btnCloseOverlay.Size = new System.Drawing.Size(307, 30);
-            this.btnCloseOverlay.TabIndex = 12;
-            this.btnCloseOverlay.Text = "Close Overlay";
-            this.btnCloseOverlay.ThemeName = "CrystalDark";
-            this.btnCloseOverlay.Click += new System.EventHandler(this.btnCloseOverlay_Click);
-            // 
-            // btnPreviousAnnouncement
-            // 
-            this.btnPreviousAnnouncement.Enabled = false;
-            this.btnPreviousAnnouncement.Location = new System.Drawing.Point(10, 382);
-            this.btnPreviousAnnouncement.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPreviousAnnouncement.Name = "btnPreviousAnnouncement";
-            this.btnPreviousAnnouncement.Size = new System.Drawing.Size(98, 30);
-            this.btnPreviousAnnouncement.TabIndex = 13;
-            this.btnPreviousAnnouncement.Text = "< Previous";
-            this.btnPreviousAnnouncement.ThemeName = "CrystalDark";
-            this.btnPreviousAnnouncement.Click += new System.EventHandler(this.btnPreviousAnnouncement_Click);
+            this.lblHistoryPosition.Location = new System.Drawing.Point(16, 117);
+            this.lblHistoryPosition.Name = "lblHistoryPosition";
+            this.lblHistoryPosition.Size = new System.Drawing.Size(2, 2);
+            this.lblHistoryPosition.TabIndex = 6;
+            this.lblHistoryPosition.ThemeName = "CrystalDark";
             // 
             // btnNextAnnouncement
             // 
             this.btnNextAnnouncement.Enabled = false;
-            this.btnNextAnnouncement.Location = new System.Drawing.Point(116, 382);
-            this.btnNextAnnouncement.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNextAnnouncement.Location = new System.Drawing.Point(323, 69);
             this.btnNextAnnouncement.Name = "btnNextAnnouncement";
-            this.btnNextAnnouncement.Size = new System.Drawing.Size(98, 30);
-            this.btnNextAnnouncement.TabIndex = 14;
-            this.btnNextAnnouncement.Text = "Next >";
+            this.btnNextAnnouncement.Size = new System.Drawing.Size(100, 28);
+            this.btnNextAnnouncement.TabIndex = 5;
+            this.btnNextAnnouncement.Text = "Next →";
             this.btnNextAnnouncement.ThemeName = "CrystalDark";
             this.btnNextAnnouncement.Click += new System.EventHandler(this.btnNextAnnouncement_Click);
             // 
-            // lblHistoryPosition
+            // btnPreviousAnnouncement
             // 
-            this.lblHistoryPosition.Location = new System.Drawing.Point(222, 382);
-            this.lblHistoryPosition.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblHistoryPosition.Name = "lblHistoryPosition";
-            this.lblHistoryPosition.Size = new System.Drawing.Size(95, 30);
-            this.lblHistoryPosition.TabIndex = 15;
-            this.lblHistoryPosition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnPreviousAnnouncement.Enabled = false;
+            this.btnPreviousAnnouncement.Location = new System.Drawing.Point(217, 69);
+            this.btnPreviousAnnouncement.Name = "btnPreviousAnnouncement";
+            this.btnPreviousAnnouncement.Size = new System.Drawing.Size(100, 28);
+            this.btnPreviousAnnouncement.TabIndex = 4;
+            this.btnPreviousAnnouncement.Text = "← Previous";
+            this.btnPreviousAnnouncement.ThemeName = "CrystalDark";
+            this.btnPreviousAnnouncement.Click += new System.EventHandler(this.btnPreviousAnnouncement_Click);
             // 
-            // radPageViewPage2
+            // btnCloseOverlay
             // 
-            this.radPageViewPage2.Controls.Add(this.gridTicketHolders);
-            this.radPageViewPage2.ItemSize = new System.Drawing.SizeF(156F, 28F);
-            this.radPageViewPage2.Location = new System.Drawing.Point(6, 33);
-            this.radPageViewPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.radPageViewPage2.Name = "radPageViewPage2";
-            this.radPageViewPage2.Size = new System.Drawing.Size(860, 566);
-            this.radPageViewPage2.Text = "Manage Ticket Holders";
+            this.btnCloseOverlay.Enabled = false;
+            this.btnCloseOverlay.Location = new System.Drawing.Point(111, 69);
+            this.btnCloseOverlay.Name = "btnCloseOverlay";
+            this.btnCloseOverlay.Size = new System.Drawing.Size(100, 28);
+            this.btnCloseOverlay.TabIndex = 3;
+            this.btnCloseOverlay.Text = "Close";
+            this.btnCloseOverlay.ThemeName = "CrystalDark";
+            this.btnCloseOverlay.Click += new System.EventHandler(this.btnCloseOverlay_Click);
+            // 
+            // btnShowRecentAnnouncement
+            // 
+            this.btnShowRecentAnnouncement.Enabled = false;
+            this.btnShowRecentAnnouncement.Location = new System.Drawing.Point(16, 69);
+            this.btnShowRecentAnnouncement.Name = "btnShowRecentAnnouncement";
+            this.btnShowRecentAnnouncement.Size = new System.Drawing.Size(89, 28);
+            this.btnShowRecentAnnouncement.TabIndex = 2;
+            this.btnShowRecentAnnouncement.Text = "Recent";
+            this.btnShowRecentAnnouncement.ThemeName = "CrystalDark";
+            this.btnShowRecentAnnouncement.Click += new System.EventHandler(this.btnShowRecentAnnouncement_Click);
+            // 
+            // radGroupBox3
+            // 
+            this.radGroupBox3.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.radGroupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radGroupBox3.Controls.Add(this.lblTotalTicketsInRaffle);
+            this.radGroupBox3.Controls.Add(this.lblTicketsThatLost);
+            this.radGroupBox3.Controls.Add(this.lblTicketsNotDrawn);
+            this.radGroupBox3.Controls.Add(this.radLabel12);
+            this.radGroupBox3.Controls.Add(this.radLabel11);
+            this.radGroupBox3.Controls.Add(this.radLabel10);
+            this.radGroupBox3.HeaderMargin = new System.Windows.Forms.Padding(1);
+            this.radGroupBox3.HeaderText = "Statistics";
+            this.radGroupBox3.Location = new System.Drawing.Point(12, 176);
+            this.radGroupBox3.Name = "radGroupBox3";
+            this.radGroupBox3.Size = new System.Drawing.Size(1078, 70);
+            this.radGroupBox3.TabIndex = 4;
+            this.radGroupBox3.Text = "Statistics";
+            this.radGroupBox3.ThemeName = "CrystalDark";
+            // 
+            // lblTotalTicketsInRaffle
+            // 
+            this.lblTotalTicketsInRaffle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTotalTicketsInRaffle.Location = new System.Drawing.Point(906, 30);
+            this.lblTotalTicketsInRaffle.Name = "lblTotalTicketsInRaffle";
+            this.lblTotalTicketsInRaffle.Size = new System.Drawing.Size(15, 21);
+            this.lblTotalTicketsInRaffle.TabIndex = 5;
+            this.lblTotalTicketsInRaffle.Text = "0";
+            this.lblTotalTicketsInRaffle.ThemeName = "CrystalDark";
+            // 
+            // lblTicketsThatLost
+            // 
+            this.lblTicketsThatLost.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTicketsThatLost.Location = new System.Drawing.Point(551, 30);
+            this.lblTicketsThatLost.Name = "lblTicketsThatLost";
+            this.lblTicketsThatLost.Size = new System.Drawing.Size(15, 21);
+            this.lblTicketsThatLost.TabIndex = 3;
+            this.lblTicketsThatLost.Text = "0";
+            this.lblTicketsThatLost.ThemeName = "CrystalDark";
+            // 
+            // lblTicketsNotDrawn
+            // 
+            this.lblTicketsNotDrawn.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTicketsNotDrawn.Location = new System.Drawing.Point(161, 30);
+            this.lblTicketsNotDrawn.Name = "lblTicketsNotDrawn";
+            this.lblTicketsNotDrawn.Size = new System.Drawing.Size(15, 21);
+            this.lblTicketsNotDrawn.TabIndex = 1;
+            this.lblTicketsNotDrawn.Text = "0";
+            this.lblTicketsNotDrawn.ThemeName = "CrystalDark";
+            // 
+            // radLabel12
+            // 
+            this.radLabel12.Location = new System.Drawing.Point(760, 32);
+            this.radLabel12.Name = "radLabel12";
+            this.radLabel12.Size = new System.Drawing.Size(143, 20);
+            this.radLabel12.TabIndex = 4;
+            this.radLabel12.Text = "Total Tickets in Raffle:";
+            this.radLabel12.ThemeName = "CrystalDark";
+            // 
+            // radLabel11
+            // 
+            this.radLabel11.Location = new System.Drawing.Point(405, 32);
+            this.radLabel11.Name = "radLabel11";
+            this.radLabel11.Size = new System.Drawing.Size(116, 20);
+            this.radLabel11.TabIndex = 2;
+            this.radLabel11.Text = "Tickets That Lost:";
+            this.radLabel11.ThemeName = "CrystalDark";
+            // 
+            // radLabel10
+            // 
+            this.radLabel10.Location = new System.Drawing.Point(15, 32);
+            this.radLabel10.Name = "radLabel10";
+            this.radLabel10.Size = new System.Drawing.Size(123, 20);
+            this.radLabel10.TabIndex = 0;
+            this.radLabel10.Text = "Tickets Not Drawn:";
+            this.radLabel10.ThemeName = "CrystalDark";
+            // 
+            // radLabel5
+            // 
+            this.radLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radLabel5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.radLabel5.Location = new System.Drawing.Point(12, 252);
+            this.radLabel5.Name = "radLabel5";
+            this.radLabel5.Size = new System.Drawing.Size(86, 21);
+            this.radLabel5.TabIndex = 5;
+            this.radLabel5.Text = "API Monitor";
+            this.radLabel5.ThemeName = "CrystalDark";
+            // 
+            // txtApiLogs
+            // 
+            this.txtApiLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.txtApiLogs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApiLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtApiLogs.Font = new System.Drawing.Font("Consolas", 9F);
+            this.txtApiLogs.ForeColor = System.Drawing.Color.LightGray;
+            this.txtApiLogs.Location = new System.Drawing.Point(0, 20);
+            this.txtApiLogs.Multiline = true;
+            this.txtApiLogs.Name = "txtApiLogs";
+            this.txtApiLogs.ReadOnly = true;
+            this.txtApiLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtApiLogs.Size = new System.Drawing.Size(1078, 94);
+            this.txtApiLogs.TabIndex = 1;
+            // 
+            // lblApiStatus
+            // 
+            this.lblApiStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblApiStatus.Location = new System.Drawing.Point(0, 0);
+            this.lblApiStatus.Name = "lblApiStatus";
+            this.lblApiStatus.Size = new System.Drawing.Size(86, 20);
+            this.lblApiStatus.TabIndex = 0;
+            this.lblApiStatus.Text = "API: Stopped";
+            this.lblApiStatus.ThemeName = "CrystalDark";
+            // 
+            // radSplitContainer1
+            // 
+            this.radSplitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radSplitContainer1.Controls.Add(this.splitPanel1);
+            this.radSplitContainer1.Controls.Add(this.splitPanel2);
+            this.radSplitContainer1.Location = new System.Drawing.Point(12, 279);
+            this.radSplitContainer1.Name = "radSplitContainer1";
+            this.radSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // 
+            // 
+            this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.radSplitContainer1.Size = new System.Drawing.Size(1078, 377);
+            this.radSplitContainer1.SplitterWidth = 2;
+            this.radSplitContainer1.TabIndex = 7;
+            this.radSplitContainer1.TabStop = false;
+            this.radSplitContainer1.ThemeName = "CrystalDark";
+            // 
+            // splitPanel1
+            // 
+            this.splitPanel1.Controls.Add(this.txtApiLogs);
+            this.splitPanel1.Controls.Add(this.lblApiStatus);
+            this.splitPanel1.Location = new System.Drawing.Point(0, 0);
+            this.splitPanel1.Name = "splitPanel1";
+            // 
+            // 
+            // 
+            this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel1.Size = new System.Drawing.Size(1078, 114);
+            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.196F);
+            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -74);
+            this.splitPanel1.TabIndex = 0;
+            this.splitPanel1.TabStop = false;
+            this.splitPanel1.ThemeName = "CrystalDark";
+            // 
+            // splitPanel2
+            // 
+            this.splitPanel2.Controls.Add(this.radLabel6);
+            this.splitPanel2.Controls.Add(this.panelTickets);
+            this.splitPanel2.Location = new System.Drawing.Point(0, 116);
+            this.splitPanel2.Name = "splitPanel2";
+            // 
+            // 
+            // 
+            this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel2.Size = new System.Drawing.Size(1078, 261);
+            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.196F);
+            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 74);
+            this.splitPanel2.TabIndex = 1;
+            this.splitPanel2.TabStop = false;
+            this.splitPanel2.ThemeName = "CrystalDark";
+            // 
+            // radLabel6
+            // 
+            this.radLabel6.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.radLabel6.Location = new System.Drawing.Point(3, 3);
+            this.radLabel6.Name = "radLabel6";
+            this.radLabel6.Size = new System.Drawing.Size(52, 21);
+            this.radLabel6.TabIndex = 0;
+            this.radLabel6.Text = "Tickets";
+            this.radLabel6.ThemeName = "CrystalDark";
+            // 
+            // panelTickets
+            // 
+            this.panelTickets.Controls.Add(this.gridTicketHolders);
+            this.panelTickets.Location = new System.Drawing.Point(3, 30);
+            this.panelTickets.Name = "panelTickets";
+            this.panelTickets.Size = new System.Drawing.Size(1070, 154);
+            this.panelTickets.TabIndex = 1;
+            this.panelTickets.ThemeName = "CrystalDark";
             // 
             // gridTicketHolders
             // 
@@ -523,22 +628,22 @@
             gridViewTextBoxColumn1.HeaderText = "Ticket #";
             gridViewTextBoxColumn1.Name = "colTicketNumber";
             gridViewTextBoxColumn1.ReadOnly = true;
-            gridViewTextBoxColumn1.Width = 150;
+            gridViewTextBoxColumn1.Width = 188;
             gridViewTextBoxColumn2.EnableExpressionEditor = false;
             gridViewTextBoxColumn2.FieldName = "TicketHolder1";
             gridViewTextBoxColumn2.HeaderText = "Ticket Holder 1";
             gridViewTextBoxColumn2.Name = "colTicketHolder1";
-            gridViewTextBoxColumn2.Width = 227;
+            gridViewTextBoxColumn2.Width = 285;
             gridViewTextBoxColumn3.EnableExpressionEditor = false;
             gridViewTextBoxColumn3.FieldName = "TicketHolder2";
             gridViewTextBoxColumn3.HeaderText = "Ticket Holder 2";
             gridViewTextBoxColumn3.Name = "colTicketHolder2";
-            gridViewTextBoxColumn3.Width = 227;
+            gridViewTextBoxColumn3.Width = 285;
             gridViewTextBoxColumn4.EnableExpressionEditor = false;
             gridViewTextBoxColumn4.FieldName = "TicketHolder3";
             gridViewTextBoxColumn4.HeaderText = "Ticket Holder 3";
             gridViewTextBoxColumn4.Name = "colTicketHolder3";
-            gridViewTextBoxColumn4.Width = 224;
+            gridViewTextBoxColumn4.Width = 280;
             this.gridTicketHolders.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
             gridViewTextBoxColumn1,
             gridViewTextBoxColumn2,
@@ -550,491 +655,74 @@
             this.gridTicketHolders.MasterTemplate.MultiSelect = true;
             this.gridTicketHolders.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.gridTicketHolders.Name = "gridTicketHolders";
-            this.gridTicketHolders.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.gridTicketHolders.Size = new System.Drawing.Size(860, 566);
+            this.gridTicketHolders.Size = new System.Drawing.Size(1070, 154);
             this.gridTicketHolders.TabIndex = 0;
             this.gridTicketHolders.ThemeName = "CrystalDark";
-            this.gridTicketHolders.UseScrollbarsInHierarchy = true;
-            // 
-            // rpvSettings
-            //
-            this.rpvSettings.Controls.Add(this.radGroupBox6);
-            this.rpvSettings.Controls.Add(this.radGroupBox5);
-            this.rpvSettings.Controls.Add(this.radGroupBox4);
-            this.rpvSettings.Controls.Add(this.btnSaveSettingsOptions);
-            this.rpvSettings.Controls.Add(this.radGroupBox3);
-            this.rpvSettings.ItemSize = new System.Drawing.SizeF(65F, 28F);
-            this.rpvSettings.Location = new System.Drawing.Point(6, 33);
-            this.rpvSettings.Margin = new System.Windows.Forms.Padding(4);
-            this.rpvSettings.Name = "rpvSettings";
-            this.rpvSettings.Size = new System.Drawing.Size(860, 566);
-            this.rpvSettings.Text = "Settings";
-            //
-            // radGroupBox6
-            //
-            this.radGroupBox6.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox6.Controls.Add(this.btnDemoRaffleWinner);
-            this.radGroupBox6.Controls.Add(this.btnDemoWinner);
-            this.radGroupBox6.Controls.Add(this.btnDemoLoser);
-            this.radGroupBox6.Controls.Add(this.btnDemoInfo);
-            this.radGroupBox6.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox6.HeaderText = "Demo";
-            this.radGroupBox6.Location = new System.Drawing.Point(542, 254);
-            this.radGroupBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox6.Name = "radGroupBox6";
-            this.radGroupBox6.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox6.Size = new System.Drawing.Size(315, 200);
-            this.radGroupBox6.TabIndex = 10;
-            this.radGroupBox6.Text = "Demo";
-            this.radGroupBox6.ThemeName = "CrystalDark";
-            //
-            // btnDemoRaffleWinner
-            //
-            this.btnDemoRaffleWinner.Location = new System.Drawing.Point(8, 151);
-            this.btnDemoRaffleWinner.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDemoRaffleWinner.Name = "btnDemoRaffleWinner";
-            this.btnDemoRaffleWinner.Size = new System.Drawing.Size(299, 35);
-            this.btnDemoRaffleWinner.TabIndex = 3;
-            this.btnDemoRaffleWinner.Text = "Show Raffle Winner (Final)";
-            this.btnDemoRaffleWinner.ThemeName = "CrystalDark";
-            this.btnDemoRaffleWinner.Click += new System.EventHandler(this.btnDemoRaffleWinner_Click);
-            //
-            // btnDemoWinner
-            //
-            this.btnDemoWinner.Location = new System.Drawing.Point(8, 108);
-            this.btnDemoWinner.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDemoWinner.Name = "btnDemoWinner";
-            this.btnDemoWinner.Size = new System.Drawing.Size(299, 35);
-            this.btnDemoWinner.TabIndex = 2;
-            this.btnDemoWinner.Text = "Show Winner";
-            this.btnDemoWinner.ThemeName = "CrystalDark";
-            this.btnDemoWinner.Click += new System.EventHandler(this.btnDemoWinner_Click);
-            //
-            // btnDemoLoser
-            //
-            this.btnDemoLoser.Location = new System.Drawing.Point(8, 65);
-            this.btnDemoLoser.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDemoLoser.Name = "btnDemoLoser";
-            this.btnDemoLoser.Size = new System.Drawing.Size(299, 35);
-            this.btnDemoLoser.TabIndex = 1;
-            this.btnDemoLoser.Text = "Show Loser";
-            this.btnDemoLoser.ThemeName = "CrystalDark";
-            this.btnDemoLoser.Click += new System.EventHandler(this.btnDemoLoser_Click);
-            //
-            // btnDemoInfo
-            //
-            this.btnDemoInfo.Location = new System.Drawing.Point(8, 22);
-            this.btnDemoInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDemoInfo.Name = "btnDemoInfo";
-            this.btnDemoInfo.Size = new System.Drawing.Size(299, 35);
-            this.btnDemoInfo.TabIndex = 0;
-            this.btnDemoInfo.Text = "Show Info";
-            this.btnDemoInfo.ThemeName = "CrystalDark";
-            this.btnDemoInfo.Click += new System.EventHandler(this.btnDemoInfo_Click);
-            //
-            // radGroupBox5
-            //
-            this.radGroupBox5.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox5.Controls.Add(this.radSpinEditor1);
-            this.radGroupBox5.Controls.Add(this.radLabel4);
-            this.radGroupBox5.Controls.Add(this.radLabel3);
-            this.radGroupBox5.Controls.Add(this.rsTicketWidth);
-            this.radGroupBox5.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox5.HeaderText = "Ticket UI Settings";
-            this.radGroupBox5.Location = new System.Drawing.Point(542, 4);
-            this.radGroupBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox5.Name = "radGroupBox5";
-            this.radGroupBox5.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox5.Size = new System.Drawing.Size(315, 246);
-            this.radGroupBox5.TabIndex = 9;
-            this.radGroupBox5.Text = "Ticket UI Settings";
-            this.radGroupBox5.ThemeName = "CrystalDark";
-            // 
-            // radSpinEditor1
-            // 
-            this.radSpinEditor1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "ticketHeightt", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.radSpinEditor1.Location = new System.Drawing.Point(8, 79);
-            this.radSpinEditor1.Margin = new System.Windows.Forms.Padding(4);
-            this.radSpinEditor1.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.radSpinEditor1.Name = "radSpinEditor1";
-            this.radSpinEditor1.NullableValue = new decimal(new int[] {
-            42,
-            0,
-            0,
-            0});
-            this.radSpinEditor1.Size = new System.Drawing.Size(68, 24);
-            this.radSpinEditor1.TabIndex = 5;
-            this.radSpinEditor1.TabStop = false;
-            this.radSpinEditor1.ThemeName = "CrystalDark";
-            this.radSpinEditor1.Value = global::ReverseRaffler.Properties.Settings.Default.ticketHeightt;
-            // 
-            // radLabel4
-            // 
-            this.radLabel4.AutoSize = false;
-            this.radLabel4.Location = new System.Drawing.Point(84, 81);
-            this.radLabel4.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel4.Name = "radLabel4";
-            this.radLabel4.Size = new System.Drawing.Size(185, 22);
-            this.radLabel4.TabIndex = 4;
-            this.radLabel4.Text = "Ticket Element Height";
-            this.radLabel4.ThemeName = "CrystalDark";
-            // 
-            // radLabel3
-            // 
-            this.radLabel3.AutoSize = false;
-            this.radLabel3.Location = new System.Drawing.Point(84, 49);
-            this.radLabel3.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel3.Name = "radLabel3";
-            this.radLabel3.Size = new System.Drawing.Size(185, 22);
-            this.radLabel3.TabIndex = 2;
-            this.radLabel3.Text = "Ticket Element Width";
-            this.radLabel3.ThemeName = "CrystalDark";
-            // 
-            // rsTicketWidth
-            // 
-            this.rsTicketWidth.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "ticketWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rsTicketWidth.Location = new System.Drawing.Point(6, 46);
-            this.rsTicketWidth.Margin = new System.Windows.Forms.Padding(4);
-            this.rsTicketWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.rsTicketWidth.Name = "rsTicketWidth";
-            this.rsTicketWidth.NullableValue = new decimal(new int[] {
-            66,
-            0,
-            0,
-            0});
-            this.rsTicketWidth.Size = new System.Drawing.Size(70, 24);
-            this.rsTicketWidth.TabIndex = 1;
-            this.rsTicketWidth.TabStop = false;
-            this.rsTicketWidth.ThemeName = "CrystalDark";
-            this.rsTicketWidth.Value = global::ReverseRaffler.Properties.Settings.Default.ticketWidth;
-            // 
-            // radGroupBox4
-            // 
-            this.radGroupBox4.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox4.Controls.Add(this.btnResetFlag);
-            this.radGroupBox4.Controls.Add(this.btnImportFile2DB);
-            this.radGroupBox4.Controls.Add(this.radLabel2);
-            this.radGroupBox4.Controls.Add(this.rsResetDBWithTicketCount);
-            this.radGroupBox4.Controls.Add(this.btnResetDatabase);
-            this.radGroupBox4.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox4.HeaderText = "Database Settings";
-            this.radGroupBox4.Location = new System.Drawing.Point(4, 272);
-            this.radGroupBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox4.Name = "radGroupBox4";
-            this.radGroupBox4.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox4.Size = new System.Drawing.Size(323, 222);
-            this.radGroupBox4.TabIndex = 8;
-            this.radGroupBox4.Text = "Database Settings";
-            this.radGroupBox4.ThemeName = "CrystalDark";
-            // 
-            // btnResetFlag
-            // 
-            this.btnResetFlag.Location = new System.Drawing.Point(19, 130);
-            this.btnResetFlag.Margin = new System.Windows.Forms.Padding(4);
-            this.btnResetFlag.Name = "btnResetFlag";
-            this.btnResetFlag.Size = new System.Drawing.Size(280, 30);
-            this.btnResetFlag.TabIndex = 5;
-            this.btnResetFlag.Text = "Reset Losing Flag in DB";
-            this.btnResetFlag.ThemeName = "CrystalDark";
-            this.btnResetFlag.Click += new System.EventHandler(this.btnResetFlag_Click);
-            // 
-            // btnImportFile2DB
-            // 
-            this.btnImportFile2DB.Location = new System.Drawing.Point(19, 168);
-            this.btnImportFile2DB.Margin = new System.Windows.Forms.Padding(4);
-            this.btnImportFile2DB.Name = "btnImportFile2DB";
-            this.btnImportFile2DB.Size = new System.Drawing.Size(280, 30);
-            this.btnImportFile2DB.TabIndex = 4;
-            this.btnImportFile2DB.Text = "Import File To Database";
-            this.btnImportFile2DB.ThemeName = "CrystalDark";
-            this.btnImportFile2DB.Click += new System.EventHandler(this.btnImportFile2DB_Click);
-            // 
-            // radLabel2
-            // 
-            this.radLabel2.AutoSize = false;
-            this.radLabel2.Location = new System.Drawing.Point(110, 46);
-            this.radLabel2.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel2.Name = "radLabel2";
-            this.radLabel2.Size = new System.Drawing.Size(207, 25);
-            this.radLabel2.TabIndex = 3;
-            this.radLabel2.Text = "Reset DB With (x) Empty Tickets";
-            this.radLabel2.ThemeName = "CrystalDark";
-            // 
-            // rsResetDBWithTicketCount
-            // 
-            this.rsResetDBWithTicketCount.Location = new System.Drawing.Point(19, 46);
-            this.rsResetDBWithTicketCount.Margin = new System.Windows.Forms.Padding(4);
-            this.rsResetDBWithTicketCount.Name = "rsResetDBWithTicketCount";
-            this.rsResetDBWithTicketCount.NullableValue = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.rsResetDBWithTicketCount.Size = new System.Drawing.Size(83, 24);
-            this.rsResetDBWithTicketCount.TabIndex = 1;
-            this.rsResetDBWithTicketCount.TabStop = false;
-            this.rsResetDBWithTicketCount.ThemeName = "CrystalDark";
-            this.rsResetDBWithTicketCount.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // btnResetDatabase
-            // 
-            this.btnResetDatabase.Location = new System.Drawing.Point(19, 92);
-            this.btnResetDatabase.Margin = new System.Windows.Forms.Padding(4);
-            this.btnResetDatabase.Name = "btnResetDatabase";
-            this.btnResetDatabase.Size = new System.Drawing.Size(280, 30);
-            this.btnResetDatabase.TabIndex = 0;
-            this.btnResetDatabase.Text = "Reset Database";
-            this.btnResetDatabase.ThemeName = "CrystalDark";
-            this.btnResetDatabase.Click += new System.EventHandler(this.btnResetDatabase_Click);
-            // 
-            // btnSaveSettingsOptions
-            // 
-            this.btnSaveSettingsOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveSettingsOptions.Location = new System.Drawing.Point(707, 519);
-            this.btnSaveSettingsOptions.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSaveSettingsOptions.Name = "btnSaveSettingsOptions";
-            this.btnSaveSettingsOptions.Size = new System.Drawing.Size(138, 30);
-            this.btnSaveSettingsOptions.TabIndex = 7;
-            this.btnSaveSettingsOptions.Text = "Save Changes";
-            this.btnSaveSettingsOptions.ThemeName = "CrystalDark";
-            this.btnSaveSettingsOptions.Click += new System.EventHandler(this.btnSaveSettingsOptions_Click);
-            // 
-            // radGroupBox3
-            // 
-            this.radGroupBox3.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.radGroupBox3.Controls.Add(this.radLabel7);
-            this.radGroupBox3.Controls.Add(this.radSpinEditor2);
-            this.radGroupBox3.Controls.Add(this.radCheckBox1);
-            this.radGroupBox3.Controls.Add(this.radLabel1);
-            this.radGroupBox3.Controls.Add(this.chkEnableAutoCloseLosingTicketAlert);
-            this.radGroupBox3.Controls.Add(this.rsAutoCloseLosingTicket);
-            this.radGroupBox3.HeaderMargin = new System.Windows.Forms.Padding(1);
-            this.radGroupBox3.HeaderText = "Ticket Result Window";
-            this.radGroupBox3.Location = new System.Drawing.Point(4, 4);
-            this.radGroupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.radGroupBox3.Name = "radGroupBox3";
-            this.radGroupBox3.Padding = new System.Windows.Forms.Padding(2, 22, 2, 2);
-            this.radGroupBox3.Size = new System.Drawing.Size(531, 246);
-            this.radGroupBox3.TabIndex = 6;
-            this.radGroupBox3.Text = "Ticket Result Window";
-            this.radGroupBox3.ThemeName = "CrystalDark";
-            // 
-            // radLabel7
-            // 
-            this.radLabel7.AutoSize = false;
-            this.radLabel7.Location = new System.Drawing.Point(85, 142);
-            this.radLabel7.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel7.Name = "radLabel7";
-            this.radLabel7.Size = new System.Drawing.Size(185, 22);
-            this.radLabel7.TabIndex = 5;
-            this.radLabel7.Text = "Auto Close After (x) Seconds";
-            this.radLabel7.ThemeName = "CrystalDark";
-            // 
-            // radSpinEditor2
-            // 
-            this.radSpinEditor2.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "AutoCloseWinningTicketWindowAfter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.radSpinEditor2.Location = new System.Drawing.Point(6, 141);
-            this.radSpinEditor2.Margin = new System.Windows.Forms.Padding(4);
-            this.radSpinEditor2.Name = "radSpinEditor2";
-            this.radSpinEditor2.NullableValue = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.radSpinEditor2.Size = new System.Drawing.Size(71, 24);
-            this.radSpinEditor2.TabIndex = 4;
-            this.radSpinEditor2.TabStop = false;
-            this.radSpinEditor2.ThemeName = "CrystalDark";
-            this.radSpinEditor2.Value = global::ReverseRaffler.Properties.Settings.Default.AutoCloseWinningTicketWindowAfter;
-            // 
-            // radCheckBox1
-            // 
-            this.radCheckBox1.AutoSize = false;
-            this.radCheckBox1.CheckState = global::ReverseRaffler.Properties.Settings.Default.EnableAutoCloseWinningTicketWindow;
-            this.radCheckBox1.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", global::ReverseRaffler.Properties.Settings.Default, "EnableAutoCloseWinningTicketWindow", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.radCheckBox1.Location = new System.Drawing.Point(6, 111);
-            this.radCheckBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.radCheckBox1.Name = "radCheckBox1";
-            this.radCheckBox1.Size = new System.Drawing.Size(329, 22);
-            this.radCheckBox1.TabIndex = 3;
-            this.radCheckBox1.Text = "Enable Auto Close Of Winning Ticket Display";
-            this.radCheckBox1.ThemeName = "CrystalDark";
-            this.radCheckBox1.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            // 
-            // radLabel1
-            // 
-            this.radLabel1.AutoSize = false;
-            this.radLabel1.Location = new System.Drawing.Point(85, 80);
-            this.radLabel1.Margin = new System.Windows.Forms.Padding(4);
-            this.radLabel1.Name = "radLabel1";
-            this.radLabel1.Size = new System.Drawing.Size(185, 22);
-            this.radLabel1.TabIndex = 2;
-            this.radLabel1.Text = "Auto Close After (x) Seconds";
-            this.radLabel1.ThemeName = "CrystalDark";
-            // 
-            // chkEnableAutoCloseLosingTicketAlert
-            // 
-            this.chkEnableAutoCloseLosingTicketAlert.AutoSize = false;
-            this.chkEnableAutoCloseLosingTicketAlert.CheckState = global::ReverseRaffler.Properties.Settings.Default.EnableAutoCloseLosingTicketWindow;
-            this.chkEnableAutoCloseLosingTicketAlert.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", global::ReverseRaffler.Properties.Settings.Default, "EnableAutoCloseLosingTicketWindow", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkEnableAutoCloseLosingTicketAlert.Location = new System.Drawing.Point(6, 49);
-            this.chkEnableAutoCloseLosingTicketAlert.Margin = new System.Windows.Forms.Padding(4);
-            this.chkEnableAutoCloseLosingTicketAlert.Name = "chkEnableAutoCloseLosingTicketAlert";
-            this.chkEnableAutoCloseLosingTicketAlert.Size = new System.Drawing.Size(292, 22);
-            this.chkEnableAutoCloseLosingTicketAlert.TabIndex = 0;
-            this.chkEnableAutoCloseLosingTicketAlert.Text = "Enable Auto Close Of Losing Ticket Display";
-            this.chkEnableAutoCloseLosingTicketAlert.ThemeName = "CrystalDark";
-            this.chkEnableAutoCloseLosingTicketAlert.ToggleState = Telerik.WinControls.Enumerations.ToggleState.On;
-            // 
-            // rsAutoCloseLosingTicket
-            // 
-            this.rsAutoCloseLosingTicket.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::ReverseRaffler.Properties.Settings.Default, "AutoCloseLosingTicketWindowAfter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rsAutoCloseLosingTicket.Location = new System.Drawing.Point(6, 79);
-            this.rsAutoCloseLosingTicket.Margin = new System.Windows.Forms.Padding(4);
-            this.rsAutoCloseLosingTicket.Name = "rsAutoCloseLosingTicket";
-            this.rsAutoCloseLosingTicket.NullableValue = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.rsAutoCloseLosingTicket.Size = new System.Drawing.Size(71, 24);
-            this.rsAutoCloseLosingTicket.TabIndex = 1;
-            this.rsAutoCloseLosingTicket.TabStop = false;
-            this.rsAutoCloseLosingTicket.ThemeName = "CrystalDark";
-            this.rsAutoCloseLosingTicket.Value = global::ReverseRaffler.Properties.Settings.Default.AutoCloseLosingTicketWindowAfter;
-            // 
-            // rpvApiLogs
-            // 
-            this.rpvApiLogs.Controls.Add(this.txtApiLogs);
-            this.rpvApiLogs.ItemSize = new System.Drawing.SizeF(70F, 28F);
-            this.rpvApiLogs.Location = new System.Drawing.Point(6, 33);
-            this.rpvApiLogs.Margin = new System.Windows.Forms.Padding(4);
-            this.rpvApiLogs.Name = "rpvApiLogs";
-            this.rpvApiLogs.Size = new System.Drawing.Size(881, 616);
-            this.rpvApiLogs.Text = "API Logs";
-            // 
-            // txtApiLogs
-            // 
-            this.txtApiLogs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.txtApiLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtApiLogs.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApiLogs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.txtApiLogs.Location = new System.Drawing.Point(0, 0);
-            this.txtApiLogs.Margin = new System.Windows.Forms.Padding(4);
-            this.txtApiLogs.Multiline = true;
-            this.txtApiLogs.Name = "txtApiLogs";
-            this.txtApiLogs.ReadOnly = true;
-            this.txtApiLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtApiLogs.Size = new System.Drawing.Size(881, 616);
-            this.txtApiLogs.TabIndex = 11;
-            // 
-            // mnuHelp
-            // 
-            this.mnuHelp.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.mnuAbout});
-            this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Text = "Help";
-            // 
-            // mnuAbout
-            // 
-            this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Text = "&About";
-            this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
-            // 
-            // radMenu1
-            // 
-            this.radMenu1.AllItemsEqualHeight = true;
-            this.radMenu1.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.mnuHelp});
-            this.radMenu1.Location = new System.Drawing.Point(0, 0);
-            this.radMenu1.Margin = new System.Windows.Forms.Padding(4);
-            this.radMenu1.Name = "radMenu1";
-            this.radMenu1.Size = new System.Drawing.Size(872, 34);
-            this.radMenu1.TabIndex = 0;
-            this.radMenu1.ThemeName = "CrystalDark";
             // 
             // frmConsole
             // 
-            this.ClientSize = new System.Drawing.Size(872, 666);
-            this.Controls.Add(this.radPageView1);
-            this.Controls.Add(this.radStatusStrip1);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1102, 694);
+            this.Controls.Add(this.radSplitContainer1);
+            this.Controls.Add(this.radLabel5);
+            this.Controls.Add(this.radGroupBox3);
+            this.Controls.Add(this.radGroupBox2);
+            this.Controls.Add(this.radGroupBox1);
             this.Controls.Add(this.radMenu1);
+            this.Controls.Add(this.radStatusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(880, 701);
+            this.MinimumSize = new System.Drawing.Size(1110, 729);
             this.Name = "frmConsole";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reverse Raffler";
+            this.Text = "Reverse Raffle - Console";
             this.ThemeName = "CrystalDark";
             this.Load += new System.EventHandler(this.frmConsole_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radPageView1)).EndInit();
-            this.radPageView1.ResumeLayout(false);
-            this.radPageViewPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
+            this.radGroupBox1.ResumeLayout(false);
+            this.radGroupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEndRaffle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBeginRaffle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rsWinnersEveryNumTickets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rsTotalWinningTickets)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).EndInit();
             this.radGroupBox2.ResumeLayout(false);
             this.radGroupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
-            this.radGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rsWinnersEveryNumTickets)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsTotalWinningTickets)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnEndRaffle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnBeginRaffle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rsTicketNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMarkTicketAsNotGood)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblHistoryPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNextAnnouncement)).EndInit();
-            this.radPageViewPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).EndInit();
-            this.rpvSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox6)).EndInit();
-            this.radGroupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoRaffleWinner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoWinner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoLoser)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDemoInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox5)).EndInit();
-            this.radGroupBox5.ResumeLayout(false);
-            this.radGroupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radSpinEditor1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsTicketWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGroupBox4)).EndInit();
-            this.radGroupBox4.ResumeLayout(false);
-            this.radGroupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetFlag)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnImportFile2DB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsResetDBWithTicketCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetDatabase)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveSettingsOptions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPreviousAnnouncement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCloseOverlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShowRecentAnnouncement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox3)).EndInit();
             this.radGroupBox3.ResumeLayout(false);
             this.radGroupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radSpinEditor2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radCheckBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkEnableAutoCloseLosingTicketAlert)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rsAutoCloseLosingTicket)).EndInit();
-            this.rpvApiLogs.ResumeLayout(false);
-            this.rpvApiLogs.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radMenu1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTotalTicketsInRaffle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTicketsThatLost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblTicketsNotDrawn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblApiStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).EndInit();
+            this.radSplitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).EndInit();
+            this.splitPanel1.ResumeLayout(false);
+            this.splitPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
+            this.splitPanel2.ResumeLayout(false);
+            this.splitPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelTickets)).EndInit();
+            this.panelTickets.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1043,66 +731,50 @@
 
         #endregion
 
-        private Telerik.WinControls.Themes.CrystalDarkTheme CrystalDarkTheme1;
         private Telerik.WinControls.UI.RadStatusStrip radStatusStrip1;
         private Telerik.WinControls.UI.RadLabelElement lblAppStatus;
-        private Telerik.WinControls.UI.RadPageView radPageView1;
-        private Telerik.WinControls.UI.RadPageViewPage radPageViewPage1;
-        private Telerik.WinControls.UI.RadPageViewPage radPageViewPage2;
-        private Telerik.WinControls.UI.RadGridView gridTicketHolders;
-        private Telerik.WinControls.UI.RadButton btnMarkTicketAsNotGood;
-        private Telerik.WinControls.UI.RadButton btnShowRecentAnnouncement;
-        private Telerik.WinControls.UI.RadButton btnCloseOverlay;
-        private Telerik.WinControls.UI.RadButton btnPreviousAnnouncement;
-        private Telerik.WinControls.UI.RadButton btnNextAnnouncement;
-        private System.Windows.Forms.Label lblHistoryPosition;
-        private Telerik.WinControls.UI.RadSpinEditor rsTicketNumber;
-        private Telerik.WinControls.UI.RadButton btnBeginRaffle;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox2;
-        private System.Windows.Forms.Label lblTicketsNotDrawn;
-        private System.Windows.Forms.Label lblTicketsThatLost;
-        private System.Windows.Forms.Label lblTotalTicketsInRaffle;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private Telerik.WinControls.UI.RadSpinEditor rsTotalWinningTickets;
-        private Telerik.WinControls.UI.RadButton btnEndRaffle;
         private Telerik.WinControls.UI.CommandBarSeparator commandBarSeparator1;
         private Telerik.WinControls.UI.RadLabelElement lblAppTicketStatus;
-        private Telerik.WinControls.UI.RadPageViewPage rpvSettings;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox3;
-        private Telerik.WinControls.UI.RadLabel radLabel1;
-        private Telerik.WinControls.UI.RadCheckBox chkEnableAutoCloseLosingTicketAlert;
-        private Telerik.WinControls.UI.RadSpinEditor rsAutoCloseLosingTicket;
-        private Telerik.WinControls.UI.RadButton btnSaveSettingsOptions;
+        private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadMenuItem mnuFile;
+        private Telerik.WinControls.UI.RadMenuItem mnuImportCSV;
+        private Telerik.WinControls.UI.RadMenuSeparatorItem radMenuSeparatorItem1;
+        private Telerik.WinControls.UI.RadMenuItem mnuExit;
+        private Telerik.WinControls.UI.RadMenuItem mnuTools;
+        private Telerik.WinControls.UI.RadMenuItem mnuSettings;
         private Telerik.WinControls.UI.RadMenuItem mnuHelp;
         private Telerik.WinControls.UI.RadMenuItem mnuAbout;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox4;
-        private Telerik.WinControls.UI.RadLabel radLabel2;
-        private Telerik.WinControls.UI.RadSpinEditor rsResetDBWithTicketCount;
-        private Telerik.WinControls.UI.RadButton btnResetDatabase;
-        private Telerik.WinControls.UI.RadButton btnImportFile2DB;
-        private Telerik.WinControls.UI.RadButton btnResetFlag;
-        private System.Windows.Forms.Label label1;
+        private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
+        private Telerik.WinControls.UI.RadButton btnEndRaffle;
+        private Telerik.WinControls.UI.RadButton btnBeginRaffle;
         private Telerik.WinControls.UI.RadSpinEditor rsWinnersEveryNumTickets;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox6;
-        private Telerik.WinControls.UI.RadButton btnDemoRaffleWinner;
-        private Telerik.WinControls.UI.RadButton btnDemoWinner;
-        private Telerik.WinControls.UI.RadButton btnDemoLoser;
-        private Telerik.WinControls.UI.RadButton btnDemoInfo;
-        private Telerik.WinControls.UI.RadGroupBox radGroupBox5;
-        private Telerik.WinControls.UI.RadLabel radLabel4;
-        private Telerik.WinControls.UI.RadLabel radLabel3;
-        private Telerik.WinControls.UI.RadSpinEditor rsTicketWidth;
-        private Telerik.WinControls.UI.RadSpinEditor radSpinEditor1;
-        private Telerik.WinControls.UI.RadCheckBox radCheckBox1;
-        private Telerik.WinControls.UI.RadLabel radLabel7;
-        private Telerik.WinControls.UI.RadSpinEditor radSpinEditor2;
-        private Telerik.WinControls.UI.RadPageViewPage rpvApiLogs;
+        private Telerik.WinControls.UI.RadSpinEditor rsTotalWinningTickets;
+        private Telerik.WinControls.UI.RadLabel radLabel8;
+        private Telerik.WinControls.UI.RadLabel radLabel9;
+        private Telerik.WinControls.UI.RadGroupBox radGroupBox2;
+        private Telerik.WinControls.UI.RadSpinEditor rsTicketNumber;
+        private Telerik.WinControls.UI.RadButton btnMarkTicketAsNotGood;
+        private Telerik.WinControls.UI.RadLabel lblHistoryPosition;
+        private Telerik.WinControls.UI.RadButton btnNextAnnouncement;
+        private Telerik.WinControls.UI.RadButton btnPreviousAnnouncement;
+        private Telerik.WinControls.UI.RadButton btnCloseOverlay;
+        private Telerik.WinControls.UI.RadButton btnShowRecentAnnouncement;
+        private Telerik.WinControls.UI.RadGroupBox radGroupBox3;
+        private Telerik.WinControls.UI.RadLabel lblTotalTicketsInRaffle;
+        private Telerik.WinControls.UI.RadLabel lblTicketsThatLost;
+        private Telerik.WinControls.UI.RadLabel lblTicketsNotDrawn;
+        private Telerik.WinControls.UI.RadLabel radLabel12;
+        private Telerik.WinControls.UI.RadLabel radLabel11;
+        private Telerik.WinControls.UI.RadLabel radLabel10;
+        private Telerik.WinControls.UI.RadLabel radLabel5;
         private System.Windows.Forms.TextBox txtApiLogs;
-        private Telerik.WinControls.UI.RadMenu radMenu1;
+        private Telerik.WinControls.UI.RadLabel lblApiStatus;
+        private Telerik.WinControls.UI.RadSplitContainer radSplitContainer1;
+        private Telerik.WinControls.UI.SplitPanel splitPanel1;
+        private Telerik.WinControls.UI.SplitPanel splitPanel2;
+        private Telerik.WinControls.UI.RadLabel radLabel6;
+        private Telerik.WinControls.UI.RadPanel panelTickets;
+        private Telerik.WinControls.UI.RadGridView gridTicketHolders;
+        private Telerik.WinControls.Themes.CrystalDarkTheme crystalDarkTheme1;
     }
 }
-

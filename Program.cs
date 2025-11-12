@@ -19,6 +19,10 @@ namespace ReverseRaffler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Register and apply CrystalDark theme globally
+            ThemeResolutionService.ApplicationThemeName = "CrystalDark";
+
             Application.Run(new frmConsole());
         }
     }
