@@ -269,14 +269,14 @@ namespace ReverseRaffler.Controls
                 {
                     if (string.IsNullOrWhiteSpace(name)) continue;
 
-                    // Add separator height every 3 names (scaled)
-                    if (nameCount > 0 && nameCount % 3 == 0)
+                    // Add divider height between names (not before first name)
+                    if (nameCount > 0)
                     {
-                        totalHeight += 15 * scale; // 5 + 10 from separator, scaled
+                        totalHeight += 20 * scale; // Divider padding + line height
                     }
 
-                    var textSize = g.MeasureString("A.) " + name, font);
-                    totalHeight += textSize.Height + (2 * scale);
+                    var textSize = g.MeasureString(name, font);
+                    totalHeight += textSize.Height + (8 * scale); // Name + bottom padding
                     nameCount++;
                 }
             }
@@ -604,12 +604,12 @@ namespace ReverseRaffler.Controls
             );
             DrawInfoIcon(g, iconBounds, scale);
 
-            // Draw "Ticket Information" text (scaled)
+            // Draw "Ticket Holders" text (scaled)
             float titleFontSize = 28f * scale;
             using (var font = new Font("Arial", titleFontSize, FontStyle.Bold))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 60, 100, 150)))
             {
-                var text = "Ticket Information";
+                var text = "Ticket Holders";
                 var textSize = g.MeasureString(text, font);
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
                 float textY = iconBounds.Bottom + (20 * scale);
@@ -623,12 +623,12 @@ namespace ReverseRaffler.Controls
                 g.DrawString(text, font, brush, textX, textY);
             }
 
-            // Draw lottery balls (scaled)
-            float ballY = bounds.Y + (210 * scale);
+            // Draw lottery balls (scaled - increased spacing from title)
+            float ballY = bounds.Y + (260 * scale);
             DrawLotteryBalls(g, bounds, ballY, scale);
 
             // Draw names (scaled)
-            DrawNamesList(g, bounds, (int)(290 * scale), scale);
+            DrawNamesList(g, bounds, (int)(350 * scale), scale);
         }
 
         private void DrawNamesList(Graphics g, Rectangle bounds, int startY, float scale)
@@ -657,36 +657,32 @@ namespace ReverseRaffler.Controls
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 60, 60, 70)))
             {
                 float y = bounds.Y + startY - (needsScrolling ? _namesScrollOffset : 0);
-                var labels = new[] { "A", "B", "C" };
-                int labelIndex = 0;
                 int nameCount = 0;
 
                 foreach (var name in _names)
                 {
                     if (string.IsNullOrWhiteSpace(name)) continue;
 
-                    // Add separator line every 3 names (scaled)
-                    if (nameCount > 0 && nameCount % 3 == 0)
+                    // Add divider line between names (not before first name)
+                    if (nameCount > 0)
                     {
-                        y += (5 * scale);
+                        y += (10 * scale); // Top padding
                         int lineWidth = Math.Max(1, (int)(1 * scale));
                         using (var linePen = new Pen(Color.FromArgb((int)(100 * _fadeOpacity), 150, 150, 160), lineWidth))
                         {
                             int lineMargin = (int)(80 * scale);
                             g.DrawLine(linePen, bounds.X + lineMargin, y, bounds.Right - lineMargin, y);
                         }
-                        y += (10 * scale);
-                        labelIndex = 0;
+                        y += (10 * scale); // Bottom padding after line
                     }
 
-                    var text = $"{labels[labelIndex]}.) {name}";
-                    var textSize = g.MeasureString(text, font);
+                    // Draw name (no prefix)
+                    var textSize = g.MeasureString(name, font);
                     float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
 
-                    g.DrawString(text, font, brush, textX, y);
+                    g.DrawString(name, font, brush, textX, y);
 
-                    y += textSize.Height + (2 * scale);
-                    labelIndex = (labelIndex + 1) % 3;
+                    y += textSize.Height + (8 * scale); // Name height + bottom spacing
                     nameCount++;
                 }
 
