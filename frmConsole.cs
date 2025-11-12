@@ -243,7 +243,7 @@ namespace ReverseRaffler
             rsTicketNumber.Enabled = true;
 
             //Disable Settings
-            rpvSettings.Enabled = false;
+            //rpvSettings.Enabled = false;
 
             //Set Grid Options
             gridTicketHolders.MasterTemplate.AllowAddNewRow = false;
@@ -594,6 +594,81 @@ namespace ReverseRaffler
 
                 HandleTicketSelectionAction(ticketNumber);
             }
+        }
+
+        #endregion
+
+        #region Demo Overlay Buttons
+
+        private void btnDemoInfo_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.Visible)
+            {
+                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
+                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
+                return;
+            }
+
+            var sampleNames = new[] { "John Smith", "ABC Company", "XYZ Corporation" };
+            numberBoard.ShowDemoInfo("42", sampleNames);
+        }
+
+        private void btnDemoLoser_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.Visible)
+            {
+                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
+                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
+                return;
+            }
+
+            var sampleNames = new[] { "Jane Doe", "Main Street Business", "Downtown LLC" };
+            numberBoard.ShowDemoLoser("87", sampleNames);
+        }
+
+        private void btnDemoWinner_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.Visible)
+            {
+                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
+                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
+                return;
+            }
+
+            var sampleNames = new[] { "Bob Johnson", "Local Shop", "Community Center" };
+            numberBoard.ShowDemoWinner("123", sampleNames);
+        }
+
+        private void btnDemoRaffleWinner_Click(object sender, EventArgs e)
+        {
+            if (numberBoard == null || !numberBoard.Visible)
+            {
+                RadMessageBox.Show("Please start the raffle first (click 'Begin Raffle' button)",
+                    "Number Board Required", MessageBoxButtons.OK, RadMessageIcon.Info);
+                return;
+            }
+
+            // Create a long list of names to demonstrate scrolling
+            var sampleNames = new List<string>
+            {
+                "John Smith", "ABC Company", "XYZ Corporation",
+                "Jane Doe", "Main Street Business", "Downtown LLC",
+                "Bob Johnson", "Local Shop", "Community Center",
+                "Alice Williams", "Tech Solutions Inc", "Global Enterprises",
+                "Charlie Brown", "Hardware Store", "Retail Group",
+                "Diana Prince", "Wonder Consulting", "Justice League LLC",
+                "Frank Castle", "Security Services", "Vigilante Corp",
+                "Grace Hopper", "Computing Innovations", "Navy Research Lab",
+                "Henry Ford", "Motor Company", "Assembly Line Industries",
+                "Irene Adler", "Private Investigations", "Holmes & Watson Ltd",
+                "Jack Ryan", "CIA Operations", "Analyst Division",
+                "Karen Starr", "Power Industries", "Kryptonian Tech",
+                "Larry Page", "Search Engines Inc", "Alphabet Corporation",
+                "Marie Curie", "Radioactive Research", "Nobel Prize Foundation",
+                "Neil Armstrong", "Apollo Missions", "NASA Space Center"
+            };
+
+            numberBoard.ShowDemoRaffleWinner("5, 12, 18, 42, 87, 123", sampleNames);
         }
 
         #endregion

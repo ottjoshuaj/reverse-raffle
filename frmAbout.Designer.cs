@@ -96,9 +96,10 @@
             // 
             // 
             this.radLabelProductName.RootElement.MaxSize = new System.Drawing.Size(0, 17);
-            this.radLabelProductName.Size = new System.Drawing.Size(78, 17);
+            this.radLabelProductName.Size = new System.Drawing.Size(95, 17);
             this.radLabelProductName.TabIndex = 19;
             this.radLabelProductName.Text = "Product Name";
+            this.radLabelProductName.ThemeName = "CrystalDark";
             // 
             // radLabelVersion
             // 
@@ -111,9 +112,10 @@
             // 
             // 
             this.radLabelVersion.RootElement.MaxSize = new System.Drawing.Size(0, 17);
-            this.radLabelVersion.Size = new System.Drawing.Size(44, 17);
+            this.radLabelVersion.Size = new System.Drawing.Size(53, 17);
             this.radLabelVersion.TabIndex = 0;
             this.radLabelVersion.Text = "Version";
+            this.radLabelVersion.ThemeName = "CrystalDark";
             // 
             // radLabelCopyright
             // 
@@ -126,9 +128,10 @@
             // 
             // 
             this.radLabelCopyright.RootElement.MaxSize = new System.Drawing.Size(0, 17);
-            this.radLabelCopyright.Size = new System.Drawing.Size(56, 17);
+            this.radLabelCopyright.Size = new System.Drawing.Size(66, 17);
             this.radLabelCopyright.TabIndex = 21;
             this.radLabelCopyright.Text = "Copyright";
+            this.radLabelCopyright.ThemeName = "CrystalDark";
             // 
             // radLabelCompanyName
             // 
@@ -141,9 +144,10 @@
             // 
             // 
             this.radLabelCompanyName.RootElement.MaxSize = new System.Drawing.Size(0, 17);
-            this.radLabelCompanyName.Size = new System.Drawing.Size(87, 17);
+            this.radLabelCompanyName.Size = new System.Drawing.Size(105, 17);
             this.radLabelCompanyName.TabIndex = 22;
             this.radLabelCompanyName.Text = "Company Name";
+            this.radLabelCompanyName.ThemeName = "CrystalDark";
             // 
             // radTextBoxDescription
             // 
@@ -184,10 +188,6 @@
             this.MinimizeBox = false;
             this.Name = "frmAbout";
             this.Padding = new System.Windows.Forms.Padding(9);
-            // 
-            // 
-            // 
-            this.RootElement.ApplyShapeToControl = true;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

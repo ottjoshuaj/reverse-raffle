@@ -210,11 +210,11 @@ namespace ReverseRaffler
                     winners.Add(ticket.TicketHolder3);
             }
 
-            // Show winner overlay
+            // Show raffle winner overlay (with confetti/stars animation)
             int autoCloseMs = Properties.Settings.Default.EnableAutoCloseWinningTicketWindow == CheckState.Checked ?
                 (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
 
-            _overlay.ShowWinner(winningTickets, winners, autoCloseMs);
+            _overlay.ShowRaffleWinner(winningTickets, winners, autoCloseMs);
 
             // Track in history
             AddToHistory(AnnouncementType.Winner, winningTickets, winners);
@@ -405,6 +405,42 @@ namespace ReverseRaffler
             {
                 _overlay.ShowLoser(item.TicketNumbers, item.Names, 0);
             }
+        }
+
+        #endregion
+
+        #region Demo Methods
+
+        /// <summary>
+        /// Shows demo Info overlay with sample data
+        /// </summary>
+        public void ShowDemoInfo(string ticketNumber, IEnumerable<string> names)
+        {
+            _overlay.ShowInfo(ticketNumber, names, 0, true);
+        }
+
+        /// <summary>
+        /// Shows demo Loser overlay with sample data
+        /// </summary>
+        public void ShowDemoLoser(string ticketNumber, IEnumerable<string> names)
+        {
+            _overlay.ShowLoser(ticketNumber, names, 0, true);
+        }
+
+        /// <summary>
+        /// Shows demo Winner overlay with sample data
+        /// </summary>
+        public void ShowDemoWinner(string ticketNumber, IEnumerable<string> names)
+        {
+            _overlay.ShowWinner(ticketNumber, names, 0, true);
+        }
+
+        /// <summary>
+        /// Shows demo Raffle Winner overlay with sample data and long name list for scrolling
+        /// </summary>
+        public void ShowDemoRaffleWinner(string ticketNumbers, IEnumerable<string> names)
+        {
+            _overlay.ShowRaffleWinner(ticketNumbers, names, 0, true);
         }
 
         #endregion
