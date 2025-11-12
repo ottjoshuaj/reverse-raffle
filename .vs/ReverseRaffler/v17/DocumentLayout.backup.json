@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|d:\\reverse-raffle\\frmconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|solutionrelative:frmconsole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|d:\\reverse-raffle\\frmconsole.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6C67963-2250-4BAC-A033-3C577EAC6312}|ReverseRaffler.csproj|solutionrelative:frmconsole.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmConsole.Designer.cs",
+              "DocumentMoniker": "D:\\reverse-raffle\\frmConsole.Designer.cs",
+              "RelativeDocumentMoniker": "frmConsole.Designer.cs",
+              "ToolTip": "D:\\reverse-raffle\\frmConsole.Designer.cs",
+              "RelativeToolTip": "frmConsole.Designer.cs",
+              "ViewState": "AgIAAD4CAAAAAAAAAAAowFgCAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T20:05:27.224Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -25,7 +42,7 @@
               "ToolTip": "D:\\reverse-raffle\\frmConsole.cs [Design]",
               "RelativeToolTip": "frmConsole.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:57:05.705Z",
+              "WhenOpened": "2025-11-12T20:04:18.465Z",
               "EditorCaption": " [Design]"
             }
           ]

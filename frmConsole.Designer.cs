@@ -76,7 +76,6 @@ namespace ReverseRaffler
             this.splitPanel1 = new Telerik.WinControls.UI.SplitPanel();
             this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
             this.radLabel6 = new Telerik.WinControls.UI.RadLabel();
-            this.panelTickets = new Telerik.WinControls.UI.RadPanel();
             this.gridTicketHolders = new Telerik.WinControls.UI.RadGridView();
             this.crystalDarkTheme1 = new Telerik.WinControls.Themes.CrystalDarkTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radStatusStrip1)).BeginInit();
@@ -115,8 +114,6 @@ namespace ReverseRaffler
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
             this.splitPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelTickets)).BeginInit();
-            this.panelTickets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -131,7 +128,7 @@ namespace ReverseRaffler
             this.lblAppStatus,
             this.commandBarSeparator1,
             this.lblAppTicketStatus});
-            this.radStatusStrip1.Location = new System.Drawing.Point(0, 668);
+            this.radStatusStrip1.Location = new System.Drawing.Point(0, 673);
             this.radStatusStrip1.Name = "radStatusStrip1";
             this.radStatusStrip1.Size = new System.Drawing.Size(1102, 26);
             this.radStatusStrip1.TabIndex = 0;
@@ -516,7 +513,7 @@ namespace ReverseRaffler
             this.txtApiLogs.Name = "txtApiLogs";
             this.txtApiLogs.ReadOnly = true;
             this.txtApiLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtApiLogs.Size = new System.Drawing.Size(1078, 94);
+            this.txtApiLogs.Size = new System.Drawing.Size(1078, 96);
             this.txtApiLogs.TabIndex = 1;
             // 
             // lblApiStatus
@@ -524,7 +521,7 @@ namespace ReverseRaffler
             this.lblApiStatus.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblApiStatus.Location = new System.Drawing.Point(0, 0);
             this.lblApiStatus.Name = "lblApiStatus";
-            this.lblApiStatus.Size = new System.Drawing.Size(86, 20);
+            this.lblApiStatus.Size = new System.Drawing.Size(1078, 20);
             this.lblApiStatus.TabIndex = 0;
             this.lblApiStatus.Text = "API: Stopped";
             this.lblApiStatus.ThemeName = "CrystalDark";
@@ -543,7 +540,7 @@ namespace ReverseRaffler
             // 
             // 
             this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radSplitContainer1.Size = new System.Drawing.Size(1078, 377);
+            this.radSplitContainer1.Size = new System.Drawing.Size(1078, 382);
             this.radSplitContainer1.SplitterWidth = 2;
             this.radSplitContainer1.TabIndex = 7;
             this.radSplitContainer1.TabStop = false;
@@ -559,7 +556,7 @@ namespace ReverseRaffler
             // 
             // 
             this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel1.Size = new System.Drawing.Size(1078, 114);
+            this.splitPanel1.Size = new System.Drawing.Size(1078, 116);
             this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.196F);
             this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -74);
             this.splitPanel1.TabIndex = 0;
@@ -567,16 +564,16 @@ namespace ReverseRaffler
             this.splitPanel1.ThemeName = "CrystalDark";
             // 
             // splitPanel2
-            // 
+            //
+            this.splitPanel2.Controls.Add(this.gridTicketHolders);
             this.splitPanel2.Controls.Add(this.radLabel6);
-            this.splitPanel2.Controls.Add(this.panelTickets);
-            this.splitPanel2.Location = new System.Drawing.Point(0, 116);
+            this.splitPanel2.Location = new System.Drawing.Point(0, 118);
             this.splitPanel2.Name = "splitPanel2";
             // 
             // 
             // 
             this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel2.Size = new System.Drawing.Size(1078, 261);
+            this.splitPanel2.Size = new System.Drawing.Size(1078, 264);
             this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.196F);
             this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 74);
             this.splitPanel2.TabIndex = 1;
@@ -592,26 +589,19 @@ namespace ReverseRaffler
             this.radLabel6.TabIndex = 0;
             this.radLabel6.Text = "Tickets";
             this.radLabel6.ThemeName = "CrystalDark";
-            // 
-            // panelTickets
-            // 
-            this.panelTickets.Controls.Add(this.gridTicketHolders);
-            this.panelTickets.Location = new System.Drawing.Point(3, 30);
-            this.panelTickets.Name = "panelTickets";
-            this.panelTickets.Size = new System.Drawing.Size(1070, 154);
-            this.panelTickets.TabIndex = 1;
-            this.panelTickets.ThemeName = "CrystalDark";
-            // 
+            //
             // gridTicketHolders
-            // 
+            //
+            this.gridTicketHolders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridTicketHolders.AutoScroll = true;
             this.gridTicketHolders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
             this.gridTicketHolders.Cursor = System.Windows.Forms.Cursors.Default;
-            this.gridTicketHolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridTicketHolders.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.gridTicketHolders.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gridTicketHolders.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.gridTicketHolders.Location = new System.Drawing.Point(0, 0);
+            this.gridTicketHolders.Location = new System.Drawing.Point(3, 30);
             this.gridTicketHolders.Margin = new System.Windows.Forms.Padding(4);
             // 
             // 
@@ -655,7 +645,7 @@ namespace ReverseRaffler
             this.gridTicketHolders.MasterTemplate.MultiSelect = true;
             this.gridTicketHolders.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.gridTicketHolders.Name = "gridTicketHolders";
-            this.gridTicketHolders.Size = new System.Drawing.Size(1070, 154);
+            this.gridTicketHolders.Size = new System.Drawing.Size(1072, 231);
             this.gridTicketHolders.TabIndex = 0;
             this.gridTicketHolders.ThemeName = "CrystalDark";
             // 
@@ -663,7 +653,7 @@ namespace ReverseRaffler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1102, 694);
+            this.ClientSize = new System.Drawing.Size(1102, 699);
             this.Controls.Add(this.radSplitContainer1);
             this.Controls.Add(this.radLabel5);
             this.Controls.Add(this.radGroupBox3);
@@ -719,8 +709,6 @@ namespace ReverseRaffler
             this.splitPanel2.ResumeLayout(false);
             this.splitPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelTickets)).EndInit();
-            this.panelTickets.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridTicketHolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -773,7 +761,6 @@ namespace ReverseRaffler
         private Telerik.WinControls.UI.SplitPanel splitPanel1;
         private Telerik.WinControls.UI.SplitPanel splitPanel2;
         private Telerik.WinControls.UI.RadLabel radLabel6;
-        private Telerik.WinControls.UI.RadPanel panelTickets;
         private Telerik.WinControls.UI.RadGridView gridTicketHolders;
         private Telerik.WinControls.Themes.CrystalDarkTheme crystalDarkTheme1;
     }

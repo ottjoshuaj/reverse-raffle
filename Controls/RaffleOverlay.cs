@@ -260,7 +260,7 @@ namespace ReverseRaffler.Controls
             if (_names == null || _names.Count == 0) return 0;
 
             float totalHeight = 0;
-            float namesFontSize = 14f * scale;
+            float namesFontSize = 24f * scale;
             using (var font = new Font("Arial", namesFontSize, FontStyle.Regular))
             using (var g = CreateGraphics())
             {
@@ -684,7 +684,7 @@ namespace ReverseRaffler.Controls
             var previousClip = g.Clip;
             g.SetClip(namesRegion);
 
-            float namesFontSize = 14f * scale;
+            float namesFontSize = 24f * scale;
             using (var font = new Font("Arial", namesFontSize, FontStyle.Regular))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 60, 60, 70)))
             {
