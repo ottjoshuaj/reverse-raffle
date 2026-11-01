@@ -25,6 +25,18 @@ namespace ReverseRaffler.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1,10,20,30,40,50,60,70,80,85")]
+        public string PayoutDraws {
+            get {
+                return ((string)(this["PayoutDraws"]));
+            }
+            set {
+                this["PayoutDraws"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
         public decimal LastWhatTicketsAreWinners {
             get {

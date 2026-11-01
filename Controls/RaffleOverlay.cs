@@ -22,6 +22,8 @@ namespace ReverseRaffler.Controls
         private float _fadeOpacity;
         private bool _showCloseButton;
         private Rectangle _closeButtonBounds;
+        private string _titleOverride;
+        private bool _locked;
 
         // Particle animation fields
         private List<Particle> _particles;
@@ -47,6 +49,12 @@ namespace ReverseRaffler.Controls
         /// Gets or sets the auto-close timeout in milliseconds (0 = no auto-close)
         /// </summary>
         public int AutoCloseTimeout { get; set; }
+
+        /// <summary>
+        /// True while a locked announcement (the Grand Prize) is up. Clicks on the overlay are ignored;
+        /// only <see cref="Close"/> (the console's Close button) removes it.
+        /// </summary>
+        public bool IsLocked => _locked && _isVisible;
 
         #endregion
 
@@ -90,6 +98,8 @@ namespace ReverseRaffler.Controls
         /// </summary>
         public void ShowWinner(string ticketNumbers, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
+            _titleOverride = null;
+            _locked = false;
             _overlayType = OverlayType.Winner;
             _ticketNumbers = ticketNumbers;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
@@ -104,6 +114,8 @@ namespace ReverseRaffler.Controls
         /// </summary>
         public void ShowLoser(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
+            _titleOverride = null;
+            _locked = false;
             _overlayType = OverlayType.Loser;
             _ticketNumbers = ticketNumber;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
@@ -118,6 +130,8 @@ namespace ReverseRaffler.Controls
         /// </summary>
         public void ShowInfo(string ticketNumber, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
+            _titleOverride = null;
+            _locked = false;
             _overlayType = OverlayType.Info;
             _ticketNumbers = ticketNumber;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
@@ -132,6 +146,8 @@ namespace ReverseRaffler.Controls
         /// </summary>
         public void ShowRaffleWinner(string ticketNumbers, IEnumerable<string> names, int autoCloseMs = 0, bool showCloseButton = false)
         {
+            _titleOverride = null;
+            _locked = false;
             _overlayType = OverlayType.RaffleWinner;
             _ticketNumbers = ticketNumbers;
             _names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>();
@@ -142,6 +158,29 @@ namespace ReverseRaffler.Controls
             InitializeParticles();
 
             Show();
+        }
+
+        /// <summary>
+        /// Shows a payout-draw winner (e.g. "DRAW #10 WINNER!")
+        /// </summary>
+        public void ShowPayoutWinner(string ticketNumber, IEnumerable<string> names, int drawNumber, int autoCloseMs = 0)
+        {
+            ShowWinner(ticketNumber, names, autoCloseMs);
+            _titleOverride = $"DRAW #{drawNumber} WINNER!";
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Shows the Grand Prize winner. Never auto-closes and ignores clicks, so the names stay on
+        /// screen until the operator closes it from the console.
+        /// </summary>
+        public void ShowGrandPrize(string ticketNumber, IEnumerable<string> names, int drawNumber)
+        {
+            ShowRaffleWinner(ticketNumber, names, 0);
+            _titleOverride = "GRAND PRIZE!";
+            _locked = true;
+            _showCloseButton = false;
+            Invalidate();
         }
 
         /// <summary>
@@ -422,11 +461,11 @@ namespace ReverseRaffler.Controls
             DrawTrophy(g, iconBounds, scale);
 
             // Draw "WINNER!" text (scaled)
-            float titleFontSize = 42f * scale;
+            float titleFontSize = (_titleOverride == null ? 42f : 34f) * scale;
             using (var font = new Font("Arial", titleFontSize, FontStyle.Bold))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 180, 120, 0)))
             {
-                var text = "WINNER!";
+                var text = _titleOverride ?? "WINNER!";
                 var textSize = g.MeasureString(text, font);
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
                 float textY = iconBounds.Bottom + (20 * scale);
@@ -499,7 +538,7 @@ namespace ReverseRaffler.Controls
             using (var font = new Font("Arial", titleFontSize, FontStyle.Bold))
             using (var brush = new SolidBrush(Color.FromArgb((int)(255 * _fadeOpacity), 180, 120, 0)))
             {
-                var text = "Raffle Winner(s)";
+                var text = _titleOverride ?? "Raffle Winner(s)";
                 var textSize = g.MeasureString(text, font);
                 float textX = bounds.X + (bounds.Width - textSize.Width) / 2;
                 float textY = iconBounds.Bottom + (20 * scale);
@@ -726,6 +765,9 @@ namespace ReverseRaffler.Controls
 
             // Restore previous clipping region
             g.Clip = previousClip;
+
+            // Locked (Grand Prize) overlays stay up until closed from the console - no hint
+            if (_locked) return;
 
             // Draw "Click anywhere to close" hint (scaled)
             float hintFontSize = 11f * scale;
@@ -1095,6 +1137,9 @@ namespace ReverseRaffler.Controls
 
         private void RaffleOverlay_Click(object sender, EventArgs e)
         {
+            // Grand Prize stays on screen until the operator closes it from the console
+            if (_locked) return;
+
             // If close button is shown and was clicked, close the overlay
             if (_showCloseButton && e is MouseEventArgs mouseArgs)
             {

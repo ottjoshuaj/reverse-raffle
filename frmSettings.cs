@@ -24,14 +24,45 @@ namespace ReverseRaffler
         {
             InitializeComponent();
             numberBoard = board;
+            SetupPayoutDrawsEditor();
             LoadCurrentSettings();
+        }
+
+        private RadTextBox txtPayoutDraws;
+
+        /// <summary>
+        /// The old "Total Winning Tickets" / "Winners Every X Tickets" options were replaced by a list of
+        /// payout draw numbers. Reuse the Winner Configuration group box for it.
+        /// </summary>
+        private void SetupPayoutDrawsEditor()
+        {
+            rsTotalWinningTickets.Visible = false;
+            rsWinnersEveryNumTickets.Visible = false;
+            radLabel8.Visible = false;
+            radLabel9.Visible = false;
+
+            radGroupBox1.Text = "Payout Draws";
+
+            var caption = new RadLabel
+            {
+                Text = "Payout draw #s (not ticket #s; last = Grand Prize):",
+                Location = new Point(15, 30),
+                ThemeName = "CrystalDark"
+            };
+            txtPayoutDraws = new RadTextBox
+            {
+                Location = new Point(15, 58),
+                Size = new Size(radGroupBox1.Width - 30, 24),
+                ThemeName = "CrystalDark"
+            };
+            radGroupBox1.Controls.Add(caption);
+            radGroupBox1.Controls.Add(txtPayoutDraws);
         }
 
         private void LoadCurrentSettings()
         {
-            // Load winner configuration
-            rsTotalWinningTickets.Value = Properties.Settings.Default.LastWhatTicketsAreWinners;
-            rsWinnersEveryNumTickets.Value = Properties.Settings.Default.WinnersEveryNumTickets;
+            // Load payout draws
+            txtPayoutDraws.Text = Properties.Settings.Default.PayoutDraws;
 
             // Load auto-close settings
             chkEnableAutoCloseLosingTicketAlert.Checked = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked;
@@ -49,9 +80,13 @@ namespace ReverseRaffler
         {
             try
             {
-                // Save winner configuration
-                Properties.Settings.Default.LastWhatTicketsAreWinners = Convert.ToInt64(rsTotalWinningTickets.Value);
-                Properties.Settings.Default.WinnersEveryNumTickets = Convert.ToInt64(rsWinnersEveryNumTickets.Value);
+                // Save payout draws
+                if (!Services.PayoutSchedule.TryParse(txtPayoutDraws.Text, out var schedule, out var error))
+                {
+                    RadMessageBox.Show(error, "Payout Draws", MessageBoxButtons.OK, RadMessageIcon.Error);
+                    return;
+                }
+                Properties.Settings.Default.PayoutDraws = schedule.ToString();
 
                 // Save auto-close settings
                 Properties.Settings.Default.EnableAutoCloseLosingTicketWindow = chkEnableAutoCloseLosingTicketAlert.Checked ? CheckState.Checked : CheckState.Unchecked;
@@ -121,7 +156,8 @@ namespace ReverseRaffler
                                 TicketNumber = i,
                                 TicketHolder1 = "sample name",
                                 TicketHolder2 = "sample name",
-                                TicketHolder3 = "sample name"
+                                TicketHolder3 = "sample name",
+                                TicketHolder4 = "sample name"
                             });
                         }
                         dbModel.SaveChanges();

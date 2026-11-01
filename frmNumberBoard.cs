@@ -15,6 +15,7 @@ using Telerik.WinControls.UI;
 using ReverseRaffler.Controls;
 using ReverseRaffler.Data;
 using ReverseRaffler.Objects;
+using ReverseRaffler.Services;
 using Timer = System.Threading.Timer;
 
 namespace ReverseRaffler
@@ -34,6 +35,25 @@ namespace ReverseRaffler
 
         public bool RaffleIsOver { get; private set; }
 
+        /// <summary>
+        /// The board can only be closed by the console's End Raffle button. Closing it by hand mid-raffle
+        /// would leave the console pointing at a disposed window.
+        /// </summary>
+        public bool AllowClose { get; set; }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (!AllowClose && e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Telerik.WinControls.RadMessageBox.Show(this, "Use \"End Raffle\" on the console to close the number board.",
+                    "Raffle Running", MessageBoxButtons.OK, Telerik.WinControls.RadMessageIcon.Info);
+                return;
+            }
+
+            base.OnFormClosing(e);
+        }
+
         public long TotalTickets
         {
             get { return _raffleCanvas?.Tickets?.Count ?? 0; }
@@ -48,8 +68,6 @@ namespace ReverseRaffler
         {
             get { return _raffleCanvas?.TotalTicketsNotDrawn ?? 0; }
         }
-
-        public long AvailableWinners { get; set; }
 
         List<TicketHolder> Tickets
         {
@@ -95,28 +113,35 @@ namespace ReverseRaffler
             _overlay.BringToFront();
         }
 
+        /// <summary>
+        /// Raised for key presses on the board window so the console's number pad still works
+        /// when the operator has clicked on the projector screen.
+        /// </summary>
+        public event Func<Keys, bool> EntryKeyPressed;
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (EntryKeyPressed != null && EntryKeyPressed(keyData))
+                return true;
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void RaffleCanvas_TicketClicked(object sender, TicketClickedEventArgs e)
         {
-            // Show ticket details in overlay when clicked
-            var ticket = e.Ticket;
-            var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
+            // Grand Prize stays on screen - don't replace it with ticket info
+            if (_overlay.IsLocked) return;
 
-            // Show appropriate overlay based on ticket status, with close button
-            if (ticket.MarkedAsNotWinner == true)
-            {
-                // Ticket marked as loser
-                _overlay.ShowLoser(ticket.TicketNumber.ToString(), names, 0, true);
-            }
-            else if (ticket.MarkedAsNotWinner == false)
-            {
-                // Ticket marked as winner
-                _overlay.ShowWinner(ticket.TicketNumber.ToString(), names, 0, true);
-            }
+            var ticket = e.Ticket;
+            var names = ticket.GetDesignatedNames();
+            var ticketText = ticket.TicketNumber.ToString(CultureInfo.InvariantCulture);
+
+            if (_payoutDraws.TryGetValue(ticket.TicketNumber, out var drawNumber))
+                _overlay.ShowPayoutWinner(ticketText, names, drawNumber);
+            else if (ticket.MarkedAsNotWinner == true)
+                _overlay.ShowLoser(ticketText, names, 0, true);
             else
-            {
-                // Ticket not yet drawn (neither winner nor loser)
-                _overlay.ShowInfo(ticket.TicketNumber.ToString(), names, 0, true);
-            }
+                _overlay.ShowInfo(ticketText, names, 0, true);
         }
 
         public void AddTicketRaffle(TicketHolder ticketItem)
@@ -125,12 +150,18 @@ namespace ReverseRaffler
             _raffleCanvas.AddTicket(ticketItem);
         }
 
-        public void MarkTicketAsLosing(int ticketNumber, bool skipDisplayScreen = false)
+        // Ticket number -> draw number, for tickets that won a payout this session
+        private readonly Dictionary<int, int> _payoutDraws = new Dictionary<int, int>();
+
+        /// <summary>
+        /// Records a drawn ticket: persists it as drawn, updates the board and shows the announcement.
+        /// </summary>
+        public void RecordDraw(int ticketNumber, int drawNumber, DrawOutcome outcome)
         {
             var ticket = _raffleCanvas.GetTicket(ticketNumber);
             if (ticket == null) return;
 
-            // Mark ticket as losing in the database
+            // Persist as drawn so the raffle can be resumed after a restart
             using (var dbModel = new RevRaffleModelEntities())
             {
                 var dbTicket = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == ticketNumber);
@@ -142,87 +173,71 @@ namespace ReverseRaffler
                 }
             }
 
-            // Mark ticket visually on canvas (this will trigger a repaint with red X)
-            _raffleCanvas.MarkTicketAsLosing(ticketNumber);
+            var names = ticket.GetDesignatedNames();
+            var ticketText = ticketNumber.ToString(CultureInfo.InvariantCulture);
 
-            if (TotalTicketsNotDrawn == AvailableWinners)
+            switch (outcome)
             {
-                // Show loser overlay first (if not skipped)
-                if (!skipDisplayScreen)
-                {
-                    int autoCloseMs = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked ?
+                case DrawOutcome.GrandPrize:
+                    _payoutDraws[ticketNumber] = drawNumber;
+                    _raffleCanvas.MarkTicketAsGrandPrize(ticketNumber);
+                    _overlay.ShowGrandPrize(ticketText, names, drawNumber);
+                    AddToHistory(AnnouncementType.GrandPrize, ticketText, names, drawNumber);
+                    RaffleIsOver = true;
+                    break;
+
+                case DrawOutcome.Payout:
+                    _payoutDraws[ticketNumber] = drawNumber;
+                    _raffleCanvas.MarkTicketAsPayoutWinner(ticketNumber);
+                    int winnerCloseMs = Properties.Settings.Default.EnableAutoCloseWinningTicketWindow == CheckState.Checked ?
+                        (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
+                    _overlay.ShowPayoutWinner(ticketText, names, drawNumber, winnerCloseMs);
+                    AddToHistory(AnnouncementType.Winner, ticketText, names, drawNumber);
+                    break;
+
+                default:
+                    _raffleCanvas.MarkTicketAsLosing(ticketNumber);
+                    int loserCloseMs = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked ?
                         (int)(Properties.Settings.Default.AutoCloseLosingTicketWindowAfter * 1000) : 0;
-
-                    var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
-                    _overlay.ShowLoser(ticketNumber.ToString(CultureInfo.InvariantCulture), names, autoCloseMs);
-
-                    // Track in history
-                    AddToHistory(AnnouncementType.Loser, ticketNumber.ToString(CultureInfo.InvariantCulture), names);
-
-                    // Wait for overlay to close before showing winner
-                    var closeWaiter = new System.Windows.Forms.Timer { Interval = autoCloseMs > 0 ? autoCloseMs : 100 };
-                    closeWaiter.Tick += (s, e) =>
-                    {
-                        closeWaiter.Stop();
-                        closeWaiter.Dispose();
-                        ShowFinalWinners();
-                    };
-                    closeWaiter.Start();
-                }
-                else
-                {
-                    ShowFinalWinners();
-                }
-            }
-            else
-            {
-                if (skipDisplayScreen) return;
-
-                // Show loser overlay
-                int autoCloseMs = Properties.Settings.Default.EnableAutoCloseLosingTicketWindow == CheckState.Checked ?
-                    (int)(Properties.Settings.Default.AutoCloseLosingTicketWindowAfter * 1000) : 0;
-
-                var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
-                _overlay.ShowLoser(ticketNumber.ToString(CultureInfo.InvariantCulture), names, autoCloseMs);
-
-                // Track in history
-                AddToHistory(AnnouncementType.Loser, ticketNumber.ToString(CultureInfo.InvariantCulture), names);
+                    _overlay.ShowLoser(ticketText, names, loserCloseMs);
+                    AddToHistory(AnnouncementType.Loser, ticketText, names, drawNumber);
+                    break;
             }
         }
 
-        private void ShowFinalWinners()
+        /// <summary>
+        /// Reverses a draw made with <see cref="RecordDraw"/>: the ticket goes back in play (database and board),
+        /// its popup is removed from history, and the raffle re-opens if it was the Grand Prize.
+        /// </summary>
+        public void UndoDraw(int ticketNumber)
         {
-            // Collect all winning tickets
-            var winningTickets = string.Empty;
-            var winners = new List<string>();
-
-            foreach (var ticket in Tickets.Where(x => !x.MarkedAsNotWinner.GetValueOrDefault()))
+            using (var dbModel = new RevRaffleModelEntities())
             {
-                winningTickets = string.IsNullOrWhiteSpace(winningTickets) ?
-                    ticket.TicketNumber.ToString(CultureInfo.InvariantCulture) :
-                    string.Format("{0}, {1}", winningTickets, ticket.TicketNumber);
-
-                if (!string.IsNullOrWhiteSpace(ticket.TicketHolder1) && !winners.Contains(ticket.TicketHolder1))
-                    winners.Add(ticket.TicketHolder1);
-                if (!string.IsNullOrWhiteSpace(ticket.TicketHolder2) && !winners.Contains(ticket.TicketHolder2))
-                    winners.Add(ticket.TicketHolder2);
-                if (!string.IsNullOrWhiteSpace(ticket.TicketHolder3) && !winners.Contains(ticket.TicketHolder3))
-                    winners.Add(ticket.TicketHolder3);
+                var dbTicket = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == ticketNumber);
+                if (dbTicket != null)
+                {
+                    dbTicket.MarkedAsNotWinner = null;
+                    dbModel.SaveChanges();
+                }
             }
 
-            // Show raffle winner overlay (with confetti/stars animation)
-            int autoCloseMs = Properties.Settings.Default.EnableAutoCloseWinningTicketWindow == CheckState.Checked ?
-                (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
+            _raffleCanvas.UnmarkTicket(ticketNumber);
+            _payoutDraws.Remove(ticketNumber);
+            RaffleIsOver = false;
 
-            _overlay.ShowRaffleWinner(winningTickets, winners, autoCloseMs);
+            // Remove the most recent announcement for this ticket
+            var ticketText = ticketNumber.ToString(CultureInfo.InvariantCulture);
+            var index = _announcementHistory.FindLastIndex(h => h.TicketNumbers == ticketText);
+            if (index >= 0)
+            {
+                _announcementHistory.RemoveAt(index);
+                for (int i = 0; i < _announcementHistory.Count; i++)
+                    _announcementHistory[i].SequenceNumber = i;
+            }
+            _currentHistoryIndex = _announcementHistory.Count - 1;
 
-            // Track in history
-            AddToHistory(AnnouncementType.Winner, winningTickets, winners);
-
-            // Mark raffle as over
-            RaffleIsOver = true;
+            _overlay.Close();
         }
-
 
         public bool VerifyTicketNumberExists(int ticketNumber)
         {
@@ -232,52 +247,20 @@ namespace ReverseRaffler
         public bool HasTicketBeenSelectedAlready(int ticketNumber)
         {
             var selTicket = Tickets.FirstOrDefault(x => x.TicketNumber == ticketNumber);
-            if (selTicket.MarkedAsNotWinner == true)
-                return true;
-
-            return false;
+            return selTicket?.MarkedAsNotWinner == true;
         }
+
+        /// <summary>
+        /// Ticket numbers that have not been drawn yet
+        /// </summary>
+        public IEnumerable<int> UndrawnTicketNumbers =>
+            Tickets.Where(x => !x.MarkedAsNotWinner.GetValueOrDefault()).Select(x => x.TicketNumber).OrderBy(x => x);
 
         public void ShowTicketInfoDialog(int ticketNumber)
         {
             var ticket = _raffleCanvas.GetTicket(ticketNumber);
             if (ticket == null) return;
-
-            var names = new[] { ticket.TicketHolder1, ticket.TicketHolder2, ticket.TicketHolder3 };
-
-            // Show ticket info using overlay (with close button since it's manual)
-            if (ticket.MarkedAsNotWinner.GetValueOrDefault())
-            {
-                _overlay.ShowLoser(ticketNumber.ToString(), names, 0, true);
-            }
-            else
-            {
-                _overlay.ShowWinner(ticketNumber.ToString(), names, 0, true);
-            }
-        }
-
-        public void ShowWinnerScreen(int ticketNumber)
-        {
-            var selTicket = Tickets.FirstOrDefault(x => x.TicketNumber == ticketNumber);
-            if (selTicket == null) return;
-
-            var winners = new List<string>();
-            if (!string.IsNullOrWhiteSpace(selTicket.TicketHolder1))
-                winners.Add(selTicket.TicketHolder1);
-            if (!string.IsNullOrWhiteSpace(selTicket.TicketHolder2))
-                winners.Add(selTicket.TicketHolder2);
-            if (!string.IsNullOrWhiteSpace(selTicket.TicketHolder3))
-                winners.Add(selTicket.TicketHolder3);
-
-            // Show winner overlay with auto-close
-            int autoCloseMs = Properties.Settings.Default.EnableAutoCloseWinningTicketWindow == CheckState.Checked ?
-                (int)(Properties.Settings.Default.AutoCloseWinningTicketWindowAfter * 1000) : 0;
-
-            var ticketNum = selTicket.TicketNumber.ToString(CultureInfo.InvariantCulture);
-            _overlay.ShowWinner(ticketNum, winners, autoCloseMs);
-
-            // Track in history
-            AddToHistory(AnnouncementType.Winner, ticketNum, winners);
+            RaffleCanvas_TicketClicked(this, new TicketClickedEventArgs(ticket));
         }
 
         public void ClearRaffleScreen()
@@ -293,7 +276,7 @@ namespace ReverseRaffler
         /// <summary>
         /// Adds an announcement to history
         /// </summary>
-        private void AddToHistory(AnnouncementType type, string ticketNumbers, IEnumerable<string> names)
+        private void AddToHistory(AnnouncementType type, string ticketNumbers, IEnumerable<string> names, int drawNumber = 0)
         {
             var item = new AnnouncementHistoryItem
             {
@@ -301,7 +284,8 @@ namespace ReverseRaffler
                 TicketNumbers = ticketNumbers,
                 Names = names?.Where(n => !string.IsNullOrWhiteSpace(n)).ToList() ?? new List<string>(),
                 Timestamp = DateTime.Now,
-                SequenceNumber = _announcementHistory.Count
+                SequenceNumber = _announcementHistory.Count,
+                DrawNumber = drawNumber
             };
 
             _announcementHistory.Add(item);
@@ -397,14 +381,12 @@ namespace ReverseRaffler
             var item = _announcementHistory[_currentHistoryIndex];
 
             // Don't auto-close when viewing history
-            if (item.Type == AnnouncementType.Winner)
-            {
-                _overlay.ShowWinner(item.TicketNumbers, item.Names, 0);
-            }
+            if (item.Type == AnnouncementType.GrandPrize)
+                _overlay.ShowGrandPrize(item.TicketNumbers, item.Names, item.DrawNumber);
+            else if (item.Type == AnnouncementType.Winner)
+                _overlay.ShowPayoutWinner(item.TicketNumbers, item.Names, item.DrawNumber);
             else
-            {
                 _overlay.ShowLoser(item.TicketNumbers, item.Names, 0);
-            }
         }
 
         #endregion
