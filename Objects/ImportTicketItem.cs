@@ -15,5 +15,9 @@ namespace ReverseRaffler.Objects
 
         [Name("name3")]
         public string Name3 { get; set; }
+
+        [Name("name4")]
+        [Optional]
+        public string Name4 { get; set; }
     }
 }

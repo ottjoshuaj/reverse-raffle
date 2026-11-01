@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ReverseRaffler.Objects
@@ -33,6 +33,11 @@ namespace ReverseRaffler.Objects
         /// </summary>
         public int SequenceNumber { get; set; }
 
+        /// <summary>
+        /// Draw number this announcement belongs to (0 if not applicable)
+        /// </summary>
+        public int DrawNumber { get; set; }
+
         public AnnouncementHistoryItem()
         {
             Names = new List<string>();
@@ -41,7 +46,7 @@ namespace ReverseRaffler.Objects
 
         public override string ToString()
         {
-            string typeText = Type == AnnouncementType.Winner ? "Winner" : "Loser";
+            string typeText = Type == AnnouncementType.GrandPrize ? "Grand Prize" : Type == AnnouncementType.Winner ? "Winner" : "Loser";
             return $"{typeText} - Ticket(s) {TicketNumbers} at {Timestamp:HH:mm:ss}";
         }
     }
@@ -52,6 +57,7 @@ namespace ReverseRaffler.Objects
     public enum AnnouncementType
     {
         Winner,
-        Loser
+        Loser,
+        GrandPrize
     }
 }

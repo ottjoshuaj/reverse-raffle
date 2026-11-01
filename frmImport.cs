@@ -151,15 +151,15 @@ namespace ReverseRaffler
                 string errorMessage = isExcelFile
                     ? $"Your Excel file could not be imported!\r\n\r\nExpected format:\r\n" +
                       $"Column 1: Ticket Number\r\n" +
-                      $"Column 2: Name 1\r\n" +
-                      $"Column 3: Name 2 (optional)\r\n" +
-                      $"Column 4: Name 3 (optional)\r\n" +
-                      $"Column 5: Name 4 (optional)\r\n\r\n" +
+                      $"Column 2: Name A\r\n" +
+                      $"Column 3: Name B (optional)\r\n" +
+                      $"Column 4: Name C (optional)\r\n" +
+                      $"Column 5: Name D (optional)\r\n\r\n" +
                       $"Error: {ex.Message}"
                     : $"Your CSV is not properly formatted! First row MUST be a header!\r\n" +
-                      $"Header should be id, name1, name2, name3 !!\r\n" +
-                      $"Rows in the file should be:  <ticketnumber>,<name>,<name>,<name> (Max of 3 <names>)\r\n" +
-                      $"Example: 1,joe,harry,mike  (per row)\r\n\r\n" +
+                      $"Header should be id,name1,name2,name3,name4 (name4 optional)\r\n" +
+                      $"Rows in the file should be:  <ticketnumber>,<A>,<B>,<C>,<D>\r\n" +
+                      $"Example: 1,joe,harry,mike,sue  (per row)\r\n\r\n" +
                       $"Error: {ex.Message}";
 
                 RadMessageBox.Show(errorMessage, "IMPORT ERROR", MessageBoxButtons.OK, RadMessageIcon.Error);
@@ -199,7 +199,8 @@ namespace ReverseRaffler
                     TicketNumber = record.Id,
                     TicketHolder1 = record.Name1,
                     TicketHolder2 = record.Name2,
-                    TicketHolder3 = record.Name3
+                    TicketHolder3 = record.Name3,
+                    TicketHolder4 = record.Name4
                 });
             }
 

@@ -129,8 +129,47 @@ namespace ReverseRaffler.Controls
         {
             _tickets.Clear();
             _ticketBounds.Clear();
+            _payoutTickets.Clear();
+            _grandPrizeTickets.Clear();
             _hoveredTicket = null;
             Invalidate();
+        }
+
+        private readonly HashSet<int> _payoutTickets = new HashSet<int>();
+        private readonly HashSet<int> _grandPrizeTickets = new HashSet<int>();
+
+        /// <summary>
+        /// Marks a drawn ticket as a minor (payout draw) winner: red X like every other drawn ticket,
+        /// plus a small trophy badge
+        /// </summary>
+        public void MarkTicketAsPayoutWinner(int ticketNumber)
+        {
+            _payoutTickets.Add(ticketNumber);
+            MarkTicketAsLosing(ticketNumber);
+        }
+
+        /// <summary>
+        /// Puts a drawn ticket back in play (undo): removes the X / trophy / gold highlight
+        /// </summary>
+        public void UnmarkTicket(int ticketNumber)
+        {
+            _payoutTickets.Remove(ticketNumber);
+            _grandPrizeTickets.Remove(ticketNumber);
+
+            var ticket = _tickets.FirstOrDefault(t => t.TicketNumber == ticketNumber);
+            if (ticket != null)
+                ticket.MarkedAsNotWinner = null;
+
+            Invalidate();
+        }
+
+        /// <summary>
+        /// Marks the Grand Prize ticket: gold highlight, no X
+        /// </summary>
+        public void MarkTicketAsGrandPrize(int ticketNumber)
+        {
+            _grandPrizeTickets.Add(ticketNumber);
+            MarkTicketAsLosing(ticketNumber);
         }
 
         /// <summary>
@@ -379,10 +418,19 @@ namespace ReverseRaffler.Controls
                     g.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
                 }
 
-                // Draw red X over losing tickets
-                if (isLosing)
+                // Grand Prize gets a gold highlight; every other drawn ticket gets a red X,
+                // and minor (payout draw) winners also get a trophy badge
+                if (isLosing && _grandPrizeTickets.Contains(ticketNumber))
+                {
+                    DrawWinnerHighlight(g, bounds);
+                    DrawTrophyBadge(g, bounds);
+                }
+                else if (isLosing)
                 {
                     DrawRedX(g, bounds);
+
+                    if (_payoutTickets.Contains(ticketNumber))
+                        DrawTrophyBadge(g, bounds);
                 }
             }
         }
@@ -409,6 +457,55 @@ namespace ReverseRaffler.Controls
                 pen.DashStyle = DashStyle.Dot;
                 g.DrawLine(pen, start, end);
             }
+        }
+
+        private void DrawWinnerHighlight(Graphics g, Rectangle bounds)
+        {
+            using (var overlayBrush = new SolidBrush(Color.FromArgb(120, 255, 200, 0)))
+            using (var ticketPath = CreateTicketPath(bounds))
+            using (var pen = new Pen(Color.FromArgb(230, 200, 140, 0), 4))
+            {
+                g.FillPath(overlayBrush, ticketPath);
+                g.DrawPath(pen, ticketPath);
+            }
+        }
+
+        /// <summary>
+        /// Small gold trophy in a dark circle, in the ticket's top-right corner (drawn over the red X)
+        /// </summary>
+        private void DrawTrophyBadge(Graphics g, Rectangle bounds)
+        {
+            int size = Math.Max(20, Math.Min(bounds.Width, bounds.Height) * 11 / 20);
+            var badge = new Rectangle(bounds.Right - size - 3, bounds.Top + 3, size, size);
+
+            var oldMode = g.SmoothingMode;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            using (var back = new SolidBrush(Color.FromArgb(235, 40, 30, 10)))
+            using (var ring = new Pen(Color.FromArgb(255, 255, 200, 40), Math.Max(1.5f, size / 14f)))
+            {
+                g.FillEllipse(back, badge);
+                g.DrawEllipse(ring, badge);
+            }
+
+            float u = size / 12f;                       // drawing unit
+            float cx = badge.X + badge.Width / 2f;
+            float top = badge.Y + 2.6f * u;
+
+            using (var gold = new SolidBrush(Color.FromArgb(255, 255, 205, 40)))
+            using (var handlePen = new Pen(Color.FromArgb(255, 255, 205, 40), Math.Max(1f, u * 0.8f)))
+            {
+                // Cup
+                g.FillPie(gold, cx - 2.6f * u, top - 2.4f * u, 5.2f * u, 6.4f * u, 0, 180);
+                // Handles
+                g.DrawArc(handlePen, cx - 3.6f * u, top + 0.2f * u, 2.2f * u, 2.2f * u, 90, 180);
+                g.DrawArc(handlePen, cx + 1.4f * u, top + 0.2f * u, 2.2f * u, 2.2f * u, 270, 180);
+                // Stem and base
+                g.FillRectangle(gold, cx - 0.5f * u, top + 3.8f * u, 1f * u, 1.6f * u);
+                g.FillRectangle(gold, cx - 2f * u, top + 5.3f * u, 4f * u, 1.1f * u);
+            }
+
+            g.SmoothingMode = oldMode;
         }
 
         private void DrawRedX(Graphics g, Rectangle bounds)

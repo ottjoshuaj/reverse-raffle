@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Microsoft.Owin.Hosting;
 using ReverseRaffler.Api.Controllers;
 using ReverseRaffler.Data;
+using ReverseRaffler.Services;
+using System.Drawing;
 
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
@@ -23,8 +25,20 @@ namespace ReverseRaffler
         IDisposable webServer;
         private frmNumberBoard numberBoard;
         private RevRaffleModelEntities dbModel;
-        private int ticketsRemoved = 0;
+        private PayoutSchedule payoutSchedule;
+
+        // Draws made since Begin Raffle, most recent last - used by Undo
+        private readonly Stack<DrawRecord> drawHistory = new Stack<DrawRecord>();
+
+        private class DrawRecord
+        {
+            public int TicketNumber;
+            public int DrawNumber;
+            public DrawOutcome Outcome;
+        }
         private List<TicketHolder> RaffleTickets { get; set; }
+
+        private bool RaffleIsRunning => numberBoard != null && btnEndRaffle.Enabled;
 
         #endregion
 
@@ -46,16 +60,33 @@ namespace ReverseRaffler
             gridTicketHolders.CellValueChanged += gridTicketHolders_CellValueChanged;
 
 
-            rsTicketNumber.KeyDown += RsTicketNumber_KeyDown;
+            numberPad.NumberSubmitted += (s, ticketNumber) => HandleTicketSelectionAction(ticketNumber);
+
+            // Tabs are fixed - no close / scroll buttons on the tab strip
+            if (pageMain.ViewElement is RadPageViewStripElement stripElement)
+                stripElement.StripButtons = StripViewButtons.None;
 
             //Set global themes
             RadMessageBox.SetThemeName("CrystalDark");
         }
 
-        private void RsTicketNumber_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// While the raffle is running and the Live Draw tab is showing, number keys / Backspace / Esc / Enter
+        /// go straight to the number pad no matter which control has focus.
+        /// </summary>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (e.KeyCode == Keys.Enter)
-                btnMarkTicketAsNotGood_Click(null, null);
+            if (RaffleIsRunning && keyData == (Keys.Control | Keys.Z))
+            {
+                btnUndoLastDraw_Click(this, EventArgs.Empty);
+                return true;
+            }
+
+            if (RaffleIsRunning && pageMain.SelectedPage == pageDraw && !txtPayoutDraws.ContainsFocus
+                && numberPad.HandleKey(keyData))
+                return true;
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         #endregion
@@ -71,14 +102,18 @@ namespace ReverseRaffler
         {
             BindGrid();
 
-            // Load winner configuration from settings
-            rsTotalWinningTickets.Value = Properties.Settings.Default.LastWhatTicketsAreWinners;
-            rsWinnersEveryNumTickets.Value = Properties.Settings.Default.WinnersEveryNumTickets;
+            // Load payout schedule from settings
+            txtPayoutDraws.Text = Properties.Settings.Default.PayoutDraws;
+            UpdateDrawStatus();
         }
 
         void frmConsole_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
+
+            // Let the number board close with the app
+            if (numberBoard != null)
+                numberBoard.AllowClose = true;
 
             // Stop API server if running
             StopApiServer();
@@ -102,8 +137,8 @@ namespace ReverseRaffler
             settingsForm.ShowDialog(this);
 
             // Reload settings after dialog closes
-            rsTotalWinningTickets.Value = Properties.Settings.Default.LastWhatTicketsAreWinners;
-            rsWinnersEveryNumTickets.Value = Properties.Settings.Default.WinnersEveryNumTickets;
+            if (!RaffleIsRunning)
+                txtPayoutDraws.Text = Properties.Settings.Default.PayoutDraws;
         }
 
         private void mnuImportCSV_Click(object sender, EventArgs e)
@@ -132,8 +167,8 @@ namespace ReverseRaffler
             catch (Exception ex)
             {
                 RadMessageBox.Show($"There was an error opening your import file.\r\n\r\n" +
-                    $"For CSV files: Make sure it is comma delimited and that no NAMES have commas in them.\r\n" +
-                    $"Format: ticketnumber,name,name,name (max of 3 names)\r\n\r\n" +
+                    $"Excel: column 1 = ticket number, columns 2-5 = names A, B, C, D.\r\n" +
+                    $"CSV: header id,name1,name2,name3,name4 - no commas inside names.\r\n\r\n" +
                     $"Ticket number is required but names are optional.\r\n\r\n" +
                     $"Error: {ex.Message}",
                     "ERROR ON IMPORT", MessageBoxButtons.OK, RadMessageIcon.Error);
@@ -168,8 +203,9 @@ namespace ReverseRaffler
             var holder1 = e.Row.Cells["colTicketHolder1"].Value?.ToString();
             var holder2 = e.Row.Cells["colTicketHolder2"].Value?.ToString();
             var holder3 = e.Row.Cells["colTicketHolder3"].Value?.ToString();
+            var holder4 = e.Row.Cells["colTicketHolder4"].Value?.ToString();
 
-            dbModel.TicketHolders.Add(new TicketHolder { TicketNumber = tickNum, TicketHolder1 = holder1, TicketHolder2 = holder2, TicketHolder3 = holder3 });
+            dbModel.TicketHolders.Add(new TicketHolder { TicketNumber = tickNum, TicketHolder1 = holder1, TicketHolder2 = holder2, TicketHolder3 = holder3, TicketHolder4 = holder4 });
             dbModel.SaveChanges();
         }
 
@@ -179,6 +215,7 @@ namespace ReverseRaffler
             var holder1 = e.Row.Cells["colTicketHolder1"].Value?.ToString();
             var holder2 = e.Row.Cells["colTicketHolder2"].Value?.ToString();
             var holder3 = e.Row.Cells["colTicketHolder3"].Value?.ToString();
+            var holder4 = e.Row.Cells["colTicketHolder4"].Value?.ToString();
 
             var existingTicket = dbModel.TicketHolders.FirstOrDefault(x => x.TicketNumber == tickNum);
 
@@ -189,7 +226,8 @@ namespace ReverseRaffler
                     TicketNumber = tickNum,
                     TicketHolder1 = holder1,
                     TicketHolder2 = holder2,
-                    TicketHolder3 = holder3
+                    TicketHolder3 = holder3,
+                    TicketHolder4 = holder4
                 });
             }
             else
@@ -197,6 +235,7 @@ namespace ReverseRaffler
                 existingTicket.TicketHolder1 = holder1;
                 existingTicket.TicketHolder2 = holder2;
                 existingTicket.TicketHolder3 = holder3;
+                existingTicket.TicketHolder4 = holder4;
             }
 
             dbModel.SaveChanges();
@@ -240,6 +279,11 @@ namespace ReverseRaffler
 
         void BindGrid()
         {
+            // Fresh context every time: the board, import and settings screens write through their own
+            // contexts, and a long-lived context would hand back its stale cached copies of those rows.
+            dbModel?.Dispose();
+            dbModel = new RevRaffleModelEntities();
+
             RaffleTickets = dbModel.TicketHolders.ToList();
 
             gridTicketHolders.DataSource = RaffleTickets;
@@ -257,48 +301,83 @@ namespace ReverseRaffler
 
         private void btnBeginRaffle_Click(object sender, EventArgs e)
         {
+            //Validate the payout schedule
+            if (!PayoutSchedule.TryParse(txtPayoutDraws.Text, out var schedule, out var error))
+            {
+                RadMessageBox.Show(error, "Payout Draws", MessageBoxButtons.OK, RadMessageIcon.Error);
+                return;
+            }
+
+            //Reload tickets so we start from what's in the database
+            BindGrid();
+
+            if (RaffleTickets.Count == 0)
+            {
+                RadMessageBox.Show("There are no tickets in the database. Import your ticket file first (File > Import Tickets).",
+                    "No Tickets", MessageBoxButtons.OK, RadMessageIcon.Exclamation);
+                return;
+            }
+
+            if (schedule.GrandPrizeDraw > RaffleTickets.Count)
+            {
+                var answer = RadMessageBox.Show(
+                    $"The Grand Prize is set for Draw #{schedule.GrandPrizeDraw}, but there are only {RaffleTickets.Count} tickets, " +
+                    $"so it can never be reached.\r\n\r\nStart anyway?",
+                    "Payout Draws", MessageBoxButtons.YesNo, RadMessageIcon.Exclamation);
+                if (answer != DialogResult.Yes) return;
+            }
+
+            payoutSchedule = schedule;
+            txtPayoutDraws.Text = schedule.ToString();
+            Properties.Settings.Default.PayoutDraws = schedule.ToString();
+            Properties.Settings.Default.Save();
+
             if (numberBoard == null)
                 numberBoard = new frmNumberBoard();
 
-            //Set available winners
-            numberBoard.AvailableWinners = Convert.ToInt32(rsTotalWinningTickets.Value);
+            // Typing on the projector window still feeds the number pad (and Ctrl+Z still undoes)
+            numberBoard.EntryKeyPressed += keyData =>
+            {
+                if (!RaffleIsRunning) return false;
+                if (keyData == (Keys.Control | Keys.Z))
+                {
+                    btnUndoLastDraw_Click(this, EventArgs.Empty);
+                    return true;
+                }
+                return numberPad.HandleKey(keyData);
+            };
 
             // Show the form first so the canvas has proper dimensions
             numberBoard.Show();
 
             //Add Raffle Tickets
             foreach (var tickItem in RaffleTickets.OrderBy(x => x.TicketNumber))
-            {
-                if(tickItem.MarkedAsNotWinner == true)
-                {
-                    ticketsRemoved++;
-                }
-
                 numberBoard.AddTicketRaffle(tickItem);
-            }
 
-            //Enable Buttons
+            //Enable / disable controls
             btnBeginRaffle.Enabled = false;
-            rsTotalWinningTickets.Enabled = false;
-            rsWinnersEveryNumTickets.Enabled = false;
+            txtPayoutDraws.Enabled = false;
             btnEndRaffle.Enabled = true;
-            btnMarkTicketAsNotGood.Enabled = true;
-            rsTicketNumber.Enabled = true;
+            numberPad.Enabled = true;
 
             //Set Grid Options
             gridTicketHolders.MasterTemplate.AllowAddNewRow = false;
             gridTicketHolders.MasterTemplate.AllowEditRow = false;
 
-            //Set Stats on Stat Group
-            lblTicketsNotDrawn.Text = numberBoard.TotalTicketsNotDrawn.ToString(CultureInfo.InvariantCulture);
-            lblTicketsThatLost.Text = numberBoard.TotalLosingTickets.ToString(CultureInfo.InvariantCulture);
-            lblTotalTicketsInRaffle.Text = numberBoard.TotalTickets.ToString(CultureInfo.InvariantCulture);
+            lstDrawLog.Items.Clear();
+            drawHistory.Clear();
+            var alreadyDrawn = (int)numberBoard.TotalLosingTickets;
+            if (alreadyDrawn > 0)
+                lstDrawLog.Items.Insert(0, $"Resumed raffle - {alreadyDrawn} ticket(s) were already drawn");
 
-            //Set App Status
+            pageMain.SelectedPage = pageDraw;
             lblAppStatus.Text = @"Raffle is running...";
 
-            //Update history control states
+            UpdateDrawStatus();
             UpdateHistoryControlStates();
+
+            // Put focus back on this window so the keyboard goes to the number pad
+            Activate();
 
             //Start API Server automatically
             StartApiServer();
@@ -306,90 +385,202 @@ namespace ReverseRaffler
 
         private void btnEndRaffle_Click(object sender, EventArgs e)
         {
-            if (numberBoard != null)
+            if (numberBoard == null) return;
+
+            if (!numberBoard.RaffleIsOver)
             {
-                btnBeginRaffle.Enabled = true;
-                rsTotalWinningTickets.Enabled = true;
-                rsWinnersEveryNumTickets.Enabled = true;
-                btnEndRaffle.Enabled = false;
-                btnMarkTicketAsNotGood.Enabled = false;
-                rsTicketNumber.Enabled = false;
-
-                //Set Grid Options
-                gridTicketHolders.MasterTemplate.AllowAddNewRow = true;
-                gridTicketHolders.MasterTemplate.AllowEditRow = true;
-
-                //Set Stats on Stat Group
-                lblTicketsNotDrawn.Text = @"0";
-                lblTicketsThatLost.Text = @"0";
-                lblTotalTicketsInRaffle.Text = @"0";
-
-                //Set App Status
-                lblAppStatus.Text = @"Raffle has ended...";
-
-                numberBoard.Close();
-                numberBoard = null;
-
-                ticketsRemoved = 0;
-
-                //Update history control states
-                UpdateHistoryControlStates();
-
-                //Stop API Server automatically
-                StopApiServer();
+                var answer = RadMessageBox.Show(
+                    "End the raffle and close the number board?\r\n\r\nDrawn tickets are saved - click Begin Raffle to pick up where you left off.",
+                    "End Raffle", MessageBoxButtons.YesNo, RadMessageIcon.Question);
+                if (answer != DialogResult.Yes) return;
             }
-        }
 
-        private void btnMarkTicketAsNotGood_Click(object sender, EventArgs e)
-        {
-            HandleTicketSelectionAction((int)rsTicketNumber.Value);
-        }
+            btnBeginRaffle.Enabled = true;
+            txtPayoutDraws.Enabled = true;
+            btnEndRaffle.Enabled = false;
+            numberPad.Enabled = false;
 
+            //Set Grid Options
+            gridTicketHolders.MasterTemplate.AllowAddNewRow = true;
+            gridTicketHolders.MasterTemplate.AllowEditRow = true;
+
+            lblAppStatus.Text = @"Raffle has ended...";
+
+            numberBoard.AllowClose = true;
+            numberBoard.Close();
+            numberBoard = null;
+
+            UpdateDrawStatus();
+            UpdateHistoryControlStates();
+
+            //Stop API Server automatically
+            StopApiServer();
+        }
 
         void HandleTicketSelectionAction(int ticketNumber)
         {
+            if (!RaffleIsRunning) return;
+
+            if (numberBoard.RaffleIsOver)
+            {
+                numberPad.ShowMessage("The Grand Prize has been drawn - raffle is over", Color.Goldenrod);
+                return;
+            }
+
             //Verify ticket number is even in the list!
-            if (!numberBoard.VerifyTicketNumberExists(ticketNumber)) return;
+            if (!numberBoard.VerifyTicketNumberExists(ticketNumber))
+            {
+                numberPad.ShowMessage($"Ticket #{ticketNumber} doesn't exist", Color.IndianRed);
+                return;
+            }
 
             //Verify ticket has NOT been selected already
             if (numberBoard.HasTicketBeenSelectedAlready(ticketNumber))
             {
-                //Lets just show the ticket again for INFO only reasons
+                numberPad.ShowMessage($"Ticket #{ticketNumber} was already drawn", Color.Goldenrod);
                 numberBoard.ShowTicketInfoDialog(ticketNumber);
                 return;
             }
 
-            ticketsRemoved++;
+            var drawNumber = (int)numberBoard.TotalLosingTickets + 1;
+            var outcome = payoutSchedule.GetOutcome(drawNumber);
 
-            //Clear typed number
-            rsTicketNumber.SpinElement.TextBoxControl.Text = string.Empty;
+            numberBoard.RecordDraw(ticketNumber, drawNumber, outcome);
+            drawHistory.Push(new DrawRecord { TicketNumber = ticketNumber, DrawNumber = drawNumber, Outcome = outcome });
 
-            //Handle winner every (x) ticket count
-            if (rsWinnersEveryNumTickets.Value == ticketsRemoved && rsWinnersEveryNumTickets.Value > 0)
+            string logText;
+            switch (outcome)
             {
-                //Mark ticket as losing, but DO NOT show the loser screen
-                numberBoard.MarkTicketAsLosing(ticketNumber, true);
-
-                //Show as a winner screen since their ticket has won
-                numberBoard.ShowWinnerScreen(ticketNumber);
-
-                //Show winners
-                ticketsRemoved = 0;
+                case DrawOutcome.GrandPrize:
+                    logText = $"Draw #{drawNumber}   Ticket #{ticketNumber}   \u2605 GRAND PRIZE \u2605";
+                    numberPad.ShowMessage($"GRAND PRIZE: Ticket #{ticketNumber}", Color.Gold);
+                    numberPad.Enabled = false;
+                    lblAppStatus.Text = @"Grand Prize drawn - raffle complete";
+                    break;
+                case DrawOutcome.Payout:
+                    logText = $"Draw #{drawNumber}   Ticket #{ticketNumber}   \u2605 MINOR WINNER (payout)";
+                    numberPad.ShowMessage($"Draw #{drawNumber} PAYOUT: Ticket #{ticketNumber}", Color.Gold);
+                    break;
+                default:
+                    logText = $"Draw #{drawNumber}   Ticket #{ticketNumber}";
+                    numberPad.ShowMessage($"Draw #{drawNumber}: Ticket #{ticketNumber} recorded", Color.MediumSeaGreen);
+                    break;
             }
-            else
-                numberBoard.MarkTicketAsLosing(ticketNumber);
 
+            lstDrawLog.Items.Insert(0, logText);
+            lblAppTicketStatus.Text = $"Ticket #: {ticketNumber} was drawn (Draw #{drawNumber})";
 
-            //Set Stats on Stat Group
-            lblTicketsNotDrawn.Text = numberBoard.TotalTicketsNotDrawn.ToString(CultureInfo.InvariantCulture);
-            lblTicketsThatLost.Text = numberBoard.TotalLosingTickets.ToString(CultureInfo.InvariantCulture);
-            lblTotalTicketsInRaffle.Text = numberBoard.TotalTickets.ToString(CultureInfo.InvariantCulture);
-
-            //Set app status
-            lblAppTicketStatus.Text = $"Ticket #: {ticketNumber} was drawn..";
-
-            //Update history controls
+            UpdateDrawStatus();
             UpdateHistoryControlStates();
+        }
+
+        private void btnUndoLastDraw_Click(object sender, EventArgs e)
+        {
+            if (!RaffleIsRunning || drawHistory.Count == 0) return;
+
+            var last = drawHistory.Peek();
+            var kind = last.Outcome == DrawOutcome.GrandPrize ? " (GRAND PRIZE)"
+                     : last.Outcome == DrawOutcome.Payout ? " (minor winner)" : "";
+
+            var answer = RadMessageBox.Show(
+                $"Undo Draw #{last.DrawNumber} - Ticket #{last.TicketNumber}{kind}?\r\n\r\n" +
+                $"The ticket goes back in play and Draw #{last.DrawNumber} will be drawn again.",
+                "Undo Last Draw", MessageBoxButtons.YesNo, RadMessageIcon.Question);
+            if (answer != DialogResult.Yes) return;
+
+            // A ticket may have arrived (e.g. via the API) while the confirmation was open
+            if (!RaffleIsRunning || drawHistory.Count == 0 || !ReferenceEquals(drawHistory.Peek(), last))
+            {
+                numberPad.ShowMessage("Another draw came in - nothing was undone", Color.Goldenrod);
+                UpdateHistoryControlStates();
+                return;
+            }
+
+            drawHistory.Pop();
+            numberBoard.UndoDraw(last.TicketNumber);
+
+            // Remove the matching entry from the draw log (newest entries are at the top)
+            var prefix = $"Draw #{last.DrawNumber}   Ticket #{last.TicketNumber}";
+            for (int i = 0; i < lstDrawLog.Items.Count; i++)
+            {
+                if (lstDrawLog.Items[i].ToString().StartsWith(prefix))
+                {
+                    lstDrawLog.Items.RemoveAt(i);
+                    break;
+                }
+            }
+
+            numberPad.Enabled = true;
+            numberPad.ShowMessage($"Undone: Draw #{last.DrawNumber} (Ticket #{last.TicketNumber})", Color.DeepSkyBlue);
+            lblAppStatus.Text = @"Raffle is running...";
+            lblAppTicketStatus.Text = $"Draw #{last.DrawNumber} (Ticket #{last.TicketNumber}) was undone";
+
+            UpdateDrawStatus();
+            UpdateHistoryControlStates();
+            Activate();
+        }
+
+        /// <summary>
+        /// Refreshes the "next draw" panel: which draw is next, whether it pays out, and the stats line.
+        /// </summary>
+        private void UpdateDrawStatus()
+        {
+            if (!RaffleIsRunning || payoutSchedule == null)
+            {
+                lblNextDraw.Text = "Raffle not started";
+                lblNextDraw.ForeColor = Color.Gray;
+                lblNextDrawType.Text = string.Empty;
+                lblUpcomingPayout.Text = PayoutSchedule.TryParse(txtPayoutDraws.Text, out var preview, out _)
+                    ? $"Minor winners on draws {string.Join(", ", preview.Draws.Where(d => d != preview.GrandPrizeDraw).Select(d => "#" + d))}  -  Grand Prize on draw #{preview.GrandPrizeDraw}"
+                    : string.Empty;
+                lblStats.Text = RaffleTickets == null ? string.Empty : $"{RaffleTickets.Count} tickets loaded";
+                return;
+            }
+
+            var total = (int)numberBoard.TotalTickets;
+            var drawn = (int)numberBoard.TotalLosingTickets;
+            var remaining = total - drawn;
+            lblStats.Text = $"Drawn: {drawn}     Remaining: {remaining}     Total tickets: {total}";
+
+            if (numberBoard.RaffleIsOver)
+            {
+                lblNextDraw.Text = "Raffle complete!";
+                lblNextDraw.ForeColor = Color.Gold;
+                lblNextDrawType.Text = "\u2605 GRAND PRIZE AWARDED \u2605";
+                lblNextDrawType.ForeColor = Color.Gold;
+                lblUpcomingPayout.Text = "The Grand Prize stays on the board until you click \"Close Popup\".";
+                return;
+            }
+
+            var next = drawn + 1;
+            lblNextDraw.Text = $"Draw #{next} of {total}";
+            lblNextDraw.ForeColor = Color.White;
+
+            switch (payoutSchedule.GetOutcome(next))
+            {
+                case DrawOutcome.GrandPrize:
+                    lblNextDrawType.Text = "\u2605 GRAND PRIZE DRAW \u2605";
+                    lblNextDrawType.ForeColor = Color.Gold;
+                    break;
+                case DrawOutcome.Payout:
+                    lblNextDrawType.Text = "\u2605 PAYOUT DRAW - minor winner";
+                    lblNextDrawType.ForeColor = Color.Gold;
+                    break;
+                default:
+                    lblNextDrawType.Text = "Not a winner";
+                    lblNextDrawType.ForeColor = Color.Silver;
+                    break;
+            }
+
+            var upcoming = payoutSchedule.NextPayoutAtOrAfter(next + 1);
+            if (remaining == 1)
+                lblUpcomingPayout.Text = $"Only ticket #{numberBoard.UndrawnTicketNumbers.First()} is left";
+            else if (upcoming.HasValue)
+                lblUpcomingPayout.Text = $"Next payout: Draw #{upcoming}" +
+                    (upcoming.Value == payoutSchedule.GrandPrizeDraw ? " (Grand Prize)" : "") +
+                    $"  -  {upcoming.Value - next} draw(s) after this one";
+            else
+                lblUpcomingPayout.Text = string.Empty;
         }
 
         private void btnShowRecentAnnouncement_Click(object sender, EventArgs e)
@@ -425,6 +616,8 @@ namespace ReverseRaffler
 
         private void UpdateHistoryControlStates()
         {
+            btnUndoLastDraw.Enabled = RaffleIsRunning && drawHistory.Count > 0;
+
             if (numberBoard == null || !numberBoard.HasHistory)
             {
                 btnShowRecentAnnouncement.Enabled = false;
@@ -439,7 +632,7 @@ namespace ReverseRaffler
                 btnCloseOverlay.Enabled = true;
                 btnPreviousAnnouncement.Enabled = true;
                 btnNextAnnouncement.Enabled = true;
-                lblHistoryPosition.Text = numberBoard.GetHistoryPosition();
+                lblHistoryPosition.Text = "Popup history: " + numberBoard.GetHistoryPosition();
             }
         }
 
@@ -470,7 +663,7 @@ namespace ReverseRaffler
                 lblApiStatus.Text = $"API: Running on port {API_PORT}";
 
                 getApiTicketNumber = new Timer();
-                getApiTicketNumber.Interval = 2000;
+                getApiTicketNumber.Interval = 500;
                 getApiTicketNumber.Tick += GetApiTicketNumber_Tick;
                 getApiTicketNumber.Start();
             }
