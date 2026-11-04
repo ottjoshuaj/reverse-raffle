@@ -26,6 +26,15 @@ namespace ReverseRaffler
             numberBoard = board;
             SetupPayoutDrawsEditor();
             LoadCurrentSettings();
+
+            // The number board is only visible while a raffle is running - don't let the database
+            // change underneath it (End Raffle first)
+            if (numberBoard != null && numberBoard.Visible)
+            {
+                btnResetDatabase.Enabled = false;
+                btnResetFlag.Enabled = false;
+                btnImportFile2DB.Enabled = false;
+            }
         }
 
         private RadTextBox txtPayoutDraws;

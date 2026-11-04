@@ -139,6 +139,10 @@ namespace ReverseRaffler
             // Reload settings after dialog closes
             if (!RaffleIsRunning)
                 txtPayoutDraws.Text = Properties.Settings.Default.PayoutDraws;
+
+            // Settings can reset the database or the drawn flags - reload the grid from the database
+            BindGrid();
+            UpdateDrawStatus();
         }
 
         private void mnuImportCSV_Click(object sender, EventArgs e)
